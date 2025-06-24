@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPT Slides Navigation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            padding: 40px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            padding: 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #64748b;
+        }
+
+        .slides-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .slide-card {
+            background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+            border-radius: 8px;
+            padding: 20px;
+            text-decoration: none;
+            color: #0f172a;
+            transition: all 0.3s ease;
+            border-left: 4px solid #0891b2;
+        }
+
+        .slide-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
+        }
+
+        .slide-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .slide-description {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .server-info {
+            margin-top: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #059669, #10b981);
+            color: white;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .server-url {
+            font-family: monospace;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 12px;
+            border-radius: 4px;
+            margin: 10px 0;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="title">PPT Slides Navigation</div>
+            <div class="subtitle">Click on any slide to view it</div>
+        </div>
+
+        <div class="slides-grid">
+            <a href="problem_slide_designed.html" class="slide-card">
+                <div class="slide-title">Problem Slide</div>
+                <div class="slide-description">Defines the core problem and market opportunity</div>
+            </a>
+
+            <a href="solution_slide_designed.html" class="slide-card">
+                <div class="slide-title">Solution Slide</div>
+                <div class="slide-description">Presents the solution and value proposition</div>
+            </a>
+
+            <a href="hospital_discharge_slide_designed.html" class="slide-card">
+                <div class="slide-title">Hospital Discharge Case Management</div>
+                <div class="slide-description">Billion-dollar white space analysis</div>
+            </a>
+
+            <a href="scyte_competitive_slide_designed.html" class="slide-card">
+                <div class="slide-title">Competitive Analysis</div>
+                <div class="slide-description">Market positioning and competitive landscape</div>
+            </a>
+
+            <a href="funding_slide_designed.html" class="slide-card">
+                <div class="slide-title">Funding Slide</div>
+                <div class="slide-description">Investment opportunity and financial projections</div>
+            </a>
+
+            <a href="scyte_pitch_slide.html" class="slide-card">
+                <div class="slide-title">Scyte Pitch Slide</div>
+                <div class="slide-description">Core pitch for Scyte AI Connectivity Hub</div>
+            </a>
+
+            <a href="pre_seed_slide_updated.html" class="slide-card">
+                <div class="slide-title">Pre-Seed Slide (Updated)</div>
+                <div class="slide-description">Latest pre-seed investment and traction highlights</div>
+            </a>
+        </div>
+
+        <div class="server-info">
+            <div><strong>Local Server Running</strong></div>
+            <div class="server-url">http://localhost:8000/HTMLS/</div>
+            <div style="font-size: 14px; margin-top: 10px;">
+                All slides are now accessible via the local server
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

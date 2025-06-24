@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual vs AI-powered insurance claims processing</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f8fafc;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .slide-container {
+            background: rgba(255,255,255,0.85);
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.10);
+            max-width: 1200px;
+            width: 100%;
+            padding: 40px 40px 20px 40px;
+            margin: 40px 0;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(8px);
+        }
+        .slide-header {
+            text-align: center;
+            margin-bottom: 8px;
+        }
+        .slide-title {
+            font-size: 41px !important;
+            font-weight: 800;
+            color: #22223b;
+            margin-bottom: 6px;
+        }
+        .slide-subtitle {
+            font-size: 19px;
+            color: #2563eb;
+            margin-bottom: 24px;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+        }
+        .legend-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 56px;
+            margin-bottom: 18px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .legend-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(124,58,237,0.10);
+            box-shadow: 0 2px 8px rgba(124,58,237,0.08);
+            backdrop-filter: blur(2px);
+        }
+        .legend-person { background: rgba(185,28,124,0.10); }
+        .legend-robot { background: rgba(124,58,237,0.10); }
+        .legend-brain { background: rgba(124,58,237,0.10); }
+        .legend-label {
+            font-size: 18px;
+            color: #22223b;
+            font-weight: 600;
+        }
+        .process-section {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            margin-bottom: 12px;
+        }
+        .process-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 0;
+        }
+        .arrow-label {
+            background: linear-gradient(120deg, rgba(185,28,124,0.18) 60%, rgba(255,255,255,0.5) 100%);
+            color: #b91c7c;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 17px 37px 17px 21px;
+            min-width: 229px;
+            border-radius: 0 30px 30px 0;
+            margin-right: 0;
+            display: flex;
+            align-items: center;
+            position: relative;
+            clip-path: polygon(0 0, 95% 0, 100% 50%, 95% 100%, 0 100%);
+            z-index: 2;
+            box-shadow: 0 2px 8px rgba(185,28,124,0.08);
+            backdrop-filter: blur(2px);
+        }
+        .arrow-label.ai {
+            background: linear-gradient(120deg, rgba(124,58,237,0.18) 60%, rgba(255,255,255,0.5) 100%);
+            color: #7c3aed;
+            box-shadow: 0 2px 8px rgba(124,58,237,0.08);
+        }
+        .vertical-bar {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            background: linear-gradient(120deg, rgba(185,28,124,0.18) 60%, rgba(255,255,255,0.5) 100%);
+            color: #b91c7c;
+            font-weight: bold;
+            font-size: 16px;
+            border-radius: 8px;
+            padding: 21px 9px;
+            margin-right: 0;
+            min-width: 39px;
+            text-align: center;
+            margin-left: -8px;
+            z-index: 1;
+            box-shadow: 0 2px 8px rgba(185,28,124,0.08);
+            backdrop-filter: blur(2px);
+        }
+        .vertical-bar.ai {
+            background: linear-gradient(120deg, rgba(124,58,237,0.18) 60%, rgba(255,255,255,0.5) 100%);
+            color: #7c3aed;
+            box-shadow: 0 2px 8px rgba(124,58,237,0.08);
+        }
+        .steps-box {
+            background: rgba(255,255,255,0.7);
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            padding: 28px 16px;
+            margin-left: -8px;
+            position: relative;
+            z-index: 0;
+            box-shadow: 0 2px 8px rgba(124,58,237,0.04);
+            backdrop-filter: blur(2px);
+        }
+        .step {
+            flex: 1;
+            text-align: center;
+            margin: 0 6px;
+            position: relative;
+        }
+        .step-icon {
+            margin-bottom: 12px;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(124,58,237,0.10);
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 2px 8px rgba(124,58,237,0.08);
+            backdrop-filter: blur(2px);
+        }
+        .process-row .step-icon { background: rgba(185,28,124,0.10); }
+        .process-row.ai .step-icon { background: rgba(124,58,237,0.10); }
+        .step-label {
+            font-size: 15px;
+            color: #22223b;
+            font-weight: 600;
+        }
+        .step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: -16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            border-top: 3px solid rgba(185,28,124,0.5);
+            border-right: 3px solid rgba(185,28,124,0.5);
+            border-radius: 0 10px 0 0;
+            z-index: 1;
+        }
+        .ai .step:not(:last-child)::after {
+            border-top: 3px solid rgba(124,58,237,0.5);
+            border-right: 3px solid rgba(124,58,237,0.5);
+        }
+        .arrow-row {
+            display: flex;
+            justify-content: flex-end;
+            margin: 24px 0 24px 0;
+        }
+        .efficiency-arrow {
+            display: flex;
+            align-items: center;
+            background: rgba(124,58,237,0.10);
+            border-radius: 30px;
+            padding: 13px 37px 13px 21px;
+            font-size: 21px;
+            font-weight: bold;
+            color: #7c3aed;
+            box-shadow: 0 2px 8px rgba(124,58,237,0.08);
+            position: relative;
+            backdrop-filter: blur(2px);
+        }
+        .efficiency-arrow::after {
+            content: '';
+            display: block;
+            width: 38px;
+            height: 14px;
+            background: #d1d5db;
+            clip-path: polygon(0 0, 100% 50%, 0 100%);
+            margin-left: 18px;
+        }
+        .kpi-banner {
+            display:flex;
+            justify-content:space-around;
+            gap:28px;
+            margin-top:24px;
+            padding:18px 0;
+            border-top:2px solid #e5e7eb;
+        }
+        .kpi-banner span {
+            font-size: 17px;
+        }
+        .kpi-banner .kpi-value {
+            font-size: 37px;
+            font-weight: 700;
+            color: #0E9AFE;
+        }
+        .kpi-banner .kpi-label {
+            font-size: 17px;
+            color: #4b5563;
+        }
+        @media (max-width: 900px) {
+            .slide-container { padding: 18px 2vw; }
+            .steps-box { flex-direction: column; gap: 18px; }
+            .step { margin: 12px 0; }
+            .process-row { flex-direction: column; align-items: stretch; }
+            .arrow-label, .arrow-label.ai { min-width: 120px; font-size: 16px; padding: 11px 17px 11px 11px; }
+            .vertical-bar, .vertical-bar.ai { min-width: 24px; font-size: 13px; padding: 11px 5px; }
+            .legend-icon, .step-icon { width: 35px; height: 35px; }
+            .kpi-banner .kpi-value { font-size: 27px; }
+            .kpi-banner .kpi-label { font-size: 13px; }
+        }
+        .step-label-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 2px;
+            padding: 10px 14px 8px 14px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #22223b;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            background: #f3e8ee; /* default, overridden below */
+            transition: background 0.2s;
+            min-height: 54px;
+            /* height removed for dynamic sizing */
+        }
+        .manual-card { background: rgba(185,28,124,0.13); color: #b91c7c; }
+        .ai-card, .brain-card { background: rgba(124,58,237,0.13); color: #7c3aed; }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="slide-header">
+            <div class="slide-title" style="font-size:40px;font-weight:800;">Discharge Coordination Re-imagined : Scyte AI Hub</div>
+            <div class="slide-subtitle">Manual chaos becomes AI-powered clarity—Scyte automates every post-acute task, cuts delays, and boosts margin.</div>
+        </div>
+        <div class="legend-row">
+            <div class="legend-item">
+                <div class="legend-icon legend-person">
+                    <!-- Person SVG -->
+                    <svg width="24" height="24" fill="none" stroke="#b91c7c" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 8-4 8-4s8 0 8 4"/></svg>
+                </div>
+                <span class="legend-label">Nurse Case Manager</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-icon legend-robot">
+                    <!-- Robot SVG -->
+                    <svg width="24" height="24" fill="none" stroke="#7c3aed" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="10" rx="4"/><circle cx="8" cy="13" r="1.5"/><circle cx="16" cy="13" r="1.5"/><rect x="9" y="4" width="6" height="4" rx="2"/></svg>
+                </div>
+                <span class="legend-label">Scyte Automation Engine</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-icon legend-brain">
+                    <!-- Brain SVG -->
+                    <svg width="24" height="24" fill="none" stroke="#7c3aed" stroke-width="2" viewBox="0 0 24 24"><path d="M9 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3H9z"/><path d="M9 9h6M9 13h6"/></svg>
+                </div>
+                <span class="legend-label">AI-driven Insights</span>
+            </div>
+        </div>
+        <div class="process-section">
+            <!-- Manual Discharge Process -->
+            <div class="process-row">
+                <div class="arrow-label">Manual discharge process</div>
+                <div class="vertical-bar">Patient journey (today)</div>
+                <div class="steps-box">
+                    <div class="step">
+                        <div class="step-icon">
+                            <svg width="28" height="28" fill="none" stroke="#b91c7c" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 8-4 8-4s8 0 8 4"/></svg>
+                        </div>
+                        <div class="step-label-card manual-card">Gather discharge orders & notes</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">
+                            <svg width="28" height="28" fill="none" stroke="#b91c7c" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 8-4 8-4s8 0 8 4"/></svg>
+                        </div>
+                        <div class="step-label-card manual-card">Call vendors / fax DME forms</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">
+                            <svg width="28" height="28" fill="none" stroke="#b91c7c" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 8-4 8-4s8 0 8 4"/></svg>
+                        </div>
+                        <div class="step-label-card manual-card">Wait for confirmations (avg 8 h)</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">
+                            <svg width="28" height="28" fill="none" stroke="#b91c7c" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 8-4 8-4s8 0 8 4"/></svg>
+                        </div>
+                        <div class="step-label-card manual-card">Print & sign discharge packet</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">
+                            <svg width="28" height="28" fill="none" stroke="#b91c7c" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 8-4 8-4s8 0 8 4"/></svg>
+                        </div>
+                        <div class="step-label-card manual-card">Family transport arranged by phone</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">
+                            <svg width="28" height="28" fill="none" stroke="#b91c7c" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 8-4 8-4s8 0 8 4"/></svg>
+                        </div>
+                        <div class="step-label-card manual-card">Nurse follows up manually (24-48 h)</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Efficiency Arrow -->
+            <div class="arrow-row">
+                <div class="efficiency-arrow">40 % faster vendor turnaround</div>
+            </div>
+            <!-- AI-powered Discharge Process -->
+            <div class="process-row ai">
+                <div class="arrow-label ai">AI-powered discharge process</div>
+                <div class="vertical-bar ai">Patient journey (Scyte)</div>
+                <div class="steps-box">
+                    <div class="step">
+                        <div class="step-icon">
+                            <!-- Robot SVG -->
+                            <svg width="28" height="28" fill="none" stroke="#7c3aed" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="10" rx="4"/><circle cx="8" cy="13" r="1.5"/><circle cx="16" cy="13" r="1.5"/><rect x="9" y="4" width="6" height="4" rx="2"/></svg>
+                        </div>
+                        <div class="step-label-card ai-card">Auto-generate digital discharge order</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">
+                            <!-- Robot SVG -->
+                            <svg width="28" height="28" fill="none" stroke="#7c3aed" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="10" rx="4"/><circle cx="8" cy="13" r="1.5"/><circle cx="16" cy="13" r="1.5"/><rect x="9" y="4" width="6" height="4" rx="2"/></svg>
+                        </div>
+                        <div class="step-label-card ai-card">Scyte extracts data & risk-scores patient</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">
+                            <!-- Robot SVG -->
+                            <svg width="28" height="28" fill="none" stroke="#7c3aed" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="10" rx="4"/><circle cx="8" cy="13" r="1.5"/><circle cx="16" cy="13" r="1.5"/><rect x="9" y="4" width="6" height="4" rx="2"/></svg>
+                        </div>
+                        <div class="step-label-card ai-card">One-click vendor orchestration (HME, HH, Rx)</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">
+                            <!-- Brain SVG -->
+                            <svg width="28" height="28" fill="none" stroke="#7c3aed" stroke-width="2" viewBox="0 0 24 24"><path d="M9 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3H9z"/><path d="M9 9h6M9 13h6"/></svg>
+                        </div>
+                        <div class="step-label-card brain-card">Predict bed-vacancy & LOS with AI</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">
+                            <!-- Robot SVG -->
+                            <svg width="28" height="28" fill="none" stroke="#7c3aed" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="10" rx="4"/><circle cx="8" cy="13" r="1.5"/><circle cx="16" cy="13" r="1.5"/><rect x="9" y="4" width="6" height="4" rx="2"/></svg>
+                        </div>
+                        <div class="step-label-card ai-card">e-Prescriptions & paperwork sent instantly</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">
+                            <!-- Robot SVG -->
+                            <svg width="28" height="28" fill="none" stroke="#7c3aed" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="10" rx="4"/><circle cx="8" cy="13" r="1.5"/><circle cx="16" cy="13" r="1.5"/><rect x="9" y="4" width="6" height="4" rx="2"/></svg>
+                        </div>
+                        <div class="step-label-card ai-card">Patient/family notified via SMS app</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">
+                            <!-- Brain SVG -->
+                            <svg width="28" height="28" fill="none" stroke="#7c3aed" stroke-width="2" viewBox="0 0 24 24"><path d="M9 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3H9z"/><path d="M9 9h6M9 13h6"/></svg>
+                        </div>
+                        <div class="step-label-card brain-card">Analytics dashboard for continuous improvement</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="kpi-banner">
+           <div><span class="kpi-value">-0.4</span><br>
+                <span class="kpi-label">Days LOS</span></div>
+           <div><span class="kpi-value">Faster</span><br>
+                <span class="kpi-label">vendor response</span></div>
+           <div><span class="kpi-value">2×</span><br>
+                <span class="kpi-label">Patient satisfaction</span></div>
+         </div>
+    </div>
+</body>
+<script>
+function setUniformPurpleCardHeights() {
+  // Select all AI/brain cards in the AI-powered process
+  const aiCards = Array.from(document.querySelectorAll('.process-row.ai .step-label-card.ai-card, .process-row.ai .step-label-card.brain-card'));
+  // Reset heights
+  aiCards.forEach(card => card.style.height = '');
+  // Find tallest
+  const maxHeight = aiCards.reduce((max, card) => Math.max(max, card.offsetHeight), 0);
+  // Set all to tallest
+  aiCards.forEach(card => card.style.height = maxHeight + 'px');
+}
+window.addEventListener('DOMContentLoaded', setUniformPurpleCardHeights);
+window.addEventListener('resize', setUniformPurpleCardHeights);
+</script>
+</html>
