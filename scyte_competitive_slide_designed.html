@@ -42,7 +42,7 @@
 
         .header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 18px;
         }
 
         .title {
@@ -62,20 +62,20 @@
         }
 
         .main-content {
-            display: grid;
-            grid-template-columns: 1fr;
-            grid-template-rows: 4fr 1fr;
-            gap: 20px;
-            height: calc(100% - 120px);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            min-height: 0;
         }
 
         /* Comparison Table */
         .comparison-section {
             background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
             border-radius: 12px;
-            padding: 25px;
+            padding: 18px 8px 12px 8px;
             border-left: 4px solid #0891b2;
-            overflow-x: auto;
+            overflow: visible;
+            margin-bottom: 0;
         }
 
         .comparison-table {
@@ -178,9 +178,10 @@
             background: linear-gradient(135deg, #1e293b, #334155);
             color: white;
             border-radius: 12px;
-            padding: 15px;
+            padding: 15px 12px 12px 12px;
             text-align: center;
             box-shadow: 0 10px 30px rgba(30, 41, 59, 0.2);
+            margin-top: 0;
         }
 
         .advantage-title {
@@ -270,9 +271,9 @@
 </head>
 <body>
     <div class="slide">
-        <div class="header">
-            <div class="title">Competitive Landscape</div>
-            <div class="subtitle">Scyte's Blue-Ocean Position: The Only End-to-End AI Solution with Pre-Built Networks and Value-Based Pricing</div>
+        <div class="header" style="margin-bottom: 18px; background: white; padding: 0; border-radius: 0; box-shadow: none;">
+            <div style="font-size: 36px; font-weight: bold; color: #0f172a; font-family: Arial, sans-serif; margin-bottom: 8px; margin-top: 0; line-height: 1.1; text-align: center;">Scyte's Blue-Ocean Differentiators</div>
+            <div style="font-size: 1.15rem; font-weight: 400; color: #0f172a; font-family: Arial, sans-serif; text-align: center; margin-bottom: 0;">Competitive Landscape & Scyte's Blue-Ocean Differentiators</div>
         </div>
 
         <div class="main-content">
@@ -281,69 +282,62 @@
                 <table class="comparison-table">
                     <thead>
                         <tr>
-                            <th>Competitor Segment</th>
+                            <th>Segment</th>
                             <th>End-to-End Care</th>
-                            <th>AI Automation</th>
-                            <th>Pre-Built Network</th>
-                            <th>Value Pricing</th>
-                            <th>Time to Value</th>
+                            <th>Automation</th>
+                            <th>AI Patient / Family Engagement</th>
+                            <th>Predictive Discharge Date</th>
+                            <th>Prioritised Actions (+ Weekend)</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="segment-name">
-                                <strong>EHR Modules</strong>
-                                <span class="company-names">Epic, Cerner</span>
-                            </td>
-                            <td><span class="cross">✗</span></td>
-                            <td><span class="cross">✗</span></td>
-                            <td><span class="check">✓</span> <div class="partial">Record Exchange</div></td>
-                            <td><span class="cross">✗</span></td>
-                            <td class="time-value">12–18 mo</td>
+                            <td><b>EHR Modules</b><br><span class="company-names">Epic, Cerner</span></td>
+                            <td>✔</td>
+                            <td>✔</td>
+                            <td>✔</td>
+                            <td>✔</td>
+                            <td>✔</td>
                         </tr>
                         <tr>
-                            <td class="segment-name">
-                                <strong>Referral Marketplaces</strong>
-                                <span class="company-names">WellSky, Aidin</span>
-                            </td>
-                            <td><div class="partial">PAC only</div></td>
-                            <td><span class="cross">✗</span></td>
-                            <td><span class="check">✓</span> <div class="partial">130k+ PAC Sites</div></td>
-                            <td><span class="cross">✗</span></td>
-                            <td class="time-value">6–12 mo</td>
+                            <td><b>Referral Marketplaces</b><br><span class="company-names">WellSky, Aidin</span></td>
+                            <td>✔</td>
+                            <td>✔</td>
+                            <td>✔</td>
+                            <td>✔</td>
+                            <td>✔</td>
                         </tr>
                         <tr>
-                            <td class="segment-name">
-                                <strong>AI Flow Optimizers</strong>
-                                <span class="company-names">Qventus, LeanTaaS</span>
-                            </td>
-                            <td><div class="partial">Inpatient Only</div></td>
-                            <td><span class="check">✓</span></td>
-                            <td><span class="cross">✗</span></td>
-                            <td><span class="cross">✗</span></td>
-                            <td class="time-value">6–9 mo</td>
+                            <td><b>AI Flow Optimisers</b><br><span class="company-names">Qventus, LeanTaaS</span></td>
+                            <td>✔</td>
+                            <td>✔</td>
+                            <td>✔</td>
+                            <td>✔</td>
+                            <td>✔</td>
                         </tr>
                         <tr>
-                            <td class="segment-name">
-                                <strong>Case Management Tools</strong>
-                                <span class="company-names">TeleTracking, Amitech</span>
-                            </td>
-                            <td><span class="cross">✗</span></td>
-                            <td><span class="cross">✗</span></td>
-                            <td><span class="cross">✗</span></td>
-                            <td><span class="cross">✗</span></td>
-                            <td class="time-value">3–6 mo</td>
+                            <td><b>BPO / Staffing</b><br><span class="company-names">naviHealth, Huron</span></td>
+                            <td>✔</td>
+                            <td>✖</td>
+                            <td>✖</td>
+                            <td>✖</td>
+                            <td>✖</td>
                         </tr>
-                        <tr class="scyte-row">
-                            <td class="segment-name">
-                                <strong>Scyte AI Platform</strong>
-                                <span class="company-names">Full Discharge Orchestration</span>
-                            </td>
-                            <td><span class="check">✓</span></td>
-                            <td><span class="check">✓</span></td>
-                            <td><span class="check">✓</span></td>
-                            <td><span class="check">✓</span></td>
-                            <td class="fast-time">30–60 days</td>
+                        <tr>
+                            <td><b>External Services Companies</b><br><span class="company-names">Conifer Health, R1 RCM</span></td>
+                            <td>✔</td>
+                            <td>✖</td>
+                            <td>✖</td>
+                            <td>✖</td>
+                            <td>✖</td>
+                        </tr>
+                        <tr>
+                            <td><b>Scyte (Blue Ocean)</b></td>
+                            <td>✔</td>
+                            <td>✔</td>
+                            <td>✔</td>
+                            <td>✔</td>
+                            <td>✔</td>
                         </tr>
                     </tbody>
                 </table>

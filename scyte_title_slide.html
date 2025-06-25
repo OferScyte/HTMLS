@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scyte - AI-Driven Discharge Command Center</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: #1e293b;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .slide-container {
+            width: 100%;
+            max-width: 1200px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 4rem 2rem;
+            position: relative;
+        }
+        
+        .logo-placeholder {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 3rem;
+            background: #ffffff;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        
+        .logo-text {
+            font-size: 0.9rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+        
+        .title-main {
+            font-size: 4.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.5rem;
+            color: #0f172a;
+            line-height: 1.1;
+        }
+        
+        .subtitle {
+            font-size: 1.8rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            color: #3b82f6;
+            line-height: 1.3;
+        }
+        
+        .tagline {
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: #475569;
+            max-width: 700px;
+            line-height: 1.6;
+            margin: 0 auto;
+        }
+        
+        .highlight {
+            color: #2563eb;
+            font-weight: 600;
+        }
+        
+        .ai-accent {
+            color: #06b6d4;
+            font-weight: 600;
+        }
+        
+        .feature-pills {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .pill {
+            background: rgba(59, 130, 246, 0.1);
+            color: #1e40af;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+        
+        .decorative-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        
+        .grid-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(148, 163, 184, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(148, 163, 184, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        
+        .accent-shape {
+            position: absolute;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(6, 182, 212, 0.1));
+            border-radius: 20px;
+        }
+        
+        .shape1 {
+            width: 200px;
+            height: 200px;
+            top: 10%;
+            right: 8%;
+            transform: rotate(15deg);
+        }
+        
+        .shape2 {
+            width: 150px;
+            height: 150px;
+            bottom: 15%;
+            left: 10%;
+            transform: rotate(-20deg);
+        }
+        
+        .medical-cross {
+            position: absolute;
+            top: 20%;
+            left: 15%;
+            width: 30px;
+            height: 30px;
+            opacity: 0.1;
+        }
+        
+        .cross-vertical {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 6px;
+            height: 100%;
+            background: #3b82f6;
+            transform: translateX(-50%);
+        }
+        
+        .cross-horizontal {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: #3b82f6;
+            transform: translateY(-50%);
+        }
+        
+        @media (max-width: 768px) {
+            .title-main {
+                font-size: 3rem;
+            }
+            
+            .subtitle {
+                font-size: 1.4rem;
+            }
+            
+            .tagline {
+                font-size: 1.1rem;
+            }
+            
+            .feature-pills {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="decorative-elements">
+            <div class="grid-bg"></div>
+            <div class="accent-shape shape1"></div>
+            <div class="accent-shape shape2"></div>
+            <div class="medical-cross">
+                <div class="cross-vertical"></div>
+                <div class="cross-horizontal"></div>
+            </div>
+        </div>
+        
+        <div class="logo-placeholder">
+            <span class="logo-text">[Your Logo Here]</span>
+        </div>
+        
+        <h1 class="title-main">SCYTE</h1>
+        <h2 class="subtitle">AI-Driven Discharge Command Center</h2>
+        <p class="tagline">
+            Cuts discharge <span class="highlight">LOS & readmissions</span> with 
+            <span class="ai-accent">autonomous agent workflows</span>
+        </p>
+        
+        <div class="feature-pills">
+            <div class="pill">Reduced Length of Stay</div>
+            <div class="pill">Lower Readmissions</div>
+            <div class="pill">Autonomous AI Workflows</div>
+        </div>
+    </div>
+</body>
+</html>
