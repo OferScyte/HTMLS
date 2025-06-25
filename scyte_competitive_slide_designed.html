@@ -42,7 +42,7 @@
 
         .header {
             text-align: center;
-            margin-bottom: 18px;
+            margin-bottom: 40px;
         }
 
         .title {
@@ -53,29 +53,30 @@
         }
 
         .subtitle {
-            font-size: 18px;
-            color: #0891b2;
-            font-weight: 600;
-            line-height: 1.4;
-            max-width: 800px;
-            margin: 0 auto;
+            font-size: 2.1rem;
+            color: #0f172a;
+            font-weight: 900;
+            line-height: 1.3;
+            max-width: 1000px;
+            margin: 0 auto 24px auto;
+            letter-spacing: -0.5px;
         }
 
         .main-content {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            min-height: 0;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 4fr 1fr;
+            gap: 20px;
+            height: calc(100% - 120px);
         }
 
         /* Comparison Table */
         .comparison-section {
             background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
             border-radius: 12px;
-            padding: 18px 8px 12px 8px;
+            padding: 25px;
             border-left: 4px solid #0891b2;
-            overflow: visible;
-            margin-bottom: 0;
+            overflow-x: auto;
         }
 
         .comparison-table {
@@ -178,10 +179,9 @@
             background: linear-gradient(135deg, #1e293b, #334155);
             color: white;
             border-radius: 12px;
-            padding: 15px 12px 12px 12px;
+            padding: 15px;
             text-align: center;
             box-shadow: 0 10px 30px rgba(30, 41, 59, 0.2);
-            margin-top: 0;
         }
 
         .advantage-title {
@@ -271,78 +271,12 @@
 </head>
 <body>
     <div class="slide">
-        <div class="header" style="margin-bottom: 18px; background: white; padding: 0; border-radius: 0; box-shadow: none;">
-            <div style="font-size: 36px; font-weight: bold; color: #0f172a; font-family: Arial, sans-serif; margin-bottom: 8px; margin-top: 0; line-height: 1.1; text-align: center;">Scyte's Blue-Ocean Differentiators</div>
-            <div style="font-size: 1.15rem; font-weight: 400; color: #0f172a; font-family: Arial, sans-serif; text-align: center; margin-bottom: 0;">Competitive Landscape & Scyte's Blue-Ocean Differentiators</div>
+        <div class="header">
+            <div class="title">Competitive Landscape</div>
+            <div class="subtitle">Scyte's Blue-Ocean Position: The Only End-to-End AI Solution with Pre-Built Networks and Value-Based Pricing</div>
         </div>
 
         <div class="main-content">
-            <!-- Comparison Table -->
-            <div class="comparison-section">
-                <table class="comparison-table">
-                    <thead>
-                        <tr>
-                            <th>Segment</th>
-                            <th>End-to-End Care</th>
-                            <th>Automation</th>
-                            <th>AI Patient / Family Engagement</th>
-                            <th>Predictive Discharge Date</th>
-                            <th>Prioritised Actions (+ Weekend)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><b>EHR Modules</b><br><span class="company-names">Epic, Cerner</span></td>
-                            <td>✔</td>
-                            <td>✔</td>
-                            <td>✔</td>
-                            <td>✔</td>
-                            <td>✔</td>
-                        </tr>
-                        <tr>
-                            <td><b>Referral Marketplaces</b><br><span class="company-names">WellSky, Aidin</span></td>
-                            <td>✔</td>
-                            <td>✔</td>
-                            <td>✔</td>
-                            <td>✔</td>
-                            <td>✔</td>
-                        </tr>
-                        <tr>
-                            <td><b>AI Flow Optimisers</b><br><span class="company-names">Qventus, LeanTaaS</span></td>
-                            <td>✔</td>
-                            <td>✔</td>
-                            <td>✔</td>
-                            <td>✔</td>
-                            <td>✔</td>
-                        </tr>
-                        <tr>
-                            <td><b>BPO / Staffing</b><br><span class="company-names">naviHealth, Huron</span></td>
-                            <td>✔</td>
-                            <td>✖</td>
-                            <td>✖</td>
-                            <td>✖</td>
-                            <td>✖</td>
-                        </tr>
-                        <tr>
-                            <td><b>External Services Companies</b><br><span class="company-names">Conifer Health, R1 RCM</span></td>
-                            <td>✔</td>
-                            <td>✖</td>
-                            <td>✖</td>
-                            <td>✖</td>
-                            <td>✖</td>
-                        </tr>
-                        <tr>
-                            <td><b>Scyte (Blue Ocean)</b></td>
-                            <td>✔</td>
-                            <td>✔</td>
-                            <td>✔</td>
-                            <td>✔</td>
-                            <td>✔</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
             <!-- Competitive Advantage -->
             <div class="advantage-section">
                 <div class="advantage-title">Scyte's Unique Advantage</div>
