@@ -64,13 +64,13 @@
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            background: rgba(124,58,237,0.10);
-            box-shadow: 0 2px 8px rgba(124,58,237,0.08);
+            background: rgba(34,197,94,0.10);
+            box-shadow: 0 2px 8px rgba(34,197,94,0.08);
             backdrop-filter: blur(2px);
         }
-        .legend-person { background: rgba(185,28,124,0.10); }
-        .legend-robot { background: rgba(124,58,237,0.10); }
-        .legend-brain { background: rgba(124,58,237,0.10); }
+        .legend-person { background: rgba(34,197,94,0.10); }
+        .legend-robot { background: rgba(34,197,94,0.10); }
+        .legend-brain { background: rgba(34,197,94,0.10); }
         .legend-label {
             font-size: 18px;
             color: #22223b;
@@ -88,8 +88,8 @@
             gap: 0;
         }
         .arrow-label {
-            background: linear-gradient(120deg, rgba(185,28,124,0.18) 60%, rgba(255,255,255,0.5) 100%);
-            color: #b91c7c;
+            background: linear-gradient(120deg, rgba(34,197,94,0.18) 60%, rgba(255,255,255,0.5) 100%);
+            color: #22c55e;
             font-weight: bold;
             font-size: 18px;
             padding: 17px 37px 17px 21px;
@@ -101,19 +101,19 @@
             position: relative;
             clip-path: polygon(0 0, 95% 0, 100% 50%, 95% 100%, 0 100%);
             z-index: 2;
-            box-shadow: 0 2px 8px rgba(185,28,124,0.08);
+            box-shadow: 0 2px 8px rgba(34,197,94,0.08);
             backdrop-filter: blur(2px);
         }
         .arrow-label.ai {
-            background: linear-gradient(120deg, rgba(124,58,237,0.18) 60%, rgba(255,255,255,0.5) 100%);
-            color: #7c3aed;
-            box-shadow: 0 2px 8px rgba(124,58,237,0.08);
+            background: linear-gradient(120deg, rgba(0,105,185,0.18) 60%, rgba(255,255,255,0.5) 100%);
+            color: #0069b9;
+            box-shadow: 0 2px 8px rgba(0,105,185,0.08);
         }
         .vertical-bar {
             writing-mode: vertical-rl;
             text-orientation: mixed;
-            background: linear-gradient(120deg, rgba(185,28,124,0.18) 60%, rgba(255,255,255,0.5) 100%);
-            color: #b91c7c;
+            background: linear-gradient(120deg, rgba(34,197,94,0.18) 60%, rgba(255,255,255,0.5) 100%);
+            color: #22c55e;
             font-weight: bold;
             font-size: 16px;
             border-radius: 8px;
@@ -123,13 +123,13 @@
             text-align: center;
             margin-left: -8px;
             z-index: 1;
-            box-shadow: 0 2px 8px rgba(185,28,124,0.08);
+            box-shadow: 0 2px 8px rgba(34,197,94,0.08);
             backdrop-filter: blur(2px);
         }
         .vertical-bar.ai {
-            background: linear-gradient(120deg, rgba(124,58,237,0.18) 60%, rgba(255,255,255,0.5) 100%);
-            color: #7c3aed;
-            box-shadow: 0 2px 8px rgba(124,58,237,0.08);
+            background: linear-gradient(120deg, rgba(0,105,185,0.18) 60%, rgba(255,255,255,0.5) 100%);
+            color: #0069b9;
+            box-shadow: 0 2px 8px rgba(0,105,185,0.08);
         }
         .steps-box {
             background: rgba(255,255,255,0.7);
@@ -142,7 +142,7 @@
             margin-left: -8px;
             position: relative;
             z-index: 0;
-            box-shadow: 0 2px 8px rgba(124,58,237,0.04);
+            box-shadow: 0 2px 8px rgba(34,197,94,0.04);
             backdrop-filter: blur(2px);
         }
         .step {
@@ -159,14 +159,14 @@
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            background: rgba(124,58,237,0.10);
+            background: rgba(34,197,94,0.10);
             margin-left: auto;
             margin-right: auto;
-            box-shadow: 0 2px 8px rgba(124,58,237,0.08);
+            box-shadow: 0 2px 8px rgba(34,197,94,0.08);
             backdrop-filter: blur(2px);
         }
-        .process-row .step-icon { background: rgba(185,28,124,0.10); }
-        .process-row.ai .step-icon { background: rgba(124,58,237,0.10); }
+        .process-row .step-icon { background: rgba(34,197,94,0.10); }
+        .process-row.ai .step-icon { background: linear-gradient(135deg, #e0f2fe 0%, #b9e6fb 100%) !important; }
         .step-label {
             font-size: 15px;
             color: #22223b;
@@ -180,14 +180,14 @@
             transform: translateY(-50%);
             width: 24px;
             height: 24px;
-            border-top: 3px solid rgba(185,28,124,0.5);
-            border-right: 3px solid rgba(185,28,124,0.5);
+            border-top: 3px solid rgba(34,197,94,0.5);
+            border-right: 3px solid rgba(34,197,94,0.5);
             border-radius: 0 10px 0 0;
             z-index: 1;
         }
         .ai .step:not(:last-child)::after {
-            border-top: 3px solid rgba(124,58,237,0.5);
-            border-right: 3px solid rgba(124,58,237,0.5);
+            border-top: 3px solid rgba(0,105,185,0.5);
+            border-right: 3px solid rgba(0,105,185,0.5);
         }
         .arrow-row {
             display: flex;
@@ -197,13 +197,13 @@
         .efficiency-arrow {
             display: flex;
             align-items: center;
-            background: rgba(124,58,237,0.10);
+            background: rgba(34,197,94,0.10);
             border-radius: 30px;
             padding: 13px 37px 13px 21px;
             font-size: 21px;
             font-weight: bold;
-            color: #7c3aed;
-            box-shadow: 0 2px 8px rgba(124,58,237,0.08);
+            color: #0069b9;
+            box-shadow: 0 2px 8px rgba(34,197,94,0.08);
             position: relative;
             backdrop-filter: blur(2px);
         }
@@ -258,13 +258,13 @@
             font-weight: 600;
             color: #22223b;
             box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-            background: #f3e8ee; /* default, overridden below */
+            background: linear-gradient(135deg, #e0fbe6 0%, #b9f6ca 100%);
             transition: background 0.2s;
             min-height: 54px;
             /* height removed for dynamic sizing */
         }
-        .manual-card { background: rgba(185,28,124,0.13); color: #b91c7c; }
-        .ai-card, .brain-card { background: rgba(124,58,237,0.13); color: #7c3aed; }
+        .manual-card { background: linear-gradient(135deg, #e0fbe6 0%, #b9f6ca 100%); color: #22c55e; }
+        .ai-card, .brain-card { background: linear-gradient(135deg, #e0f2fe 0%, #b9e6fb 100%); color: #0069b9; }
     </style>
 </head>
 <body>
@@ -277,21 +277,21 @@
             <div class="legend-item">
                 <div class="legend-icon legend-person">
                     <!-- Person SVG -->
-                    <svg width="24" height="24" fill="none" stroke="#b91c7c" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 8-4 8-4s8 0 8 4"/></svg>
+                    <svg width="24" height="24" fill="none" stroke="#0069b9" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 8-4 8-4s8 0 8 4"/></svg>
                 </div>
                 <span class="legend-label">Nurse Case Manager</span>
             </div>
             <div class="legend-item">
                 <div class="legend-icon legend-robot">
                     <!-- Robot SVG -->
-                    <svg width="24" height="24" fill="none" stroke="#7c3aed" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="10" rx="4"/><circle cx="8" cy="13" r="1.5"/><circle cx="16" cy="13" r="1.5"/><rect x="9" y="4" width="6" height="4" rx="2"/></svg>
+                    <svg width="24" height="24" fill="none" stroke="#0069b9" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="10" rx="4"/><circle cx="8" cy="13" r="1.5"/><circle cx="16" cy="13" r="1.5"/><rect x="9" y="4" width="6" height="4" rx="2"/></svg>
                 </div>
                 <span class="legend-label">Scyte Automation Engine</span>
             </div>
             <div class="legend-item">
                 <div class="legend-icon legend-brain">
                     <!-- Brain SVG -->
-                    <svg width="24" height="24" fill="none" stroke="#7c3aed" stroke-width="2" viewBox="0 0 24 24"><path d="M9 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3H9z"/><path d="M9 9h6M9 13h6"/></svg>
+                    <svg width="24" height="24" fill="none" stroke="#0069b9" stroke-width="2" viewBox="0 0 24 24"><path d="M9 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3H9z"/><path d="M9 9h6M9 13h6"/></svg>
                 </div>
                 <span class="legend-label">AI-driven Insights</span>
             </div>
@@ -304,37 +304,37 @@
                 <div class="steps-box">
                     <div class="step">
                         <div class="step-icon">
-                            <svg width="28" height="28" fill="none" stroke="#b91c7c" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 8-4 8-4s8 0 8 4"/></svg>
+                            <svg width="28" height="28" fill="none" stroke="#0069b9" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 8-4 8-4s8 0 8 4"/></svg>
                         </div>
                         <div class="step-label-card manual-card">Gather discharge orders & notes</div>
                     </div>
                     <div class="step">
                         <div class="step-icon">
-                            <svg width="28" height="28" fill="none" stroke="#b91c7c" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 8-4 8-4s8 0 8 4"/></svg>
+                            <svg width="28" height="28" fill="none" stroke="#0069b9" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 8-4 8-4s8 0 8 4"/></svg>
                         </div>
                         <div class="step-label-card manual-card">Call vendors / fax DME forms</div>
                     </div>
                     <div class="step">
                         <div class="step-icon">
-                            <svg width="28" height="28" fill="none" stroke="#b91c7c" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 8-4 8-4s8 0 8 4"/></svg>
+                            <svg width="28" height="28" fill="none" stroke="#0069b9" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 8-4 8-4s8 0 8 4"/></svg>
                         </div>
                         <div class="step-label-card manual-card">Wait for confirmations (avg 8 h)</div>
                     </div>
                     <div class="step">
                         <div class="step-icon">
-                            <svg width="28" height="28" fill="none" stroke="#b91c7c" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 8-4 8-4s8 0 8 4"/></svg>
+                            <svg width="28" height="28" fill="none" stroke="#0069b9" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 8-4 8-4s8 0 8 4"/></svg>
                         </div>
                         <div class="step-label-card manual-card">Print & sign discharge packet</div>
                     </div>
                     <div class="step">
                         <div class="step-icon">
-                            <svg width="28" height="28" fill="none" stroke="#b91c7c" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 8-4 8-4s8 0 8 4"/></svg>
+                            <svg width="28" height="28" fill="none" stroke="#0069b9" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 8-4 8-4s8 0 8 4"/></svg>
                         </div>
                         <div class="step-label-card manual-card">Family transport arranged by phone</div>
                     </div>
                     <div class="step">
                         <div class="step-icon">
-                            <svg width="28" height="28" fill="none" stroke="#b91c7c" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 8-4 8-4s8 0 8 4"/></svg>
+                            <svg width="28" height="28" fill="none" stroke="#0069b9" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 8-4 8-4s8 0 8 4"/></svg>
                         </div>
                         <div class="step-label-card manual-card">Nurse follows up manually (24-48 h)</div>
                     </div>
@@ -350,51 +350,51 @@
                 <div class="vertical-bar ai">Patient journey (Scyte)</div>
                 <div class="steps-box">
                     <div class="step">
-                        <div class="step-icon" style="background: rgba(185,28,124,0.10);">
+                        <div class="step-icon" style="background: rgba(34,197,94,0.10);">
                             <!-- Person SVG (pink) -->
-                            <svg width="28" height="28" fill="none" stroke="#b91c7c" stroke-width="2" viewBox="0 0 24 24"><circle cx="14" cy="10" r="4"/><path d="M6 24c0-4 8-4 8-4s8 0 8 4"/></svg>
+                            <svg width="28" height="28" fill="none" stroke="#0069b9" stroke-width="2" viewBox="0 0 24 24"><circle cx="14" cy="10" r="4"/><path d="M6 24c0-4 8-4 8-4s8 0 8 4"/></svg>
                         </div>
                         <div class="step-label-card manual-card ai-card" style="min-height: 54px;">Generate digital discharge order</div>
                     </div>
                     <div class="step">
                         <div class="step-icon">
                             <!-- Robot SVG -->
-                            <svg width="28" height="28" fill="none" stroke="#7c3aed" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="10" rx="4"/><circle cx="8" cy="13" r="1.5"/><circle cx="16" cy="13" r="1.5"/><rect x="9" y="4" width="6" height="4" rx="2"/></svg>
+                            <svg width="28" height="28" fill="none" stroke="#0069b9" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="10" rx="4"/><circle cx="8" cy="13" r="1.5"/><circle cx="16" cy="13" r="1.5"/><rect x="9" y="4" width="6" height="4" rx="2"/></svg>
                         </div>
                         <div class="step-label-card ai-card">Scyte extracts data & risk-scores patient</div>
                     </div>
                     <div class="step">
                         <div class="step-icon">
                             <!-- Robot SVG -->
-                            <svg width="28" height="28" fill="none" stroke="#7c3aed" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="10" rx="4"/><circle cx="8" cy="13" r="1.5"/><circle cx="16" cy="13" r="1.5"/><rect x="9" y="4" width="6" height="4" rx="2"/></svg>
+                            <svg width="28" height="28" fill="none" stroke="#0069b9" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="10" rx="4"/><circle cx="8" cy="13" r="1.5"/><circle cx="16" cy="13" r="1.5"/><rect x="9" y="4" width="6" height="4" rx="2"/></svg>
                         </div>
                         <div class="step-label-card ai-card">One-click vendor orchestration (HME, HH, Rx)</div>
                     </div>
                     <div class="step">
                         <div class="step-icon">
                             <!-- Brain SVG -->
-                            <svg width="28" height="28" fill="none" stroke="#7c3aed" stroke-width="2" viewBox="0 0 24 24"><path d="M9 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3H9z"/><path d="M9 9h6M9 13h6"/></svg>
+                            <svg width="28" height="28" fill="none" stroke="#0069b9" stroke-width="2" viewBox="0 0 24 24"><path d="M9 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3H9z"/><path d="M9 9h6M9 13h6"/></svg>
                         </div>
                         <div class="step-label-card brain-card">Predict bed-vacancy & LOS with AI</div>
                     </div>
                     <div class="step">
-                        <div class="step-icon" style="background: rgba(185,28,124,0.10);">
+                        <div class="step-icon" style="background: rgba(34,197,94,0.10);">
                             <!-- Person SVG (pink) -->
-                            <svg width="28" height="28" fill="none" stroke="#b91c7c" stroke-width="2" viewBox="0 0 24 24"><circle cx="14" cy="10" r="4"/><path d="M6 24c0-4 8-4 8-4s8 0 8 4"/></svg>
+                            <svg width="28" height="28" fill="none" stroke="#0069b9" stroke-width="2" viewBox="0 0 24 24"><circle cx="14" cy="10" r="4"/><path d="M6 24c0-4 8-4 8-4s8 0 8 4"/></svg>
                         </div>
                         <div class="step-label-card manual-card ai-card" style="min-height: 54px;">e-Prescriptions sent instantly</div>
                     </div>
                     <div class="step">
                         <div class="step-icon">
                             <!-- Robot SVG -->
-                            <svg width="28" height="28" fill="none" stroke="#7c3aed" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="10" rx="4"/><circle cx="8" cy="13" r="1.5"/><circle cx="16" cy="13" r="1.5"/><rect x="9" y="4" width="6" height="4" rx="2"/></svg>
+                            <svg width="28" height="28" fill="none" stroke="#0069b9" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="10" rx="4"/><circle cx="8" cy="13" r="1.5"/><circle cx="16" cy="13" r="1.5"/><rect x="9" y="4" width="6" height="4" rx="2"/></svg>
                         </div>
                         <div class="step-label-card ai-card">Patient/family notified via SMS app</div>
                     </div>
                     <div class="step">
                         <div class="step-icon">
                             <!-- Brain SVG -->
-                            <svg width="28" height="28" fill="none" stroke="#7c3aed" stroke-width="2" viewBox="0 0 24 24"><path d="M9 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3H9z"/><path d="M9 9h6M9 13h6"/></svg>
+                            <svg width="28" height="28" fill="none" stroke="#0069b9" stroke-width="2" viewBox="0 0 24 24"><path d="M9 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3H9z"/><path d="M9 9h6M9 13h6"/></svg>
                         </div>
                         <div class="step-label-card brain-card">Analytics dashboard for continuous improvement</div>
                     </div>

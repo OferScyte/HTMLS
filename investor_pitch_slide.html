@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Discharge Delays - PowerPoint Slide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .slide {
+            width: 1280px;
+            height: 720px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0891b2 0%, #06b6d4 100%);
+            color: white;
+            padding: 25px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 120px;
+        }
+
+        .header-left {
+            flex: 1;
+        }
+
+        .header h1 {
+            font-size: 2.8em;
+            font-weight: 700;
+            margin-bottom: 5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header .subtitle {
+            font-size: 1.1em;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            font-weight: bold;
+            backdrop-filter: blur(10px);
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 30px 40px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        .left-section {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .problem-box {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e42 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(238, 90, 36, 0.3);
+        }
+
+        .problem-box h2 {
+            font-size: 1.4em;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .problem-box p {
+            font-size: 1em;
+            opacity: 0.95;
+        }
+
+        .bottlenecks-title {
+            font-size: 1.6em;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .bottlenecks-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .bottleneck-item {
+            background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+            color: white;
+            padding: 12px 8px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.85em;
+            box-shadow: 0 2px 8px rgba(79, 172, 254, 0.3);
+            transition: transform 0.2s ease;
+        }
+
+        .bottleneck-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .right-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: 800;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .stat-label {
+            font-size: 1em;
+            font-weight: 500;
+            opacity: 0.95;
+        }
+
+        .cm-efficiency {
+            background: linear-gradient(135deg, #fbbf24 0%, #06b6d4 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.3);
+        }
+
+        .cm-efficiency h3 {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .cm-stats {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .cm-stat {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px 10px;
+            border-radius: 8px;
+            text-align: center;
+            flex: 1;
+        }
+
+        .cm-stat-number {
+            font-size: 1.6em;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .cm-stat-label {
+            font-size: 0.8em;
+            opacity: 0.9;
+        }
+
+        .market-opportunity {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e42 100%);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(252, 182, 159, 0.3);
+        }
+
+        .market-opportunity h3 {
+            font-size: 1.4em;
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .market-value {
+            font-size: 2.8em;
+            font-weight: 800;
+            color: #e53e3e;
+            margin-bottom: 8px;
+        }
+
+        .market-subtitle {
+            font-size: 0.9em;
+            color: #4a5568;
+            font-weight: 500;
+        }
+
+        .footer {
+            background: #f1f5f9;
+            padding: 15px 40px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9em;
+            color: #0891b2;
+        }
+
+        /* Responsive adjustments for smaller screens */
+        @media (max-width: 1400px) {
+            .slide {
+                width: 95vw;
+                height: 53.4375vw; /* Maintains 16:9 ratio */
+                max-width: 1280px;
+                max-height: 720px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .bottlenecks-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .header h1 {
+                font-size: 2.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="header">
+            <div class="header-left">
+                <h1>$5K+ Lost Per Day</h1>
+                <p class="subtitle">Hospital Discharge Delays: A Multi-Billion Dollar Market Opportunity</p>
+            </div>
+            <div class="logo">HC</div>
+        </div>
+        
+        <div class="main-content">
+            <div class="left-section">
+                <div class="problem-box">
+                    <h2>The Problem</h2>
+                    <p>Manual discharge processes create systematic delays, generating massive revenue losses</p>
+                </div>
+
+                <div class="bottlenecks-section">
+                    <h3 class="bottlenecks-title">Key Bottlenecks in Patient Flow</h3>
+                    <div class="bottlenecks-grid">
+                        <div class="bottleneck-item">DME Coordination</div>
+                        <div class="bottleneck-item">Home Health Setup</div>
+                        <div class="bottleneck-item">SNF Placement</div>
+                        <div class="bottleneck-item">Transport Scheduling</div>
+                        <div class="bottleneck-item">Pending Labs/Imaging</div>
+                        <div class="bottleneck-item">Maximizing Reimbursement</div>
+                        <div class="bottleneck-item">Family Communication</div>
+                        <div class="bottleneck-item">Insurance Authorization</div>
+                        <div class="bottleneck-item">SDOH Assessment</div>
+                        <div class="bottleneck-item">Physician Sign-off</div>
+                        <div class="bottleneck-item">Medication Reconciliation</div>
+                        <div class="bottleneck-item">Care Transition Mgmt</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-section">
+                <div class="stat-card">
+                    <div class="stat-number">100-400</div>
+                    <div class="stat-label">Patients per Case Manager</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-number">22%</div>
+                    <div class="stat-label">Time on Patient Assessment</div>
+                </div>
+
+                <div class="cm-efficiency">
+                    <h3>Case Management Crisis</h3>
+                    <div class="cm-stats">
+                        <div class="cm-stat">
+                            <div class="cm-stat-number">5hrs</div>
+                            <div class="cm-stat-label">External Coord</div>
+                        </div>
+                        <div class="cm-stat">
+                            <div class="cm-stat-number">78%</div>
+                            <div class="cm-stat-label">Non-Patient Tasks</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="market-opportunity">
+                    <h3>Market Opportunity</h3>
+                    <div class="market-value">$30M+</div>
+                    <p class="market-subtitle">Annual losses per medium hospital</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <span>Healthcare Optimization Solutions</span>
+            <span>Confidential & Proprietary</span>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The $19B Readmission Opportunity</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: #1e293b;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .slide-container {
+            max-width: 1200px;
+            min-height: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            padding: 40px 40px 0 40px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .slide-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #0891b2, #06b6d4, #67e8f9);
+        }
+        
+        .updraft-strip {
+            width: 100%;
+            text-align: center;
+            color: #64748b;
+            font-size: 13px;
+            margin-bottom: 10px;
+            letter-spacing: 0.01em;
+        }
+        
+        .title-bar {
+            text-align: center;
+            margin-bottom: 32px;
+            padding: 25px 40px;
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            border-radius: 8px;
+            color: white;
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.2);
+        }
+        
+        .title-bar h1 {
+            font-size: 36px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        
+        .accent-teal {
+            color: #06b6d4;
+            font-weight: 900;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 500px 1fr;
+            gap: 30px;
+            flex: 1;
+            align-items: start;
+        }
+        
+        .pain-panel, .upside-panel {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.06);
+            border: 1px solid #e2e8f0;
+            height: fit-content;
+        }
+        
+        .pain-panel {
+            border-left: 6px solid #dc2626;
+        }
+        
+        .upside-panel {
+            border-left: 6px solid #16a34a;
+        }
+        
+        .panel-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .pain-panel .panel-title {
+            color: #dc2626;
+        }
+        
+        .upside-panel .panel-title {
+            color: #16a34a;
+        }
+        
+        .bullet-point {
+            display: flex;
+            align-items: center;
+            margin-bottom: 18px;
+            font-size: 18px;
+            font-weight: 500;
+        }
+        
+        .bullet-point:last-child {
+            margin-bottom: 0;
+        }
+        
+        .icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        
+        .pain-panel .icon {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            color: #dc2626;
+        }
+        
+        .upside-panel .icon {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            color: #16a34a;
+        }
+        
+        .center-graphic {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            border-radius: 12px;
+            padding: 35px 25px;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.04);
+            border: 1px solid #cbd5e1;
+        }
+        
+        .equation-ribbon {
+            width: 100%;
+            background: linear-gradient(90deg, #94a3b8 0%, #06b6d4 100%);
+            border-radius: 20px;
+            padding: 18px;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .equation-ribbon::before {
+            content: '→';
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .equation-top {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .equation-bottom {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .equation-number {
+            font-size: 24px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+        
+        .capture-highlight {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 8px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+        
+        .green-accent {
+            color: #16a34a;
+            font-weight: 700;
+        }
+        
+        .roi-highlight {
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid #a7f3d0;
+            margin-top: 10px;
+        }
+        
+        .roi-text {
+            font-size: 15px;
+            font-weight: 600;
+            color: #15803d;
+            text-align: center;
+        }
+        
+        .market-proof {
+            margin-top: 20px;
+        }
+        
+        .company-logos {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            gap: 15px;
+        }
+        
+        .logo-item {
+            text-align: center;
+            flex: 1;
+            filter: grayscale(100%);
+            opacity: 0.8;
+        }
+        
+        .logo-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: #374151;
+            margin-bottom: 4px;
+        }
+        
+        .logo-value {
+            font-size: 12px;
+            color: #16a34a;
+            font-weight: 600;
+        }
+        
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            text-align: center;
+            font-size: 11px;
+            color: #64748b;
+            line-height: 1.3;
+            font-style: italic;
+        }
+        
+        .speaker-notes {
+            position: absolute;
+            bottom: -200px;
+            left: 60px;
+            right: 60px;
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            font-size: 14px;
+            color: #374151;
+            transition: bottom 0.3s ease;
+        }
+        
+        .speaker-notes.show {
+            bottom: 20px;
+        }
+        
+        .notes-title {
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #1f2937;
+        }
+        
+        .notes-section {
+            margin-bottom: 8px;
+        }
+        
+        .notes-label {
+            font-weight: 600;
+            color: #4b5563;
+        }
+        
+        .toggle-notes {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(37, 99, 235, 0.3);
+        }
+        
+        .toggle-notes:hover {
+            background: #1d4ed8;
+        }
+        
+        @media (max-width: 1024px) {
+            .slide-container {
+                height: auto;
+                min-height: 800px;
+            }
+            .content-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="title-bar">
+            <h1>Preventable readmissions: <span class="accent-teal">$19B</span> burden ➜ <span class="accent-teal">$1B+</span> tech prize</h1>
+        </div>
+        <div class="content-grid">
+            <div class="center-graphic">
+                <div class="equation-card" style="background:white;border-radius:16px;box-shadow:0 6px 24px rgba(0,0,0,0.06);border:1px solid #e2e8f0;padding:24px 18px 18px 18px;margin-bottom:24px;">
+                    <div class="equation-ribbon">
+                        <div class="equation-top">
+                            <span class="equation-number">3.8M</span> × <span class="equation-number">$19K</span> = <span class="equation-number">$70B</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="equation-bottom" style="margin-top:18px;text-align:center;font-size:18px;font-weight:600;">
+                    Hospitals reinvest <span class="equation-number">3–8%</span> of savings → <span class="equation-number">$0.6–1.5B SAM</span>
+                </div>
+                <div class="pain-card" style="background:white;border-radius:16px;box-shadow:0 6px 24px rgba(0,0,0,0.06);border:1px solid #e2e8f0;padding:24px 18px 18px 18px;">
+                    <div class="panel-title" style="color:#dc2626;">Pain</div>
+                    <div class="bullet-point"><div class="icon">🏥</div><div><strong>3.8M</strong> unplanned readmits/yr <span title="AHRQ HCUP 2018" style="font-size:12px;color:#64748b;cursor:help;">&#9432;</span></div></div>
+                    <div class="bullet-point"><div class="icon">💰</div><div><strong>$70B</strong> total readmit spend</div></div>
+                    <div class="bullet-point"><div class="icon">🪣</div><div><strong>≈ $19B</strong> preventable <span style="font-size:13px;color:#64748b;">(27% of total)</span></div></div>
+                </div>
+            </div>
+            <div class="upside-panel">
+                <div class="panel-title">Upside</div>
+                <div class="upside-section">
+                    <div class="upside-title">Hospitals will pay</div>
+                    <div class="upside-content"><span class="green-accent">3–8%</span> of savings</div>
+                </div>
+                <div class="upside-section">
+                    <div class="upside-title">ROI:</div>
+                    <div class="roi-highlight">
+                        <div class="roi-text">
+                            Cutting the readmission rate by <strong>1 percentage point</strong> (e.g., <strong>14%</strong> ➜ <strong>13%</strong>) across <strong>10,000</strong> discharges prevents ≈ <strong>100</strong> repeat stays × <strong>$19K</strong> each ⇒ <strong class="green-accent">$1.9M</strong> margin freed
+                        </div>
+                    </div>
+                </div>
+                <div class="upside-section market-proof">
+                    <div class="upside-title">Market proof:</div>
+                    <div class="company-logos">
+                        <div class="logo-item">
+                            <div class="logo-name">CarePort</div>
+                            <div class="logo-value">$1.35B</div>
+                        </div>
+                        <div class="logo-item">
+                            <div class="logo-name">naviHealth</div>
+                            <div class="logo-value">$2.5B</div>
+                        </div>
+                        <div class="logo-item">
+                            <div class="logo-name">Laguna</div>
+                            <div class="logo-value">$21M</div>
+                        </div>
+                        <div class="logo-item">
+                            <div class="logo-name">Signify→CVS</div>
+                            <div class="logo-value">$8B (2022)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <em>Sources: AHRQ HCUP (2018), CPI Medical Adj.; CMS HRRP; deal press releases (2020-2023); CER-246 "Managing High-Cost Patients" (2024).</em>
+        </div>
+        <div class="speaker-notes" id="speakerNotes">
+            <div class="notes-title">Speaker Notes</div>
+            <div class="notes-section">
+                <span class="notes-label">Hook:</span> "Every year a million patients bounce back—costing hospitals $70B, of which $19B is clearly preventable."
+            </div>
+            <div class="notes-section">
+                <span class="notes-label">Bridge to solution:</span> "Even reallocating 5% of that waste is a billion-dollar software spend. Our AI-driven platform targets that wedge first, then scales across post-acute navigation."
+            </div>
+        </div>
+        <button class="toggle-notes" onclick="toggleNotes()">Speaker Notes</button>
+    </div>
+    <script>
+        function toggleNotes() {
+            const notes = document.getElementById('speakerNotes');
+            notes.classList.toggle('show');
+        }
+    </script>
+</body>
+</html>

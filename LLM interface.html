@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discharge Planning Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: #f5f5f5;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .main-container {
+            display: flex;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        /* Steps Header */
+        .steps-header {
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .patient-context {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: #374151;
+        }
+
+        .patient-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #8b5cf6;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .patient-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .patient-name-header {
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .patient-progress-header {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .steps-container {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            border: 2px solid #d1d5db;
+            color: #6b7280;
+            background: #f9fafb;
+        }
+
+        .step.completed .step-number {
+            background: #10b981;
+            border-color: #10b981;
+            color: white;
+        }
+
+        .step.current .step-number {
+            background: #3b82f6;
+            border-color: #3b82f6;
+            color: white;
+        }
+
+        .step-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #6b7280;
+        }
+
+        .step.completed .step-label {
+            color: #10b981;
+        }
+
+        .step.current .step-label {
+            color: #3b82f6;
+        }
+
+        .step-connector {
+            width: 24px;
+            height: 2px;
+            background: #e5e7eb;
+        }
+
+        .step-connector.completed {
+            background: #10b981;
+        }
+
+        .content-wrapper {
+            display: flex;
+            flex: 1;
+            min-height: 0;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: white;
+            border-right: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            gap: 15px;
+        }
+
+        .sidebar-button {
+            background: #f8f9fa;
+            border: 1px solid #d0d7de;
+            border-radius: 8px;
+            padding: 12px 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .sidebar-button:hover {
+            background: #e9ecef;
+        }
+
+        .sidebar-button.active {
+            background: #dbeafe;
+            border-color: #3b82f6;
+        }
+
+        .patient-list {
+            flex: 1;
+            margin-top: 20px;
+        }
+
+        .patient-item {
+            background: #e6e3ff;
+            border: 1px solid #c7d2fe;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .patient-item:hover {
+            background: #ddd6fe;
+        }
+
+        .patient-item.selected {
+            background: #8b5cf6;
+            color: white;
+        }
+
+        .patient-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .patient-progress {
+            font-size: 12px;
+            margin-top: 4px;
+            opacity: 0.8;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            flex: 1;
+            display: flex;
+            position: relative;
+            min-height: 0;
+        }
+
+        /* Patient Canvas */
+        .patient-canvas {
+            background: white;
+            border-radius: 12px;
+            margin: 20px;
+            padding: 20px;
+            flex: 1;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid #e0e0e0;
+        }
+
+        .canvas-scrollable {
+            flex: 1 1 auto;
+            min-height: 0;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .canvas-header {
+            text-align: center;
+            color: #6b7280;
+            font-size: 18px;
+            margin-bottom: 30px;
+            padding: 20px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        /* Patient Summary Section */
+        .patient-summary {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .summary-header {
+            background: #1e293b;
+            color: white;
+            margin: -20px -20px 15px -20px;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .summary-content {
+            display: flex;
+            gap: 20px;
+        }
+
+        .summary-left {
+            flex: 1;
+        }
+
+        .summary-right {
+            flex: 1;
+        }
+
+        .info-row {
+            display: flex;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .info-label {
+            font-weight: 600;
+            min-width: 120px;
+            color: #374151;
+        }
+
+        .info-value {
+            color: #6b7280;
+        }
+
+        /* Task Creation */
+        .create-task {
+            background: white;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .task-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #8b5cf6;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .task-content {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .task-patient-info {
+            font-size: 14px;
+            color: #374151;
+        }
+
+        /* Map Section */
+        .map-container {
+            height: 300px;
+            background: #e5e7eb;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            /* Ensure map fills container */
+            min-height: 300px;
+        }
+
+        /* Leaflet map height fix */
+        #leaflet-map {
+            width: 100%;
+            height: 100%;
+            min-height: 300px;
+            border-radius: 8px;
+        }
+
+        /* Vendor Table */
+        .vendor-table {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .vendor-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .vendor-table th {
+            background: #f8fafc;
+            padding: 12px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 600;
+            color: #374151;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .vendor-table td {
+            padding: 10px 12px;
+            font-size: 12px;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .vendor-table tr:hover {
+            background: #f8fafc;
+        }
+
+        .map-link {
+            color: #3b82f6;
+            text-decoration: none;
+        }
+
+        .map-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Chat Interface */
+        .chat-interface {
+            width: 350px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            margin: 20px 20px 20px 0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 80px);
+            min-height: 0;
+        }
+
+        .chat-messages {
+            padding: 20px;
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto;
+        }
+
+        .chat-message {
+            margin-bottom: 15px;
+        }
+
+        .chat-bubble {
+            max-width: 70%;
+            padding: 10px 15px;
+            border-radius: 12px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .chat-bubble.user {
+            background: #3b82f6;
+            color: white;
+            margin-left: auto;
+        }
+
+        .chat-bubble.assistant {
+            background: #e0f2fe;
+            color: #0c4a6e;
+        }
+
+        .chat-input-container {
+            padding: 15px;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            position: sticky;
+            bottom: 0;
+            z-index: 2;
+        }
+
+        .chat-input {
+            flex: 1;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .chat-input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .chat-send {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 16px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .chat-send:hover {
+            background: #2563eb;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .action-button {
+            background: #f3f4f6;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 12px 16px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .action-button:hover {
+            background: #e5e7eb;
+        }
+
+        .action-button.primary {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+
+        .action-button.primary:hover {
+            background: #2563eb;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .steps-container {
+                flex-wrap: wrap;
+                gap: 20px;
+                justify-content: center;
+            }
+            
+            .step-connector {
+                display: none;
+            }
+            
+            .content-wrapper {
+                flex-direction: column;
+            }
+            
+            .main-container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+            }
+            
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .chat-interface {
+                width: auto;
+                margin: 0 20px 20px 20px;
+                height: 300px;
+            }
+            
+            .summary-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+    <div class="main-container">
+        <!-- Steps Header -->
+        <div class="steps-header">
+            <div class="patient-context">
+                <div class="patient-avatar">DP</div>
+                <div class="patient-info">
+                    <div class="patient-name-header">Donna Prat</div>
+                    <div class="patient-progress-header">Discharge Planning Progress</div>
+                </div>
+            </div>
+            
+            <div class="steps-container">
+                <div class="step completed">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Assessment</div>
+                </div>
+                <div class="step-connector completed"></div>
+                
+                <div class="step completed">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Care Planning</div>
+                </div>
+                <div class="step-connector completed"></div>
+                
+                <div class="step current">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Placement Coordination</div>
+                </div>
+                <div class="step-connector"></div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-label">Authorization</div>
+                </div>
+                <div class="step-connector"></div>
+                
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-label">Discharge</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Content Wrapper -->
+        <div class="content-wrapper">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-button active">General view</div>
+            <div class="sidebar-button">In process patients</div>
+            <div class="sidebar-button">In queue patients</div>
+            
+            <div class="patient-list">
+                <div class="patient-item selected">
+                    <div class="patient-name">Donna Prat</div>
+                    <div class="patient-progress">Progress 45%, days to discharge: 6</div>
+                </div>
+                <div class="patient-item">
+                    <div class="patient-name">Avraham Gurin</div>
+                    <div class="patient-progress">Progress 95%, days to discharge: 1</div>
+                </div>
+                <div class="patient-item">
+                    <div class="patient-name">John Smith</div>
+                    <div class="patient-progress">Progress 30%, days to discharge: 8</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="patient-canvas">
+                <div class="canvas-header">Previous patient canvas / Summary</div>
+                <div class="canvas-scrollable">
+                    <!-- Patient Summary -->
+                    <div class="patient-summary">
+                        <div class="summary-header">PATIENT SUMMARY</div>
+                        <div class="summary-content">
+                            <div class="summary-left">
+                                <div class="info-row">
+                                    <span class="info-label">MRN:</span>
+                                    <span class="info-value">123456 - Jane Andrews - Age 78</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Admit:</span>
+                                    <span class="info-value">18 Jul 25 - Pred. Discharge 25 Jul 25</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Payer:</span>
+                                    <span class="info-value">Medicare PPO | Remaining deductible $1,200</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Coverage Rules:</span>
+                                    <span class="info-value">20 PT visits (2 left), DME rental = $500 (OK), 20 % co-pay on DME</span>
+                                </div>
+                            </div>
+                            <div class="summary-right">
+                                <div class="info-row">
+                                    <span class="info-label">Risk Factors:</span>
+                                    <span class="info-value">Chronic CHF, High-cost meds last 90 d, Lives alone (social risk)</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Action Shortcuts:</span>
+                                    <span class="info-value">Edit Checklist | Assign Vendor | Start Family Ed.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Patient Summary -->
+                </div>
+
+                <!-- Task Creation -->
+                <div class="create-task">
+                    <div class="task-header">
+                        ⭐ Create Task
+                    </div>
+                    <div class="task-content">
+                        <div class="task-patient-info">
+                            <strong>A. PATIENT SUMMARY</strong><br>
+                            John Smith • 72 y • Admitted 16 Jul 2025 • Tel +1-555-123-4567<br>
+                            Lives in Miami, FL • Contact: Mary Smith (Spouse)
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Map Container -->
+                <div class="map-container">
+                    <div id="leaflet-map"></div>
+                </div>
+
+                <!-- Vendor Table -->
+                <div class="vendor-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Vendor Name</th>
+                                <th>Address</th>
+                                <th>Type</th>
+                                <th>Services Offered</th>
+                                <th>Map Link</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Blumenthal Nursing & Rehabilitation Center</td>
+                                <td>3724 Wesless Dr, Greensboro, NC</td>
+                                <td>Skilled Nursing Facility</td>
+                                <td>Short & long-term skilled nursing, rehab</td>
+                                <td><a href="#" class="map-link">🗺️ Map</a></td>
+                            </tr>
+                            <tr>
+                                <td>Heartland Living & Rehabilitation</td>
+                                <td>Care Health Campus, Greensboro, NC</td>
+                                <td>Skilled Nursing & Rehab</td>
+                                <td>Post-acute rehab, SNF waiver program</td>
+                                <td><a href="#" class="map-link">🗺️ Map</a></td>
+                            </tr>
+                            <tr>
+                                <td>Guilford Medical Supply</td>
+                                <td>2772 Lawndale Dr, Greensboro, NC</td>
+                                <td>Medical Supply Store</td>
+                                <td>Durable medical equipment, incontinence supplies</td>
+                                <td><a href="#" class="map-link">🗺️ Map</a></td>
+                            </tr>
+                            <tr>
+                                <td>AdventCare Home Medical Equipment</td>
+                                <td>8 Oak Branch Dr, Suite A, Greensboro, NC</td>
+                                <td>Home Medical Equipment Supplier</td>
+                                <td>CPAP/BIPAP, oxygen therapy, home ventilators</td>
+                                <td><a href="#" class="map-link">🗺️ Map</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button class="action-button primary">Summarize the patient chart</button>
+                    <button class="action-button">Review deductibles status</button>
+                    <button class="action-button">Review checklist</button>
+                </div>
+            </div>
+
+            <!-- Chat Interface -->
+            <div class="chat-interface">
+                <div class="chat-messages">
+                    <div class="chat-message">
+                        <div class="chat-bubble user">Summarize the patient chart</div>
+                    </div>
+                    <div class="chat-message">
+                        <div class="chat-bubble assistant">Sure, please see the full summary on the canvas. Is this informative enough?</div>
+                    </div>
+                    <div class="chat-message">
+                        <div class="chat-bubble user">No, I need to know all the SNFs Donna has been through in the last 2 years</div>
+                    </div>
+                    <div class="chat-message">
+                        <div class="chat-bubble assistant">No problem, extracting it from the MCP database, presented up there in the canvas</div>
+                    </div>
+                </div>
+                <div class="chat-input-container">
+                    <input type="text" class="chat-input" placeholder="Ask anything..." value="Summarize the patient chart">
+                    <button class="chat-send">Send</button>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple interactivity
+        document.querySelectorAll('.sidebar-button').forEach(button => {
+            button.addEventListener('click', function() {
+                document.querySelectorAll('.sidebar-button').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        document.querySelectorAll('.patient-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.patient-item').forEach(i => i.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+
+        // Chat functionality
+        const chatInput = document.querySelector('.chat-input');
+        const chatSend = document.querySelector('.chat-send');
+        const chatMessages = document.querySelector('.chat-messages');
+
+        function addMessage(message, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'chat-message';
+            messageDiv.innerHTML = `<div class="chat-bubble ${isUser ? 'user' : 'assistant'}">${message}</div>`;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        async function sendPromptToLLM(prompt) {
+            addMessage('...', false); // Loading message
+            try {
+                const res = await fetch('/api/llm', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt })
+                });
+                const data = await res.json();
+                // Remove loading message
+                const loadingMsg = chatMessages.querySelector('.chat-bubble.assistant:last-child');
+                if (loadingMsg && loadingMsg.textContent === '...') loadingMsg.parentElement.remove();
+                if (data.text) {
+                    addMessage(data.text, false);
+                } else {
+                    addMessage('No response from LLM.', false);
+                }
+            } catch (e) {
+                // Remove loading message
+                const loadingMsg = chatMessages.querySelector('.chat-bubble.assistant:last-child');
+                if (loadingMsg && loadingMsg.textContent === '...') loadingMsg.parentElement.remove();
+                addMessage('Error contacting LLM backend.', false);
+            }
+        }
+
+        chatSend.addEventListener('click', function() {
+            const message = chatInput.value.trim();
+            if (message) {
+                addMessage(message, true);
+                chatInput.value = '';
+                sendPromptToLLM(message);
+            }
+        });
+
+        chatInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                chatSend.click();
+            }
+        });
+
+        // Action button functionality
+        document.querySelectorAll('.action-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const action = this.textContent;
+                addMessage(action, true);
+                
+                setTimeout(() => {
+                    addMessage(`Processing "${action}" - I'll update the canvas with the relevant information.`);
+                }, 800);
+            });
+        });
+
+        // Leaflet map initialization
+        document.addEventListener('DOMContentLoaded', function() {
+            if (document.getElementById('leaflet-map')) {
+                var map = L.map('leaflet-map').setView([36.0726, -79.7920], 12); // Greensboro, NC
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                }).addTo(map);
+            }
+        });
+    </script>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</body>
+</html>
