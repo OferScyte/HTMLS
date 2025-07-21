@@ -11,21 +11,27 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            height: 100%;
+        }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
             background: #f5f5f5;
             min-height: 100vh;
-            height: auto;
+            height: 100vh;
             overflow-x: hidden;
-            overflow-y: auto;
+            overflow-y: hidden;
         }
 
         .main-container {
             display: flex;
-            min-height: 100vh;
-            height: auto;
             flex-direction: column;
-            overflow: visible;
+            height: 100vh;
+            min-height: 0;
+        }
+
+        .steps-header {
+            flex-shrink: 0;
         }
 
         /* Steps Header */
@@ -138,8 +144,9 @@
 
         .content-wrapper {
             display: flex;
-            flex: 1;
+            flex: 1 1 0;
             min-height: 0;
+            height: 0;
         }
 
         /* Sidebar */
@@ -214,18 +221,19 @@
 
         /* Main Content Area */
         .main-content {
-            flex: 1;
+            flex: 1 1 0;
             display: flex;
             position: relative;
             min-height: 0;
+            height: 100%;
         }
 
         /* Patient Canvas */
         .patient-canvas {
-            background: white;
+            background: transparent;
             border-radius: 12px;
             margin: 20px;
-            padding: 20px;
+            padding: 0;
             flex: 1 1 0;
             min-width: 0;
             min-height: 0;
@@ -233,25 +241,32 @@
             flex-direction: column;
             overflow: hidden;
             position: relative;
-            border: 1px solid #e0e0e0;
+            border: none;
             height: 100%;
-            max-height: 100%;
-        }
-
-        .canvas-scrollable {
-            flex: 1 1 auto;
-            min-height: 0;
-            max-height: 100%;
-            overflow-y: auto;
         }
 
         .canvas-header {
             text-align: center;
             color: #6b7280;
             font-size: 18px;
-            margin-bottom: 30px;
-            padding: 20px;
+            margin-bottom: 0;
+            padding: 20px 20px 0 20px;
             border-bottom: 1px solid #e5e7eb;
+            background: white;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .canvas-card-scrollable {
+            flex: 1 1 0;
+            min-height: 0;
+            overflow-y: auto;
+            background: white;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
         /* Patient Summary Section */
@@ -632,7 +647,7 @@
         <div class="main-content">
             <div class="patient-canvas">
                 <div class="canvas-header">Previous patient canvas / Summary</div>
-                <div class="canvas-scrollable">
+                <div class="canvas-card-scrollable">
                     <!-- Patient Summary -->
                     <div class="patient-summary">
                         <div class="summary-header">PATIENT SUMMARY</div>
@@ -668,77 +683,77 @@
                         </div>
                     </div>
                     <!-- End Patient Summary -->
-                </div>
 
-                <!-- Task Creation -->
-                <div class="create-task">
-                    <div class="task-header">
-                        ⭐ Create Task
-                    </div>
-                    <div class="task-content">
-                        <div class="task-patient-info">
-                            <strong>A. PATIENT SUMMARY</strong><br>
-                            John Smith • 72 y • Admitted 16 Jul 2025 • Tel +1-555-123-4567<br>
-                            Lives in Miami, FL • Contact: Mary Smith (Spouse)
+                    <!-- Task Creation -->
+                    <div class="create-task">
+                        <div class="task-header">
+                            ⭐ Create Task
+                        </div>
+                        <div class="task-content">
+                            <div class="task-patient-info">
+                                <strong>A. PATIENT SUMMARY</strong><br>
+                                John Smith • 72 y • Admitted 16 Jul 2025 • Tel +1-555-123-4567<br>
+                                Lives in Miami, FL • Contact: Mary Smith (Spouse)
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Map Container -->
-                <div class="map-container">
-                    <div id="leaflet-map"></div>
-                </div>
+                    <!-- Map Container -->
+                    <div class="map-container">
+                        <div id="leaflet-map"></div>
+                    </div>
 
-                <!-- Vendor Table -->
-                <div class="vendor-table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Vendor Name</th>
-                                <th>Address</th>
-                                <th>Type</th>
-                                <th>Services Offered</th>
-                                <th>Map Link</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Blumenthal Nursing & Rehabilitation Center</td>
-                                <td>3724 Wesless Dr, Greensboro, NC</td>
-                                <td>Skilled Nursing Facility</td>
-                                <td>Short & long-term skilled nursing, rehab</td>
-                                <td><a href="#" class="map-link">🗺️ Map</a></td>
-                            </tr>
-                            <tr>
-                                <td>Heartland Living & Rehabilitation</td>
-                                <td>Care Health Campus, Greensboro, NC</td>
-                                <td>Skilled Nursing & Rehab</td>
-                                <td>Post-acute rehab, SNF waiver program</td>
-                                <td><a href="#" class="map-link">🗺️ Map</a></td>
-                            </tr>
-                            <tr>
-                                <td>Guilford Medical Supply</td>
-                                <td>2772 Lawndale Dr, Greensboro, NC</td>
-                                <td>Medical Supply Store</td>
-                                <td>Durable medical equipment, incontinence supplies</td>
-                                <td><a href="#" class="map-link">🗺️ Map</a></td>
-                            </tr>
-                            <tr>
-                                <td>AdventCare Home Medical Equipment</td>
-                                <td>8 Oak Branch Dr, Suite A, Greensboro, NC</td>
-                                <td>Home Medical Equipment Supplier</td>
-                                <td>CPAP/BIPAP, oxygen therapy, home ventilators</td>
-                                <td><a href="#" class="map-link">🗺️ Map</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                    <!-- Vendor Table -->
+                    <div class="vendor-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Vendor Name</th>
+                                    <th>Address</th>
+                                    <th>Type</th>
+                                    <th>Services Offered</th>
+                                    <th>Map Link</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Blumenthal Nursing & Rehabilitation Center</td>
+                                    <td>3724 Wesless Dr, Greensboro, NC</td>
+                                    <td>Skilled Nursing Facility</td>
+                                    <td>Short & long-term skilled nursing, rehab</td>
+                                    <td><a href="#" class="map-link">🗺️ Map</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Heartland Living & Rehabilitation</td>
+                                    <td>Care Health Campus, Greensboro, NC</td>
+                                    <td>Skilled Nursing & Rehab</td>
+                                    <td>Post-acute rehab, SNF waiver program</td>
+                                    <td><a href="#" class="map-link">🗺️ Map</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Guilford Medical Supply</td>
+                                    <td>2772 Lawndale Dr, Greensboro, NC</td>
+                                    <td>Medical Supply Store</td>
+                                    <td>Durable medical equipment, incontinence supplies</td>
+                                    <td><a href="#" class="map-link">🗺️ Map</a></td>
+                                </tr>
+                                <tr>
+                                    <td>AdventCare Home Medical Equipment</td>
+                                    <td>8 Oak Branch Dr, Suite A, Greensboro, NC</td>
+                                    <td>Home Medical Equipment Supplier</td>
+                                    <td>CPAP/BIPAP, oxygen therapy, home ventilators</td>
+                                    <td><a href="#" class="map-link">🗺️ Map</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-                <!-- Action Buttons -->
-                <div class="action-buttons">
-                    <button class="action-button primary">Summarize the patient chart</button>
-                    <button class="action-button">Review deductibles status</button>
-                    <button class="action-button">Review checklist</button>
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <button class="action-button primary">Summarize the patient chart</button>
+                        <button class="action-button">Review deductibles status</button>
+                        <button class="action-button">Review checklist</button>
+                    </div>
                 </div>
             </div>
 
