@@ -44,6 +44,91 @@
             align-items: center;
         }
 
+        .company-branding {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sidebar-toggle {
+            background: #f3f4f6;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .sidebar-toggle:hover {
+            background: #e5e7eb;
+            border-color: #9ca3af;
+        }
+
+        .hamburger-icon {
+            width: 20px;
+            height: 20px;
+            color: #374151;
+        }
+
+        .company-logo {
+            height: 72px;
+            width: auto;
+        }
+
+        .user-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            text-align: right;
+        }
+
+        .user-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 2px;
+        }
+
+        .user-title {
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .logout-button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #f3f4f6;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 10px 16px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            transition: all 0.2s;
+        }
+
+        .logout-button:hover {
+            background: #e5e7eb;
+            border-color: #9ca3af;
+        }
+
+        .logout-icon {
+            width: 18px;
+            height: 18px;
+        }
+
+
         .patient-context {
             display: flex;
             align-items: center;
@@ -158,21 +243,62 @@
             flex-direction: column;
             padding: 20px;
             gap: 15px;
-            flex-shrink: 0;
-            height: 100%;
+            position: fixed;
+            top: 0;
+            left: -280px;
+            height: 100vh;
             min-height: 0;
+            z-index: 1000;
+            transition: left 0.3s ease;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+        }
+
+        .sidebar.open {
+            left: 0;
+        }
+
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .sidebar-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .sidebar-buttons-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+            align-items: center;
         }
 
         .sidebar-button {
             background: #f8f9fa;
             border: 1px solid #d0d7de;
             border-radius: 8px;
-            padding: 12px 16px;
+            padding: 10px 12px;
             text-align: center;
             cursor: pointer;
             transition: all 0.2s;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
+            flex: 1;
+            height: 52px;
+            width: calc(33.333% - 5.33px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
         }
 
         .sidebar-button:hover {
@@ -190,22 +316,47 @@
         }
 
         .patient-item {
-            background: #e6e3ff;
-            border: 1px solid #c7d2fe;
             border-radius: 8px;
             padding: 12px;
             margin-bottom: 10px;
             cursor: pointer;
             transition: all 0.2s;
+            border: 1px solid;
         }
 
-        .patient-item:hover {
+        /* In Process Patients - Purple */
+        .patient-item.in-process {
+            background: #e6e3ff;
+            border-color: #c7d2fe;
+        }
+
+        .patient-item.in-process:hover {
             background: #ddd6fe;
         }
 
-        .patient-item.selected {
+        .patient-item.in-process.selected {
             background: #8b5cf6;
             color: white;
+        }
+
+        /* In Queue Patients - Pink */
+        .patient-item.in-queue {
+            background: #fce7f3;
+            border-color: #f9a8d4;
+        }
+
+        .patient-item.in-queue:hover {
+            background: #fbcfe8;
+        }
+
+        .patient-item.in-queue.selected {
+            background: #ec4899;
+            color: white;
+        }
+
+        /* Hidden state for filtering */
+        .patient-item.hidden {
+            display: none;
         }
 
         .patient-name {
@@ -259,7 +410,9 @@
         .canvas-card-scrollable {
             flex: 1 1 0;
             min-height: 0;
+            max-height: calc(100vh - 140px);
             overflow-y: auto;
+            overflow-x: hidden;
             background: white;
             border-radius: 0 0 12px 12px;
             box-shadow: 0 4px 24px rgba(0,0,0,0.08);
@@ -276,6 +429,7 @@
             border-radius: 8px;
             padding: 20px;
             margin-bottom: 20px;
+            display: none;
         }
 
         .summary-header {
@@ -317,6 +471,767 @@
             color: #6b7280;
         }
 
+        .action-buttons-row {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .summary-action-buttons {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .summary-action-buttons .action-button {
+            flex: 1;
+            text-align: center;
+        }
+
+        /* Patient Chart Section */
+        .patient-chart {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .patient-chart.show {
+            display: block;
+        }
+
+        .chart-header {
+            background: #1e293b;
+            color: white;
+            margin: -20px -20px 15px -20px;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .chart-content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .chart-section {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e5e7eb;
+            position: relative;
+        }
+
+        .chart-section:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .chart-field {
+            display: flex;
+            align-items: flex-start;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .chart-field-with-tag {
+            position: relative;
+        }
+
+        .chart-tag {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+        .chart-tag.orange {
+            background-color: #fed7aa;
+            color: #c2410c;
+            border: 1px solid #fb923c;
+        }
+
+        .chart-tag.green {
+            background-color: #bbf7d0;
+            color: #065f46;
+            border: 1px solid #34d399;
+        }
+
+        .chart-label {
+            font-weight: 600;
+            min-width: 180px;
+            color: #374151;
+            flex-shrink: 0;
+        }
+
+        .chart-value {
+            color: #6b7280;
+            flex: 1;
+        }
+
+        /* Deductibles Section */
+        .deductibles-section {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .deductibles-section.show {
+            display: block;
+        }
+
+        .deductibles-header {
+            background: #1e293b;
+            color: white;
+            margin: -20px -20px 15px -20px;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .deductibles-table {
+            overflow-x: auto;
+        }
+
+        .deductibles-table table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        .deductibles-table th {
+            background: #f1f5f9;
+            padding: 10px 8px;
+            text-align: left;
+            font-weight: 600;
+            color: #374151;
+            border-bottom: 2px solid #e2e8f0;
+            white-space: nowrap;
+        }
+
+        .deductibles-table td {
+            padding: 8px;
+            border-bottom: 1px solid #f3f4f6;
+            vertical-align: middle;
+        }
+
+        .deductibles-table tr:hover {
+            background: #f8fafc;
+        }
+
+        .status-met {
+            background: #dcfce7;
+            color: #166534;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .status-partial {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .status-remaining {
+            background: #fce7f3;
+            color: #be185d;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        /* Checklist Flow Section */
+        .checklist-flow-section {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .checklist-flow-section.show {
+            display: block;
+        }
+
+        .checklist-header {
+            background: #1e293b;
+            color: white;
+            margin: -20px -20px 20px -20px;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .checklist-container {
+            overflow-x: auto;
+            overflow-y: visible;
+            padding: 4px 0;
+            width: 100%;
+            white-space: nowrap;
+            scrollbar-width: auto;
+            scrollbar-color: #9ca3af #e5e7eb;
+        }
+
+        .checklist-container::-webkit-scrollbar {
+            height: 10px;
+        }
+
+        .checklist-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 5px;
+        }
+
+        .checklist-container::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 5px;
+        }
+
+        .checklist-container::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .flow-timeline {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: max-content;
+            padding: 8px 0;
+            min-height: 100px;
+        }
+
+        .flow-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+            padding-top: 2px;
+        }
+
+        .parallel-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .flow-card {
+            background: white;
+            border-radius: 6px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+            padding: 12px 12px 10px 12px;
+            min-width: 144px;
+            max-width: 158px;
+            width: 151px;
+            min-height: 80px;
+            position: relative;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            overflow: visible;
+            word-wrap: break-word;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            margin-top: 6px;
+        }
+
+        .flow-card:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .flow-card.completed {
+            border-color: #10b981;
+        }
+
+        .flow-card.in-progress {
+            border-color: #3b82f6;
+        }
+
+        .flow-card.pending {
+            border-color: #f59e0b;
+        }
+
+        .card-status {
+            position: absolute;
+            top: -6px;
+            left: 16px;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 9px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            z-index: 10;
+            white-space: nowrap;
+            max-width: calc(100% - 32px);
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .card-status.completed {
+            background: #10b981;
+            color: white;
+        }
+
+        .card-status.in-progress {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .card-status.pending {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            overflow: hidden;
+            width: 100%;
+            flex-shrink: 0;
+            max-width: 100%;
+        }
+
+        .card-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+            line-height: 1;
+        }
+
+        .card-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #1f2937;
+            line-height: 1.2;
+            overflow: hidden;
+            flex: 1;
+            min-width: 0;
+            text-align: center;
+            white-space: pre-line;
+            max-height: 2.4em;
+        }
+
+        .card-description {
+            color: #6b7280;
+            font-size: 11px;
+            line-height: 1.3;
+            margin-bottom: 10px;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 10px;
+            color: #9ca3af;
+            border-top: 1px solid #f3f4f6;
+            padding-top: 6px;
+            overflow: hidden;
+            width: 100%;
+            flex-shrink: 0;
+            margin-top: auto;
+        }
+
+        .card-assignee {
+            font-weight: 500;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 60%;
+            flex-shrink: 1;
+        }
+
+        .card-due-date {
+            font-style: italic;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 38%;
+            flex-shrink: 0;
+            text-align: right;
+        }
+
+        .flow-connector {
+            display: flex;
+            align-items: center;
+            margin: 0 6px;
+            flex-shrink: 0;
+        }
+
+        .connector-line {
+            width: 20px;
+            height: 2px;
+            background: #d1d5db;
+            border-top: 2px dashed #9ca3af;
+            position: relative;
+        }
+
+        .connector-line::after {
+            content: '→';
+            position: absolute;
+            right: -8px;
+            top: -8px;
+            color: #9ca3af;
+            font-size: 12px;
+        }
+
+        .split-connector {
+            display: flex;
+            align-items: center;
+            margin: 0 6px;
+            position: relative;
+            width: 28px;
+            height: 50px;
+            flex-shrink: 0;
+        }
+
+        .split-connector::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 24px;
+            height: 2px;
+            background: #d1d5db;
+            border-top: 2px dashed #9ca3af;
+        }
+
+        .split-connector::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 15px;
+            width: 2px;
+            height: 30px;
+            background: #d1d5db;
+            border-right: 2px dashed #9ca3af;
+        }
+
+        .merge-connector {
+            display: flex;
+            align-items: center;
+            margin: 0 6px;
+            position: relative;
+            width: 28px;
+            height: 50px;
+            flex-shrink: 0;
+        }
+
+        .merge-connector::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 15px;
+            width: 2px;
+            height: 30px;
+            background: #d1d5db;
+            border-left: 2px dashed #9ca3af;
+        }
+
+        .merge-connector::after {
+            content: '→';
+            position: absolute;
+            right: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            font-size: 12px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .flow-timeline {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            
+            .flow-connector {
+                height: 20px;
+                margin: 0;
+                transform: rotate(90deg);
+            }
+            
+            .connector-line::after {
+                content: '↓';
+                right: -6px;
+                top: -8px;
+            }
+            
+            .flow-card {
+                min-width: 144px;
+                max-width: 158px;
+                width: 151px;
+            }
+        }
+
+        /* Patients Overview Section */
+        .patients-overview-section {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .patients-overview-section.show {
+            display: block;
+        }
+
+        /* KPI Summary Bar */
+        .kpi-summary-bar {
+            display: flex;
+            align-items: center;
+            background: white;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+        }
+
+        .kpi-metric {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+
+        .kpi-label {
+            font-size: 12px;
+            color: #6b7280;
+            margin-bottom: 4px;
+            text-align: center;
+        }
+
+        .kpi-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2563eb;
+        }
+
+        .kpi-divider {
+            width: 1px;
+            height: 40px;
+            background: #d1d5db;
+            margin: 0 10px;
+        }
+
+        /* Action Buttons */
+        .action-button {
+            background: #f3f4f6;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            padding: 4px 6px;
+            margin: 0 2px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .action-button:hover {
+            background: #e5e7eb;
+            border-color: #9ca3af;
+        }
+
+        .action-button:active {
+            background: #d1d5db;
+        }
+
+        .action-button[title]:hover::after {
+            content: attr(title);
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1f2937;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            white-space: nowrap;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        .action-button[title]:hover::before {
+            content: '';
+            position: absolute;
+            bottom: 115%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 4px solid transparent;
+            border-top-color: #1f2937;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        /* Patient Table */
+        .patients-table-container {
+            background: white;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .patients-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .patients-table th {
+            background: #f8f9fa;
+            padding: 12px 8px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 11px;
+            text-transform: uppercase;
+            border: 1px solid #000;
+            color: #374151;
+        }
+
+        .patients-table td {
+            padding: 10px 8px;
+            border: 1px solid #000;
+            vertical-align: middle;
+        }
+
+        .patients-table tbody tr:nth-child(even) {
+            background: #f9fafb;
+        }
+
+        .patients-table tbody tr:hover {
+            background: #f3f4f6;
+        }
+
+        /* Table Cell Styles */
+        .mrn-link {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .mrn-link:hover {
+            text-decoration: underline;
+        }
+
+        .name-cell {
+            font-weight: 500;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .progress-cell {
+            min-width: 120px;
+        }
+
+        .progress-bar-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #000;
+            border-radius: 4px;
+        }
+
+        .progress-text {
+            font-size: 12px;
+            font-weight: 500;
+            min-width: 35px;
+        }
+
+        .vendor-cell {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .status-icon {
+            font-size: 14px;
+        }
+
+        .risk-cell {
+            padding: 8px;
+            border-radius: 4px;
+        }
+
+        .risk-score {
+            color: #2563eb;
+            font-weight: bold;
+        }
+
+        .risk-label {
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+        .low-risk {
+            background-color: #dcfce7;
+            color: #166534;
+        }
+
+        .medium-risk {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+
+        .high-risk {
+            background-color: #fee2e2;
+            color: #dc2626;
+        }
+
+        .actions-cell {
+            text-align: center;
+        }
+
+        .action-checkbox {
+            margin: 0 3px;
+            width: 14px;
+            height: 14px;
+        }
+
         /* Task Creation */
         .create-task {
             background: white;
@@ -348,14 +1263,21 @@
 
         /* Map Section */
         .map-container {
-            height: 300px;
+            height: 350px;
             background: #e5e7eb;
             border-radius: 8px;
             margin-bottom: 20px;
             position: relative;
             overflow: hidden;
             /* Ensure map fills container */
-            min-height: 300px;
+            min-height: 350px;
+            max-height: 350px;
+            display: none;
+            flex-shrink: 0;
+        }
+
+        .map-container.show {
+            display: block;
         }
 
         /* Leaflet map height fix */
@@ -373,6 +1295,11 @@
             border-radius: 8px;
             overflow: hidden;
             margin-bottom: 20px;
+            display: none;
+        }
+
+        .vendor-table.show {
+            display: block;
         }
 
         .vendor-table table {
@@ -579,66 +1506,68 @@
     <div class="main-container">
         <!-- Steps Header -->
         <div class="steps-header">
-            <div class="patient-context">
-                <div class="patient-avatar">DP</div>
-                <div class="patient-info">
-                    <div class="patient-name-header">Donna Prat</div>
-                    <div class="patient-progress-header">Discharge Planning Progress</div>
-                </div>
+            <div class="company-branding">
+                <button class="sidebar-toggle" id="sidebarToggle">
+                    <svg class="hamburger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="6" x2="21" y2="6"/>
+                        <line x1="3" y1="12" x2="21" y2="12"/>
+                        <line x1="3" y1="18" x2="21" y2="18"/>
+                    </svg>
+                </button>
+                <img src="Transparent Logo.png" alt="Company Logo" class="company-logo">
             </div>
             
-            <div class="steps-container">
-                <div class="step completed">
-                    <div class="step-number">1</div>
-                    <div class="step-label">Assessment</div>
+            <div class="user-section">
+                <div class="user-info">
+                    <div class="user-name">Jonny Cash</div>
+                    <div class="user-title">Care Manager</div>
                 </div>
-                <div class="step-connector completed"></div>
-                
-                <div class="step completed">
-                    <div class="step-number">2</div>
-                    <div class="step-label">Care Planning</div>
-                </div>
-                <div class="step-connector completed"></div>
-                
-                <div class="step current">
-                    <div class="step-number">3</div>
-                    <div class="step-label">Placement Coordination</div>
-                </div>
-                <div class="step-connector"></div>
-                
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <div class="step-label">Authorization</div>
-                </div>
-                <div class="step-connector"></div>
-                
-                <div class="step">
-                    <div class="step-number">5</div>
-                    <div class="step-label">Discharge</div>
-                </div>
+                <button class="logout-button">
+                    <svg class="logout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                        <polyline points="16,17 21,12 16,7"/>
+                        <line x1="21" y1="12" x2="9" y2="12"/>
+                    </svg>
+                    Logout
+                </button>
             </div>
         </div>
+        
+        <!-- Sidebar Overlay -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
         
         <!-- Content Wrapper -->
         <div class="content-wrapper">
         <!-- Sidebar -->
-        <div class="sidebar">
-            <div class="sidebar-button active">General view</div>
-            <div class="sidebar-button">In process patients</div>
-            <div class="sidebar-button">In queue patients</div>
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-buttons-row">
+                <div class="sidebar-button active">All</div>
+                <div class="sidebar-button">In Process</div>
+                <div class="sidebar-button">In Queue</div>
+            </div>
             
             <div class="patient-list">
-                <div class="patient-item selected">
+                <!-- In Process Patients -->
+                <div class="patient-item in-process selected" data-status="in-process">
                     <div class="patient-name">Donna Prat</div>
                     <div class="patient-progress">Progress 45%, days to discharge: 6</div>
                 </div>
-                <div class="patient-item">
-                    <div class="patient-name">Avraham Gurin</div>
-                    <div class="patient-progress">Progress 95%, days to discharge: 1</div>
-                </div>
-                <div class="patient-item">
+                <div class="patient-item in-process" data-status="in-process">
                     <div class="patient-name">John Smith</div>
                     <div class="patient-progress">Progress 30%, days to discharge: 8</div>
+                </div>
+                <div class="patient-item in-process" data-status="in-process">
+                    <div class="patient-name">Maria Rodriguez</div>
+                    <div class="patient-progress">Progress 75%, days to discharge: 3</div>
+                </div>
+                <!-- In Queue Patients -->
+                <div class="patient-item in-queue" data-status="in-queue">
+                    <div class="patient-name">Robert Johnson</div>
+                    <div class="patient-progress">Waiting for assessment</div>
+                </div>
+                <div class="patient-item in-queue" data-status="in-queue">
+                    <div class="patient-name">Sarah Williams</div>
+                    <div class="patient-progress">Pending insurance approval</div>
                 </div>
             </div>
         </div>
@@ -646,7 +1575,6 @@
         <!-- Main Content -->
         <div class="main-content">
             <div class="patient-canvas">
-                <div class="canvas-header">Previous patient canvas / Summary</div>
                 <div class="canvas-card-scrollable">
                     <!-- Patient Summary -->
                     <div class="patient-summary">
@@ -655,48 +1583,334 @@
                             <div class="summary-left">
                                 <div class="info-row">
                                     <span class="info-label">MRN:</span>
-                                    <span class="info-value">123456 - Jane Andrews - Age 78</span>
+                                    <span class="info-value" id="patient-mrn">123456 - Donna Prat - Age 68</span>
                                 </div>
                                 <div class="info-row">
                                     <span class="info-label">Admit:</span>
-                                    <span class="info-value">18 Jul 25 - Pred. Discharge 25 Jul 25</span>
+                                    <span class="info-value" id="patient-admit">18 Jul 25 - Pred. Discharge 25 Jul 25</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Tel:</span>
+                                    <span class="info-value" id="patient-tel">+1-555-234-5678</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Family:</span>
+                                    <span class="info-value" id="patient-family">Michael Prat (Spouse) - +1-555-234-5679</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Town:</span>
+                                    <span class="info-value" id="patient-town">Charlotte, NC</span>
                                 </div>
                                 <div class="info-row">
                                     <span class="info-label">Payer:</span>
-                                    <span class="info-value">Medicare PPO | Remaining deductible $1,200</span>
-                                </div>
-                                <div class="info-row">
-                                    <span class="info-label">Coverage Rules:</span>
-                                    <span class="info-value">20 PT visits (2 left), DME rental = $500 (OK), 20 % co-pay on DME</span>
+                                    <span class="info-value" id="patient-payer">Medicare PPO | Remaining deductible $1,200</span>
                                 </div>
                             </div>
                             <div class="summary-right">
                                 <div class="info-row">
-                                    <span class="info-label">Risk Factors:</span>
-                                    <span class="info-value">Chronic CHF, High-cost meds last 90 d, Lives alone (social risk)</span>
+                                    <span class="info-label">Coverage Rules:</span>
+                                    <span class="info-value" id="patient-coverage">20 PT visits (2 left), DME rental = $500 (OK), 20% co-pay on DME</span>
                                 </div>
                                 <div class="info-row">
-                                    <span class="info-label">Action Shortcuts:</span>
-                                    <span class="info-value">Edit Checklist | Assign Vendor | Start Family Ed.</span>
+                                    <span class="info-label">Risk Factors:</span>
+                                    <span class="info-value" id="patient-risks">Chronic CHF, High-cost meds last 90 d, Lives alone (social risk)</span>
+                                </div>
+                                <div class="info-row action-buttons-row">
+                                    <div class="summary-action-buttons">
+                                        <button class="action-button" onclick="handleActionButton('Summarize the patient chart', 'summary')">Summarize the patient chart</button>
+                                        <button class="action-button" onclick="handleActionButton('Review deductibles status', 'deductibles')">Review deductibles status</button>
+                                        <button class="action-button" onclick="handleActionButton('Review checklist flow', 'checklist')">Review checklist flow</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- End Patient Summary -->
 
-                    <!-- Task Creation -->
-                    <div class="create-task">
-                        <div class="task-header">
-                            ⭐ Create Task
-                        </div>
-                        <div class="task-content">
-                            <div class="task-patient-info">
-                                <strong>A. PATIENT SUMMARY</strong><br>
-                                John Smith • 72 y • Admitted 16 Jul 2025 • Tel +1-555-123-4567<br>
-                                Lives in Miami, FL • Contact: Mary Smith (Spouse)
+                    <!-- Patient Chart -->
+                    <div class="patient-chart" id="patient-chart">
+                        <div class="chart-header">PATIENT PICTURE</div>
+                        <div class="chart-content">
+                            <div class="chart-section">
+                                <div class="chart-field">
+                                    <span class="chart-label">Patient Name:</span>
+                                    <span class="chart-value" id="chart-name">Donna Prat</span>
+                                </div>
+                                <div class="chart-field">
+                                    <span class="chart-label">Age/Sex:</span>
+                                    <span class="chart-value" id="chart-age-sex">68/F</span>
+                                </div>
+                                <div class="chart-field">
+                                    <span class="chart-label">MRN:</span>
+                                    <span class="chart-value" id="chart-mrn">123456</span>
+                                </div>
+                                <div class="chart-field">
+                                    <span class="chart-label">Date of Admission:</span>
+                                    <span class="chart-value" id="chart-admission">2025-07-18</span>
+                                </div>
+                                <div class="chart-field">
+                                    <span class="chart-label">Chief Complaint:</span>
+                                    <span class="chart-value" id="chart-complaint">Shortness of breath and chest pain</span>
+                                </div>
+                            </div>
+                            
+                            <div class="chart-section">
+                                <div class="chart-field chart-field-with-tag">
+                                    <span class="chart-label">History of Present Illness:</span>
+                                    <span class="chart-value" id="chart-hpi">3-day history of worsening dyspnea on exertion, mild chest tightness, no fever or cough</span>
+                                    <div class="chart-tag orange">Thompson Reuters</div>
+                                </div>
+                                <div class="chart-field">
+                                    <span class="chart-label">Past Medical History:</span>
+                                    <span class="chart-value" id="chart-pmh">Chronic CHF, Hypertension, Type 2 Diabetes</span>
+                                </div>
+                                <div class="chart-field">
+                                    <span class="chart-label">Allergies:</span>
+                                    <span class="chart-value" id="chart-allergies">Penicillin (rash)</span>
+                                </div>
+                                <div class="chart-field">
+                                    <span class="chart-label">Medications:</span>
+                                    <span class="chart-value" id="chart-medications">Metformin 1000mg BID, Lisinopril 10mg QD, Aspirin 81mg QD</span>
+                                </div>
+                            </div>
+                            
+                            <div class="chart-section">
+                                <div class="chart-field chart-field-with-tag">
+                                    <span class="chart-label">Vital Signs on Admission:</span>
+                                    <span class="chart-value" id="chart-vitals">T 36.8°C, HR 88, BP 152/90, RR 20, SpO₂ 92% on room air</span>
+                                    <div class="chart-tag orange">Thompson Reuters</div>
+                                </div>
+                                <div class="chart-field">
+                                    <span class="chart-label">Labs:</span>
+                                    <span class="chart-value" id="chart-labs">Elevated BNP (680), Troponin negative, HbA1c 7.4%, Cr 1.2</span>
+                                </div>
+                                <div class="chart-field">
+                                    <span class="chart-label">Imaging:</span>
+                                    <span class="chart-value" id="chart-imaging">CXR – mild pulmonary congestion; EKG – NSR with LVH</span>
+                                </div>
+                            </div>
+                            
+                            <div class="chart-section">
+                                <div class="chart-field chart-field-with-tag">
+                                    <span class="chart-label">Assessment:</span>
+                                    <span class="chart-value" id="chart-assessment">Acute decompensated heart failure</span>
+                                    <div class="chart-tag green">ncdhhs.gov</div>
+                                </div>
+                                <div class="chart-field">
+                                    <span class="chart-label">Plan:</span>
+                                    <span class="chart-value" id="chart-plan">Start IV Lasix, monitor urine output, cardiology consult, low-sodium diet</span>
+                                </div>
+                                <div class="chart-field">
+                                    <span class="chart-label">Disposition:</span>
+                                    <span class="chart-value" id="chart-disposition">Admitted to telemetry unit</span>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <!-- End Patient Chart -->
+
+                    <!-- Deductibles Table -->
+                    <div class="deductibles-section" id="deductibles-section">
+                        <div class="deductibles-header">DEDUCTIBLES STATUS</div>
+                        <div class="deductibles-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Service Category</th>
+                                        <th>Insurance Plan</th>
+                                        <th>Annual Deductible</th>
+                                        <th>Amount Used</th>
+                                        <th>Remaining</th>
+                                        <th>Coverage %</th>
+                                        <th>Status</th>
+                                        <th>Last Updated</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="deductibles-tbody">
+                                    <!-- Dynamic content will be inserted here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- End Deductibles Table -->
+
+                    <!-- Checklist Flow -->
+                    <div class="checklist-flow-section" id="checklist-flow-section">
+                        <div class="checklist-header">DISCHARGE CHECKLIST FLOW</div>
+                        <div class="checklist-container">
+                            <div class="flow-timeline">
+                                <!-- Cards will be dynamically inserted here -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Checklist Flow -->
+
+                    <!-- Patients Overview (shown when "All" is selected) -->
+                    <div class="patients-overview-section" id="patients-overview-section">
+                        <div class="summary-header">PATIENTS OVERVIEW</div>
+                        <!-- KPI Summary Bar -->
+                        <div class="kpi-summary-bar">
+                            <div class="kpi-metric">
+                                <span class="kpi-label">Caseload</span>
+                                <span class="kpi-value">27</span>
+                            </div>
+                            <div class="kpi-divider"></div>
+                            <div class="kpi-metric">
+                                <span class="kpi-label">Avg progress</span>
+                                <span class="kpi-value">44 %</span>
+                            </div>
+                            <div class="kpi-divider"></div>
+                            <div class="kpi-metric">
+                                <span class="kpi-label">Readmit-risk</span>
+                                <span class="kpi-value">12 %</span>
+                            </div>
+                            <div class="kpi-divider"></div>
+                            <div class="kpi-metric">
+                                <span class="kpi-label">Delegated</span>
+                                <span class="kpi-value">63 %</span>
+                            </div>
+                            <div class="kpi-divider"></div>
+                            <div class="kpi-metric">
+                                <span class="kpi-label">Refresh in</span>
+                                <span class="kpi-value">60 s</span>
+                            </div>
+                        </div>
+
+                        <!-- Patient Table -->
+                        <div class="patients-table-container">
+                            <table class="patients-table">
+                                <thead>
+                                    <tr>
+                                        <th>MRN</th>
+                                        <th>NAME</th>
+                                        <th>PROGRESS %</th>
+                                        <th>Days to handover</th>
+                                        <th>RISK SCORE</th>
+                                        <th>AGE</th>
+                                        <th>ACTIONS</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="center"><a href="#" class="mrn-link">123456</a></td>
+                                        <td class="center">Donna Prat</td>
+                                        <td class="progress-cell">
+                                            <div class="progress-bar-container">
+                                                <div class="progress-bar">
+                                                    <div class="progress-fill" style="width: 45%"></div>
+                                                </div>
+                                                <span class="progress-text">45%</span>
+                                            </div>
+                                        </td>
+                                        <td class="center">6</td>
+                                        <td class="risk-cell low-risk">
+                                            <span class="risk-score">0.15</span>
+                                            <span class="risk-label">(low)</span>
+                                        </td>
+                                        <td class="center">68</td>
+                                        <td class="actions-cell">
+                                            <button class="action-button" title="Summary">📊</button>
+                                            <button class="action-button" title="Deductibles">💳</button>
+                                            <button class="action-button" title="Checklist">✅</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="center"><a href="#" class="mrn-link">234567</a></td>
+                                        <td class="center">James Wilson</td>
+                                        <td class="progress-cell">
+                                            <div class="progress-bar-container">
+                                                <div class="progress-bar">
+                                                    <div class="progress-fill" style="width: 78%"></div>
+                                                </div>
+                                                <span class="progress-text">78%</span>
+                                            </div>
+                                        </td>
+                                        <td class="center">3</td>
+                                        <td class="risk-cell high-risk">
+                                            <span class="risk-score">0.73</span>
+                                            <span class="risk-label">(high)</span>
+                                        </td>
+                                        <td class="center">82</td>
+                                        <td class="actions-cell">
+                                            <button class="action-button" title="Summary">📊</button>
+                                            <button class="action-button" title="Deductibles">💳</button>
+                                            <button class="action-button" title="Checklist">✅</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="center"><a href="#" class="mrn-link">345678</a></td>
+                                        <td class="center">Maria Garcia</td>
+                                        <td class="progress-cell">
+                                            <div class="progress-bar-container">
+                                                <div class="progress-bar">
+                                                    <div class="progress-fill" style="width: 32%"></div>
+                                                </div>
+                                                <span class="progress-text">32%</span>
+                                            </div>
+                                        </td>
+                                        <td class="center">8</td>
+                                        <td class="risk-cell medium-risk">
+                                            <span class="risk-score">0.42</span>
+                                            <span class="risk-label">(medium)</span>
+                                        </td>
+                                        <td class="center">75</td>
+                                        <td class="actions-cell">
+                                            <button class="action-button" title="Summary">📊</button>
+                                            <button class="action-button" title="Deductibles">💳</button>
+                                            <button class="action-button" title="Checklist">✅</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="center"><a href="#" class="mrn-link">456789</a></td>
+                                        <td class="center">Robert Johnson</td>
+                                        <td class="progress-cell">
+                                            <div class="progress-bar-container">
+                                                <div class="progress-bar">
+                                                    <div class="progress-fill" style="width: 0%"></div>
+                                                </div>
+                                                <span class="progress-text">0%</span>
+                                            </div>
+                                        </td>
+                                        <td class="center">4</td>
+                                        <td class="risk-cell low-risk">
+                                            <span class="risk-score">0.23</span>
+                                            <span class="risk-label">(low)</span>
+                                        </td>
+                                        <td class="center">59</td>
+                                        <td class="actions-cell">
+                                            <button class="action-button" title="Summary">📊</button>
+                                            <button class="action-button" title="Deductibles">💳</button>
+                                            <button class="action-button" title="Checklist">✅</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="center"><a href="#" class="mrn-link">567890</a></td>
+                                        <td class="center">Sarah Davis</td>
+                                        <td class="progress-cell">
+                                            <div class="progress-bar-container">
+                                                <div class="progress-bar">
+                                                    <div class="progress-fill" style="width: 0%"></div>
+                                                </div>
+                                                <span class="progress-text">0%</span>
+                                            </div>
+                                        </td>
+                                        <td class="center">1</td>
+                                        <td class="risk-cell low-risk">
+                                            <span class="risk-score">0.08</span>
+                                            <span class="risk-label">(low)</span>
+                                        </td>
+                                        <td class="center">44</td>
+                                        <td class="actions-cell">
+                                            <button class="action-button" title="Summary">📊</button>
+                                            <button class="action-button" title="Deductibles">💳</button>
+                                            <button class="action-button" title="Checklist">✅</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- End Patients Overview -->
 
                     <!-- Map Container -->
                     <div class="map-container">
@@ -748,12 +1962,6 @@
                         </table>
                     </div>
 
-                    <!-- Action Buttons -->
-                    <div class="action-buttons">
-                        <button class="action-button primary">Summarize the patient chart</button>
-                        <button class="action-button">Review deductibles status</button>
-                        <button class="action-button">Review checklist</button>
-                    </div>
                 </div>
             </div>
 
@@ -774,7 +1982,7 @@
                     </div>
                 </div>
                 <div class="chat-input-container">
-                    <input type="text" class="chat-input" placeholder="Ask anything..." value="Summarize the patient chart">
+                    <input type="text" class="chat-input" placeholder="Ask anything...">
                     <button class="chat-send">Send</button>
                 </div>
             </div>
@@ -783,18 +1991,668 @@
     </div>
 
     <script>
-        // Simple interactivity
+        // Sidebar toggle functionality
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        function toggleSidebar() {
+            sidebar.classList.toggle('open');
+            sidebarOverlay.classList.toggle('show');
+        }
+
+        function closeSidebar() {
+            sidebar.classList.remove('open');
+            sidebarOverlay.classList.remove('show');
+        }
+
+        sidebarToggle.addEventListener('click', toggleSidebar);
+        sidebarOverlay.addEventListener('click', closeSidebar);
+
+        // Close sidebar on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && sidebar.classList.contains('open')) {
+                closeSidebar();
+            }
+        });
+
+        // Patient filtering functionality
+        function filterPatients(status) {
+            const patientItems = document.querySelectorAll('.patient-item');
+            
+            patientItems.forEach(item => {
+                const patientStatus = item.getAttribute('data-status');
+                
+                if (status === 'all' || patientStatus === status) {
+                    item.classList.remove('hidden');
+                } else {
+                    item.classList.add('hidden');
+                    // Remove selection from hidden items
+                    if (item.classList.contains('selected')) {
+                        item.classList.remove('selected');
+                    }
+                }
+            });
+
+            // If no item is selected after filtering, select the first visible one
+            const visibleItems = document.querySelectorAll('.patient-item:not(.hidden)');
+            const selectedItems = document.querySelectorAll('.patient-item.selected:not(.hidden)');
+            
+            if (visibleItems.length > 0 && selectedItems.length === 0) {
+                visibleItems[0].classList.add('selected');
+            }
+        }
+
+        // Sidebar button functionality with filtering
         document.querySelectorAll('.sidebar-button').forEach(button => {
             button.addEventListener('click', function() {
+                // Remove active class from all buttons
                 document.querySelectorAll('.sidebar-button').forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
+                
+                // Get filter status based on button text
+                const buttonText = this.textContent.toLowerCase().trim();
+                let filterStatus = 'all';
+                
+                if (buttonText === 'in process') {
+                    filterStatus = 'in-process';
+                } else if (buttonText === 'in queue') {
+                    filterStatus = 'in-queue';
+                }
+                
+                // Apply filter
+                filterPatients(filterStatus);
+                
+                // Show/hide sections based on button
+                const overviewSection = document.querySelector('.patients-overview-section');
+                const patientSummary = document.querySelector('.patient-summary');
+                const checklistFlow = document.querySelector('.checklist-flow');
+                const deductiblesSection = document.querySelector('.deductibles-section');
+                
+                if (buttonText === 'all') {
+                    // Show only Patients Overview
+                    overviewSection.style.display = 'block';
+                    if (patientSummary) patientSummary.style.display = 'none';
+                    if (checklistFlow) checklistFlow.style.display = 'none';
+                    if (deductiblesSection) deductiblesSection.style.display = 'none';
+                } else {
+                    // Show Patient Summary for individual patients
+                    overviewSection.style.display = 'none';
+                    if (patientSummary) patientSummary.style.display = 'block';
+                    if (checklistFlow) checklistFlow.style.display = 'none';
+                    if (deductiblesSection) deductiblesSection.style.display = 'none';
+                }
             });
         });
 
+        // Mock patient data
+        const patientData = {
+            'donna-prat': {
+                mrn: '123456 - Donna Prat - Age 68',
+                admit: '18 Jul 25 - Pred. Discharge 25 Jul 25',
+                tel: '+1-555-234-5678',
+                family: 'Michael Prat (Spouse) - +1-555-234-5679',
+                town: 'Charlotte, NC',
+                payer: 'Medicare PPO | Remaining deductible $1,200',
+                coverage: '20 PT visits (2 left), DME rental = $500 (OK), 20% co-pay on DME',
+                risks: 'Chronic CHF, High-cost meds last 90 d, Lives alone (social risk)',
+                chart: {
+                    name: 'Donna Prat',
+                    ageSex: '68/F',
+                    chartMrn: '123456',
+                    admission: '2025-07-18',
+                    complaint: 'Shortness of breath and chest pain',
+                    hpi: '3-day history of worsening dyspnea on exertion, mild chest tightness, no fever or cough',
+                    pmh: 'Chronic CHF, Hypertension, Type 2 Diabetes',
+                    allergies: 'Penicillin (rash)',
+                    medications: 'Metformin 1000mg BID, Lisinopril 10mg QD, Aspirin 81mg QD, Furosemide 40mg QD',
+                    vitals: 'T 36.8°C, HR 88, BP 152/90, RR 20, SpO₂ 92% on room air',
+                    labs: 'Elevated BNP (680), Troponin negative, HbA1c 7.4%, Cr 1.2, Na 135, K 4.1',
+                    imaging: 'CXR – mild pulmonary congestion; EKG – NSR with LVH',
+                    assessment: 'Acute decompensated heart failure secondary to dietary indiscretion',
+                    plan: 'Start IV Lasix, monitor urine output, cardiology consult, low-sodium diet, daily weights',
+                    disposition: 'Admitted to telemetry unit for monitoring'
+                },
+                deductibles: [
+                    { category: 'Inpatient Hospital', plan: 'Medicare PPO', annual: '$1,500', used: '$1,200', remaining: '$300', coverage: '80%', status: 'Partial', updated: '2025-07-18' },
+                    { category: 'Outpatient Services', plan: 'Medicare PPO', annual: '$200', used: '$200', remaining: '$0', coverage: '90%', status: 'Met', updated: '2025-06-15' },
+                    { category: 'Prescription Drugs', plan: 'Medicare Part D', annual: '$500', used: '$425', remaining: '$75', coverage: '75%', status: 'Partial', updated: '2025-07-10' },
+                    { category: 'Physical Therapy', plan: 'Medicare PPO', annual: '$300', used: '$60', remaining: '$240', coverage: '80%', status: 'Remaining', updated: '2025-05-20' },
+                    { category: 'Durable Medical Equip', plan: 'Medicare PPO', annual: '$800', used: '$500', remaining: '$300', coverage: '80%', status: 'Partial', updated: '2025-07-01' },
+                    { category: 'Specialist Visits', plan: 'Medicare PPO', annual: '$150', used: '$120', remaining: '$30', coverage: '85%', status: 'Partial', updated: '2025-07-05' },
+                    { category: 'Emergency Services', plan: 'Medicare PPO', annual: '$250', used: '$0', remaining: '$250', coverage: '90%', status: 'Remaining', updated: '2025-01-01' },
+                    { category: 'Mental Health', plan: 'Medicare PPO', annual: '$400', used: '$0', remaining: '$400', coverage: '80%', status: 'Remaining', updated: '2025-01-01' },
+                    { category: 'Home Health Care', plan: 'Medicare PPO', annual: '$600', used: '$150', remaining: '$450', coverage: '85%', status: 'Remaining', updated: '2025-06-28' },
+                    { category: 'Laboratory Tests', plan: 'Medicare PPO', annual: '$100', used: '$85', remaining: '$15', coverage: '90%', status: 'Partial', updated: '2025-07-12' },
+                    { category: 'Imaging/Radiology', plan: 'Medicare PPO', annual: '$350', used: '$275', remaining: '$75', coverage: '80%', status: 'Partial', updated: '2025-07-16' },
+                    { category: 'Ambulance Services', plan: 'Medicare PPO', annual: '$200', used: '$0', remaining: '$200', coverage: '80%', status: 'Remaining', updated: '2025-01-01' }
+                ]
+            },
+            'john-smith': {
+                mrn: '789012 - John Smith - Age 72',
+                admit: '16 Jul 25 - Pred. Discharge 24 Jul 25',
+                tel: '+1-555-345-6789',
+                family: 'Mary Smith (Spouse) - +1-555-345-6790',
+                town: 'Greensboro, NC',
+                payer: 'Blue Cross Blue Shield | Deductible met',
+                coverage: '15 PT visits (5 left), DME covered 100%, No co-pay',
+                risks: 'Diabetes Type 2, Mobility issues, History of falls',
+                chart: {
+                    name: 'John Smith',
+                    ageSex: '72/M',
+                    chartMrn: '789012',
+                    admission: '2025-07-16',
+                    complaint: 'Fall at home with hip pain',
+                    hpi: 'Patient fell at home while getting up from chair, immediate onset of right hip pain, unable to bear weight',
+                    pmh: 'Type 2 Diabetes, Osteoarthritis, Previous hip fracture (L) 2019',
+                    allergies: 'NKDA',
+                    medications: 'Metformin 1000mg BID, Gabapentin 300mg TID, Acetaminophen 650mg PRN',
+                    vitals: 'T 37.1°C, HR 92, BP 138/82, RR 18, SpO₂ 96% on room air',
+                    labs: 'WBC 8.2, Hgb 11.8, Glucose 156, Cr 1.4, eGFR 52',
+                    imaging: 'X-ray R Hip: Displaced femoral neck fracture; CT Head: No acute findings',
+                    assessment: 'Right femoral neck fracture, likely secondary to fall',
+                    plan: 'Orthopedic consult, NPO for surgery, pain management, DVT prophylaxis',
+                    disposition: 'Admitted for surgical repair'
+                },
+                deductibles: [
+                    { category: 'Inpatient Hospital', plan: 'BCBS PPO', annual: '$2,000', used: '$1,800', remaining: '$200', coverage: '85%', status: 'Partial', updated: '2025-07-16' },
+                    { category: 'Outpatient Services', plan: 'BCBS PPO', annual: '$300', used: '$300', remaining: '$0', coverage: '90%', status: 'Met', updated: '2025-05-22' },
+                    { category: 'Prescription Drugs', plan: 'BCBS PPO', annual: '$400', used: '$380', remaining: '$20', coverage: '80%', status: 'Partial', updated: '2025-07-14' },
+                    { category: 'Physical Therapy', plan: 'BCBS PPO', annual: '$500', used: '$250', remaining: '$250', coverage: '85%', status: 'Partial', updated: '2025-06-10' },
+                    { category: 'Surgical Procedures', plan: 'BCBS PPO', annual: '$1,500', used: '$0', remaining: '$1,500', coverage: '90%', status: 'Remaining', updated: '2025-01-01' },
+                    { category: 'Specialist Visits', plan: 'BCBS PPO', annual: '$200', used: '$180', remaining: '$20', coverage: '85%', status: 'Partial', updated: '2025-07-15' },
+                    { category: 'Emergency Services', plan: 'BCBS PPO', annual: '$150', used: '$150', remaining: '$0', coverage: '95%', status: 'Met', updated: '2025-07-16' },
+                    { category: 'Durable Medical Equip', plan: 'BCBS PPO', annual: '$600', used: '$0', remaining: '$600', coverage: '80%', status: 'Remaining', updated: '2025-01-01' },
+                    { category: 'Home Health Care', plan: 'BCBS PPO', annual: '$800', used: '$0', remaining: '$800', coverage: '85%', status: 'Remaining', updated: '2025-01-01' },
+                    { category: 'Laboratory Tests', plan: 'BCBS PPO', annual: '$120', used: '$95', remaining: '$25', coverage: '90%', status: 'Partial', updated: '2025-07-16' },
+                    { category: 'Imaging/Radiology', plan: 'BCBS PPO', annual: '$400', used: '$320', remaining: '$80', coverage: '85%', status: 'Partial', updated: '2025-07-16' },
+                    { category: 'Rehabilitation Services', plan: 'BCBS PPO', annual: '$1,000', used: '$0', remaining: '$1,000', coverage: '80%', status: 'Remaining', updated: '2025-01-01' }
+                ]
+            },
+            'maria-rodriguez': {
+                mrn: '345678 - Maria Rodriguez - Age 65',
+                admit: '20 Jul 25 - Pred. Discharge 26 Jul 25',
+                tel: '+1-555-456-7890',
+                family: 'Carlos Rodriguez (Son) - +1-555-456-7891',
+                town: 'Winston-Salem, NC',
+                payer: 'Medicaid | Full coverage',
+                coverage: '30 PT visits (25 left), DME covered, No co-pay',
+                risks: 'Language barrier (Spanish), Limited family support, Hypertension',
+                chart: {
+                    name: 'Maria Rodriguez',
+                    ageSex: '65/F',
+                    chartMrn: '345678',
+                    admission: '2025-07-20',
+                    complaint: 'Chest pain and palpitations',
+                    hpi: '2-hour history of substernal chest pressure with radiation to left arm, associated with diaphoresis and nausea',
+                    pmh: 'Hypertension, Hyperlipidemia, Family history of CAD',
+                    allergies: 'Sulfa (hives)',
+                    medications: 'Amlodipine 10mg QD, Atorvastatin 20mg QHS, ASA 81mg QD',
+                    vitals: 'T 37.0°C, HR 102, BP 165/95, RR 24, SpO₂ 94% on room air',
+                    labs: 'Troponin I 0.8 (elevated), CK-MB 12, BNP 180, Glucose 142',
+                    imaging: 'EKG: ST depressions V4-V6; CXR: Clear lungs, normal cardiac silhouette',
+                    assessment: 'Non-ST elevation myocardial infarction (NSTEMI)',
+                    plan: 'Cardiology consult, cardiac catheterization, dual antiplatelet therapy, statin',
+                    disposition: 'Admitted to CCU for monitoring and intervention'
+                },
+                deductibles: [
+                    { category: 'Inpatient Hospital', plan: 'Medicaid', annual: '$0', used: '$0', remaining: '$0', coverage: '100%', status: 'Met', updated: '2025-07-20' },
+                    { category: 'Outpatient Services', plan: 'Medicaid', annual: '$0', used: '$0', remaining: '$0', coverage: '100%', status: 'Met', updated: '2025-01-01' },
+                    { category: 'Prescription Drugs', plan: 'Medicaid', annual: '$0', used: '$0', remaining: '$0', coverage: '100%', status: 'Met', updated: '2025-01-01' },
+                    { category: 'Cardiac Procedures', plan: 'Medicaid', annual: '$0', used: '$0', remaining: '$0', coverage: '100%', status: 'Met', updated: '2025-01-01' },
+                    { category: 'Specialist Visits', plan: 'Medicaid', annual: '$0', used: '$0', remaining: '$0', coverage: '100%', status: 'Met', updated: '2025-01-01' },
+                    { category: 'Emergency Services', plan: 'Medicaid', annual: '$0', used: '$0', remaining: '$0', coverage: '100%', status: 'Met', updated: '2025-07-20' },
+                    { category: 'Laboratory Tests', plan: 'Medicaid', annual: '$0', used: '$0', remaining: '$0', coverage: '100%', status: 'Met', updated: '2025-01-01' },
+                    { category: 'Imaging/Radiology', plan: 'Medicaid', annual: '$0', used: '$0', remaining: '$0', coverage: '100%', status: 'Met', updated: '2025-07-20' },
+                    { category: 'Physical Therapy', plan: 'Medicaid', annual: '$0', used: '$0', remaining: '$0', coverage: '100%', status: 'Met', updated: '2025-01-01' },
+                    { category: 'Transportation', plan: 'Medicaid', annual: '$0', used: '$0', remaining: '$0', coverage: '100%', status: 'Met', updated: '2025-01-01' },
+                    { category: 'Home Health Care', plan: 'Medicaid', annual: '$0', used: '$0', remaining: '$0', coverage: '100%', status: 'Met', updated: '2025-01-01' },
+                    { category: 'Durable Medical Equip', plan: 'Medicaid', annual: '$0', used: '$0', remaining: '$0', coverage: '100%', status: 'Met', updated: '2025-01-01' }
+                ]
+            },
+            'robert-johnson': {
+                mrn: '901234 - Robert Johnson - Age 78',
+                admit: '22 Jul 25 - Assessment pending',
+                tel: '+1-555-567-8901',
+                family: 'Linda Johnson (Daughter) - +1-555-567-8902',
+                town: 'Durham, NC',
+                payer: 'Medicare Advantage | Pending approval',
+                coverage: 'Assessment in progress, Coverage TBD',
+                risks: 'Multiple comorbidities, Complex medication regimen, Lives alone',
+                chart: {
+                    name: 'Robert Johnson',
+                    ageSex: '78/M',
+                    chartMrn: '901234',
+                    admission: '2025-07-22',
+                    complaint: 'Altered mental status and weakness',
+                    hpi: '3-day history of progressive confusion, decreased oral intake, and generalized weakness per daughter',
+                    pmh: 'Dementia, COPD, CHF, CKD Stage 3, Previous stroke',
+                    allergies: 'Codeine (nausea)',
+                    medications: 'Donepezil 10mg QHS, Furosemide 20mg BID, Lisinopril 5mg QD, Albuterol PRN',
+                    vitals: 'T 38.2°C, HR 110, BP 90/60, RR 26, SpO₂ 88% on room air',
+                    labs: 'WBC 14.2, Cr 2.1, BUN 65, Na 128, Lactate 3.2, UA: + nitrites, + WBC',
+                    imaging: 'CXR: RLL infiltrate; CT Head: Chronic infarcts, no acute changes',
+                    assessment: 'Sepsis secondary to UTI with acute kidney injury, delirium',
+                    plan: 'IV antibiotics, fluid resuscitation, nephrology consult, supportive care',
+                    disposition: 'Admitted to medicine floor with close monitoring'
+                },
+                deductibles: [
+                    { category: 'Inpatient Hospital', plan: 'Medicare Advantage', annual: '$1,800', used: '$1,200', remaining: '$600', coverage: '85%', status: 'Partial', updated: '2025-07-22' },
+                    { category: 'Outpatient Services', plan: 'Medicare Advantage', annual: '$250', used: '$220', remaining: '$30', coverage: '90%', status: 'Partial', updated: '2025-07-18' },
+                    { category: 'Prescription Drugs', plan: 'Medicare Advantage', annual: '$600', used: '$580', remaining: '$20', coverage: '70%', status: 'Partial', updated: '2025-07-20' },
+                    { category: 'Specialist Visits', plan: 'Medicare Advantage', annual: '$180', used: '$160', remaining: '$20', coverage: '80%', status: 'Partial', updated: '2025-07-15' },
+                    { category: 'Emergency Services', plan: 'Medicare Advantage', annual: '$300', used: '$275', remaining: '$25', coverage: '90%', status: 'Partial', updated: '2025-07-22' },
+                    { category: 'Laboratory Tests', plan: 'Medicare Advantage', annual: '$120', used: '$110', remaining: '$10', coverage: '90%', status: 'Partial', updated: '2025-07-22' },
+                    { category: 'Imaging/Radiology', plan: 'Medicare Advantage', annual: '$400', used: '$350', remaining: '$50', coverage: '85%', status: 'Partial', updated: '2025-07-22' },
+                    { category: 'Home Health Care', plan: 'Medicare Advantage', annual: '$800', used: '$200', remaining: '$600', coverage: '85%', status: 'Remaining', updated: '2025-06-10' },
+                    { category: 'Mental Health Services', plan: 'Medicare Advantage', annual: '$500', used: '$0', remaining: '$500', coverage: '80%', status: 'Remaining', updated: '2025-01-01' },
+                    { category: 'Durable Medical Equip', plan: 'Medicare Advantage', annual: '$700', used: '$150', remaining: '$550', coverage: '80%', status: 'Remaining', updated: '2025-04-15' },
+                    { category: 'Rehabilitation Services', plan: 'Medicare Advantage', annual: '$900', used: '$0', remaining: '$900', coverage: '80%', status: 'Remaining', updated: '2025-01-01' },
+                    { category: 'Ambulance Services', plan: 'Medicare Advantage', annual: '$150', used: '$0', remaining: '$150', coverage: '80%', status: 'Remaining', updated: '2025-01-01' }
+                ]
+            },
+            'sarah-williams': {
+                mrn: '567890 - Sarah Williams - Age 58',
+                admit: '21 Jul 25 - Insurance review pending',
+                tel: '+1-555-678-9012',
+                family: 'David Williams (Husband) - +1-555-678-9013',
+                town: 'Raleigh, NC',
+                payer: 'Private Insurance | Pre-authorization required',
+                coverage: 'Awaiting insurance approval for services',
+                risks: 'Early discharge request, Financial constraints, Work obligations',
+                chart: {
+                    name: 'Sarah Williams',
+                    ageSex: '58/F',
+                    chartMrn: '567890',
+                    admission: '2025-07-21',
+                    complaint: 'Severe abdominal pain',
+                    hpi: '6-hour history of severe RUQ pain with radiation to back, associated with nausea and vomiting',
+                    pmh: 'Cholelithiasis, GERD, Anxiety disorder',
+                    allergies: 'Morphine (respiratory depression)',
+                    medications: 'Omeprazole 40mg QD, Sertraline 50mg QD, Multivitamin',
+                    vitals: 'T 38.5°C, HR 115, BP 145/88, RR 22, SpO₂ 97% on room air',
+                    labs: 'WBC 16.8, Total bili 3.2, ALT 180, AST 165, Lipase 45',
+                    imaging: 'RUQ US: Gallbladder wall thickening, stones, positive Murphy\'s sign',
+                    assessment: 'Acute cholecystitis',
+                    plan: 'General surgery consult, NPO, IV antibiotics, pain management, cholecystectomy',
+                    disposition: 'Admitted for surgical intervention'
+                },
+                deductibles: [
+                    { category: 'Inpatient Hospital', plan: 'Private Insurance', annual: '$3,000', used: '$500', remaining: '$2,500', coverage: '70%', status: 'Remaining', updated: '2025-07-21' },
+                    { category: 'Outpatient Services', plan: 'Private Insurance', annual: '$500', used: '$350', remaining: '$150', coverage: '80%', status: 'Partial', updated: '2025-07-18' },
+                    { category: 'Prescription Drugs', plan: 'Private Insurance', annual: '$800', used: '$200', remaining: '$600', coverage: '75%', status: 'Remaining', updated: '2025-06-28' },
+                    { category: 'Surgical Procedures', plan: 'Private Insurance', annual: '$2,500', used: '$0', remaining: '$2,500', coverage: '80%', status: 'Remaining', updated: '2025-01-01' },
+                    { category: 'Specialist Visits', plan: 'Private Insurance', annual: '$400', used: '$120', remaining: '$280', coverage: '75%', status: 'Remaining', updated: '2025-05-15' },
+                    { category: 'Emergency Services', plan: 'Private Insurance', annual: '$400', used: '$400', remaining: '$0', coverage: '85%', status: 'Met', updated: '2025-07-21' },
+                    { category: 'Laboratory Tests', plan: 'Private Insurance', annual: '$200', used: '$85', remaining: '$115', coverage: '85%', status: 'Partial', updated: '2025-07-21' },
+                    { category: 'Imaging/Radiology', plan: 'Private Insurance', annual: '$600', used: '$150', remaining: '$450', coverage: '80%', status: 'Remaining', updated: '2025-07-21' },
+                    { category: 'Mental Health Services', plan: 'Private Insurance', annual: '$1,000', used: '$450', remaining: '$550', coverage: '70%', status: 'Partial', updated: '2025-07-10' },
+                    { category: 'Physical Therapy', plan: 'Private Insurance', annual: '$800', used: '$0', remaining: '$800', coverage: '75%', status: 'Remaining', updated: '2025-01-01' },
+                    { category: 'Home Health Care', plan: 'Private Insurance', annual: '$1,200', used: '$0', remaining: '$1,200', coverage: '70%', status: 'Remaining', updated: '2025-01-01' },
+                    { category: 'Durable Medical Equip', plan: 'Private Insurance', annual: '$700', used: '$0', remaining: '$700', coverage: '70%', status: 'Remaining', updated: '2025-01-01' }
+                ]
+            }
+        };
+
+        // Function to update patient summary display
+        function updatePatientSummary(patientKey) {
+            const patient = patientData[patientKey];
+            if (patient) {
+                document.getElementById('patient-mrn').textContent = patient.mrn;
+                document.getElementById('patient-admit').textContent = patient.admit;
+                document.getElementById('patient-tel').textContent = patient.tel;
+                document.getElementById('patient-family').textContent = patient.family;
+                document.getElementById('patient-town').textContent = patient.town;
+                document.getElementById('patient-payer').textContent = patient.payer;
+                document.getElementById('patient-coverage').textContent = patient.coverage;
+                document.getElementById('patient-risks').textContent = patient.risks;
+            }
+        }
+
+        // Function to update patient chart display
+        function updatePatientChart(patientKey) {
+            const patient = patientData[patientKey];
+            if (patient && patient.chart) {
+                const chart = patient.chart;
+                document.getElementById('chart-name').textContent = chart.name;
+                document.getElementById('chart-age-sex').textContent = chart.ageSex;
+                document.getElementById('chart-mrn').textContent = chart.chartMrn;
+                document.getElementById('chart-admission').textContent = chart.admission;
+                document.getElementById('chart-complaint').textContent = chart.complaint;
+                document.getElementById('chart-hpi').textContent = chart.hpi;
+                document.getElementById('chart-pmh').textContent = chart.pmh;
+                document.getElementById('chart-allergies').textContent = chart.allergies;
+                document.getElementById('chart-medications').textContent = chart.medications;
+                document.getElementById('chart-vitals').textContent = chart.vitals;
+                document.getElementById('chart-labs').textContent = chart.labs;
+                document.getElementById('chart-imaging').textContent = chart.imaging;
+                document.getElementById('chart-assessment').textContent = chart.assessment;
+                document.getElementById('chart-plan').textContent = chart.plan;
+                document.getElementById('chart-disposition').textContent = chart.disposition;
+            }
+        }
+
+        // Function to show patient chart
+        function showPatientChart() {
+            const patientChart = document.querySelector('.patient-chart');
+            
+            if (patientChart) {
+                patientChart.classList.add('show');
+                
+                // Force proper display properties
+                patientChart.style.display = 'block';
+                patientChart.style.visibility = 'visible';
+                patientChart.style.opacity = '1';
+                patientChart.style.height = 'auto';
+                patientChart.style.overflow = 'visible';
+                
+                // Update chart data for currently selected patient
+                const selectedPatient = document.querySelector('.patient-item.selected');
+                if (selectedPatient) {
+                    const patientName = selectedPatient.querySelector('.patient-name').textContent.toLowerCase().replace(' ', '-');
+                    updatePatientChart(patientName);
+                }
+                
+                // Scroll to the chart after a short delay to ensure it's visible
+                setTimeout(() => {
+                    patientChart.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start' 
+                    });
+                }, 100);
+            }
+        }
+
+        // Function to populate deductibles table
+        function populateDeductiblesTable(patientKey) {
+            const patient = patientData[patientKey];
+            if (patient && patient.deductibles) {
+                const tbody = document.getElementById('deductibles-tbody');
+                tbody.innerHTML = '';
+                
+                patient.deductibles.forEach(deductible => {
+                    const row = document.createElement('tr');
+                    const statusClass = deductible.status.toLowerCase().replace(' ', '-');
+                    
+                    row.innerHTML = `
+                        <td>${deductible.category}</td>
+                        <td>${deductible.plan}</td>
+                        <td>${deductible.annual}</td>
+                        <td>${deductible.used}</td>
+                        <td>${deductible.remaining}</td>
+                        <td>${deductible.coverage}</td>
+                        <td><span class="status-${statusClass.toLowerCase()}">${deductible.status}</span></td>
+                        <td>${deductible.updated}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            }
+        }
+
+        // Mock checklist flow data with simplified structure
+        const checklistFlowStructure = [
+            {
+                type: 'single',
+                card: {
+                    id: 1,
+                    title: 'Assessment',
+                    status: 'completed',
+                    icon: '🩺',
+                    assignee: 'Dr. Chen',
+                    dueDate: '07/18'
+                },
+                connector: 'split'
+            },
+            {
+                type: 'parallel',
+                cards: [
+                    {
+                        id: 2,
+                        title: 'Medication Review',
+                        status: 'completed',
+                        icon: '💊',
+                        assignee: 'PharmD Wong',
+                        dueDate: '07/19'
+                    },
+                    {
+                        id: 3,
+                        title: 'Physical Therapy',
+                        status: 'in-progress',
+                        icon: '🏃‍♂️',
+                        assignee: 'PT Rodriguez',
+                        dueDate: '07/22'
+                    },
+                    {
+                        id: 4,
+                        title: 'Social Work',
+                        status: 'in-progress',
+                        icon: '🤝',
+                        assignee: 'SW Kim',
+                        dueDate: '07/22'
+                    }
+                ],
+                connector: 'merge'
+            },
+            {
+                type: 'single',
+                card: {
+                    id: 5,
+                    title: 'Care Planning',
+                    status: 'pending',
+                    icon: '👥',
+                    assignee: 'Case Manager',
+                    dueDate: '07/23'
+                },
+                connector: 'split'
+            },
+            {
+                type: 'parallel',
+                cards: [
+                    {
+                        id: 6,
+                        title: 'Education',
+                        status: 'pending',
+                        icon: '📚',
+                        assignee: 'RN Foster',
+                        dueDate: '07/23'
+                    },
+                    {
+                        id: 7,
+                        title: 'Equipment Setup',
+                        status: 'pending',
+                        icon: '🔧',
+                        assignee: 'DME Vendor',
+                        dueDate: '07/24'
+                    }
+                ],
+                connector: 'merge'
+            },
+            {
+                type: 'single',
+                card: {
+                    id: 8,
+                    title: 'Final Prep',
+                    status: 'pending',
+                    icon: '📋',
+                    assignee: 'Coordinator',
+                    dueDate: '07/24'
+                },
+                connector: 'split'
+            },
+            {
+                type: 'parallel',
+                cards: [
+                    {
+                        id: 9,
+                        title: 'Follow-up Setup',
+                        status: 'pending',
+                        icon: '📅',
+                        assignee: 'Coordinator',
+                        dueDate: '07/24'
+                    },
+                    {
+                        id: 10,
+                        title: 'Transport',
+                        status: 'pending',
+                        icon: '🚗',
+                        assignee: 'Transport',
+                        dueDate: '07/25'
+                    }
+                ],
+                connector: 'merge'
+            },
+            {
+                type: 'single',
+                card: {
+                    id: 11,
+                    title: 'Discharge',
+                    status: 'pending',
+                    icon: '✅',
+                    assignee: 'Dr. Chen',
+                    dueDate: '07/25'
+                },
+                connector: null
+            }
+        ];
+
+        // Function to create checklist flow cards
+        function createChecklistFlow() {
+            const timeline = document.querySelector('.flow-timeline');
+            if (!timeline) {
+                return;
+            }
+            timeline.innerHTML = '';
+
+            checklistFlowStructure.forEach((step, stepIndex) => {
+                if (step.type === 'single') {
+                    // Create single card
+                    const card = createCard(step.card);
+                    timeline.appendChild(card);
+                } else if (step.type === 'parallel') {
+                    // Create parallel cards column
+                    const column = document.createElement('div');
+                    column.className = 'flow-column';
+                    
+                    step.cards.forEach(cardData => {
+                        const card = createCard(cardData);
+                        column.appendChild(card);
+                    });
+                    
+                    timeline.appendChild(column);
+                }
+
+                // Add connector if not the last step
+                if (step.connector && stepIndex < checklistFlowStructure.length - 1) {
+                    const connector = document.createElement('div');
+                    if (step.connector === 'split') {
+                        connector.className = 'split-connector';
+                    } else if (step.connector === 'merge') {
+                        connector.className = 'merge-connector';
+                    } else {
+                        connector.className = 'flow-connector';
+                        connector.innerHTML = '<div class="connector-line"></div>';
+                    }
+                    timeline.appendChild(connector);
+                }
+            });
+        }
+
+        // Helper function to create individual cards
+        function createCard(cardData) {
+            const card = document.createElement('div');
+            card.className = `flow-card ${cardData.status}`;
+            
+            // Format title to put each word on a separate line for two-word titles
+            let formattedTitle = cardData.title;
+            const words = cardData.title.split(' ');
+            if (words.length === 2) {
+                formattedTitle = words[0] + '\n' + words[1];
+            }
+            
+            card.innerHTML = `
+                <div class="card-status ${cardData.status}">${cardData.status.replace('-', ' ')}</div>
+                <div class="card-header">
+                    <span class="card-icon">${cardData.icon}</span>
+                    <div class="card-title">${formattedTitle}</div>
+                </div>
+                <div class="card-footer">
+                    <div class="card-assignee">${cardData.assignee}</div>
+                    <div class="card-due-date">${cardData.dueDate}</div>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        // Function to show checklist flow
+        function showChecklistFlow() {
+            const checklistSection = document.querySelector('.checklist-flow-section');
+            
+            if (checklistSection) {
+                checklistSection.classList.add('show');
+                
+                // Create the flow cards
+                createChecklistFlow();
+            } else {
+                console.error('Checklist section not found');
+            }
+        }
+
+        // Function to show deductibles table (only for Donna Prat)
+        function showDeductiblesTable() {
+            const deductiblesSection = document.querySelector('.deductibles-section');
+            
+            if (deductiblesSection) {
+                deductiblesSection.classList.add('show');
+                
+                // Force proper display properties
+                deductiblesSection.style.display = 'block';
+                deductiblesSection.style.visibility = 'visible';
+                deductiblesSection.style.opacity = '1';
+                deductiblesSection.style.height = 'auto';
+                deductiblesSection.style.overflow = 'visible';
+                
+                // Only populate for Donna Prat
+                populateDeductiblesTable('donna-prat');
+                
+                // Scroll to the table after a short delay to ensure it's visible
+                setTimeout(() => {
+                    deductiblesSection.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start' 
+                    });
+                }, 100);
+            }
+        }
+
+        // Patient item click functionality
         document.querySelectorAll('.patient-item').forEach(item => {
             item.addEventListener('click', function() {
                 document.querySelectorAll('.patient-item').forEach(i => i.classList.remove('selected'));
                 this.classList.add('selected');
+                
+                // Hide Patients Overview, show Patient Summary
+                const overviewSection = document.querySelector('.patients-overview-section');
+                const patientSummary = document.querySelector('.patient-summary');
+                const checklistFlow = document.querySelector('.checklist-flow');
+                const deductiblesSection = document.querySelector('.deductibles-section');
+                
+                overviewSection.style.display = 'none';
+                if (patientSummary) patientSummary.style.display = 'block';
+                if (checklistFlow) checklistFlow.style.display = 'none';
+                if (deductiblesSection) deductiblesSection.style.display = 'none';
+                
+                // Get patient key from name
+                const patientName = this.querySelector('.patient-name').textContent.toLowerCase().replace(' ', '-');
+                updatePatientSummary(patientName);
+                
+                // Update patient chart if it's currently visible
+                const patientChart = document.querySelector('.patient-chart');
+                if (patientChart && patientChart.classList.contains('show')) {
+                    updatePatientChart(patientName);
+                }
+                
+                // Note: Deductibles table is only available for Donna Prat
             });
         });
 
@@ -811,7 +2669,138 @@
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
+        function handleActionButton(message, action) {
+            // Add user message to chat
+            addMessage(message, true);
+            
+            // Show/hide elements using existing functions
+            switch(action) {
+                case 'summary':
+                    // Show patient chart and keep patient summary
+                    const patientChart = document.querySelector('.patient-chart');
+                    const patientSummary = document.querySelector('.patient-summary');
+                    const deductiblesSection = document.querySelector('.deductibles-section');
+                    const checklistFlow = document.querySelector('.checklist-flow');
+                    
+                    if (patientChart) patientChart.classList.add('show');
+                    if (patientSummary) patientSummary.style.display = 'block';
+                    if (deductiblesSection) deductiblesSection.classList.remove('show');
+                    if (checklistFlow) checklistFlow.style.display = 'none';
+                    break;
+                case 'deductibles':
+                    showDeductiblesTable();
+                    break;
+                case 'checklist':
+                    showChecklistFlow();
+                    break;
+            }
+            
+            // Add assistant response after delay
+            setTimeout(() => {
+                let assistantResponse = '';
+                
+                switch(action) {
+                    case 'summary':
+                        assistantResponse = 'Sure, please see the full summary on the canvas. Is this informative enough?';
+                        break;
+                    case 'deductibles':
+                        assistantResponse = 'Here are the deductibles details for the patient.';
+                        break;
+                    case 'checklist':
+                        assistantResponse = 'Here is the checklist flow for the patient.';
+                        break;
+                }
+                
+                addMessage(assistantResponse, false);
+            }, 1000);
+        }
+
+        function showDischargeLocationsMap() {
+            const mapContainer = document.querySelector('.map-container');
+            mapContainer.classList.add('show');
+            
+            // Initialize map if not already done
+            setTimeout(() => {
+                if (!window.dischargeMap) {
+                    const mapElement = document.getElementById('leaflet-map');
+                    if (mapElement && typeof L !== 'undefined') {
+                        window.dischargeMap = L.map('leaflet-map').setView([36.0726, -79.7920], 12);
+                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                        }).addTo(window.dischargeMap);
+                        
+                        // Force map to resize after showing
+                        setTimeout(() => {
+                            window.dischargeMap.invalidateSize();
+                        }, 100);
+                    }
+                }
+            }, 100);
+        }
+
+        function showVendorTable() {
+            const vendorTable = document.querySelector('.vendor-table');
+            
+            if (vendorTable) {
+                vendorTable.classList.add('show');
+                
+                // Force proper display properties
+                vendorTable.style.display = 'block';
+                vendorTable.style.visibility = 'visible';
+                vendorTable.style.opacity = '1';
+                vendorTable.style.height = 'auto';
+                vendorTable.style.overflow = 'visible';
+                
+                // Scroll to the table after a short delay to ensure it's visible
+                setTimeout(() => {
+                    vendorTable.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start' 
+                    });
+                }, 100);
+            }
+        }
+
         async function sendPromptToLLM(prompt) {
+            const trimmedPrompt = prompt.toLowerCase().trim();
+            
+            // Check for exact phrase to show map
+            if (trimmedPrompt === 'show me optional discharge locations') {
+                showDischargeLocationsMap();
+                addMessage('I\'ve displayed the map showing optional discharge locations below. Type "show it in a table" to see the detailed vendor information.', false);
+                return;
+            }
+            
+            // Check for exact phrase to show table
+            if (trimmedPrompt === 'show it in a table') {
+                showVendorTable();
+                addMessage('Here\'s the detailed table of discharge locations with their information. I\'ve scrolled to the table for your convenience.', false);
+                return;
+            }
+            
+            // Check for exact phrase to show patient chart
+            if (trimmedPrompt === 'summarize the patient chart') {
+                showPatientChart();
+                const selectedPatient = document.querySelector('.patient-item.selected');
+                const patientName = selectedPatient ? selectedPatient.querySelector('.patient-name').textContent : 'the patient';
+                addMessage(`I've displayed the comprehensive patient chart summary for ${patientName}. The chart includes medical history, current assessment, and treatment plan.`, false);
+                return;
+            }
+            
+            // Check for exact phrase to show deductibles status
+            if (trimmedPrompt === 'review deductibles status') {
+                showDeductiblesTable();
+                addMessage(`I've displayed the comprehensive deductibles status table for Donna Prat. The table shows all Medicare PPO insurance categories, deductible amounts, usage, and coverage details with 12 different service categories.`, false);
+                return;
+            }
+            
+            // Check for exact phrase to show checklist flow
+            if (trimmedPrompt === 'review checklist flow') {
+                showChecklistFlow();
+                addMessage(`I've displayed the discharge checklist flow for Donna Prat. The horizontal timeline shows 7 key tasks with their current status, assigned team members, and due dates. You can scroll horizontally to view all steps in the discharge process.`, false);
+                return;
+            }
+
             addMessage('...', false); // Loading message
             try {
                 const res = await fetch('/api/llm', {
@@ -851,27 +2840,9 @@
             }
         });
 
-        // Action button functionality
-        document.querySelectorAll('.action-button').forEach(button => {
-            button.addEventListener('click', function() {
-                const action = this.textContent;
-                addMessage(action, true);
-                
-                setTimeout(() => {
-                    addMessage(`Processing "${action}" - I'll update the canvas with the relevant information.`);
-                }, 800);
-            });
-        });
+        // Action button functionality removed - now handled by onclick handlers
 
-        // Leaflet map initialization
-        document.addEventListener('DOMContentLoaded', function() {
-            if (document.getElementById('leaflet-map')) {
-                var map = L.map('leaflet-map').setView([36.0726, -79.7920], 12); // Greensboro, NC
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                }).addTo(map);
-            }
-        });
+        // Leaflet map initialization - removed as map is now shown on demand
     </script>
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
