@@ -42,6 +42,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
+            z-index: 1001;
         }
 
         .company-branding {
@@ -244,9 +246,9 @@
             padding: 20px;
             gap: 15px;
             position: fixed;
-            top: 0;
+            top: 96px;
             left: -280px;
-            height: 100vh;
+            height: calc(100vh - 96px);
             min-height: 0;
             z-index: 1000;
             transition: left 0.3s ease;
@@ -275,10 +277,44 @@
             visibility: visible;
         }
 
+        /* Overview Button */
+        .overview-button-container {
+            margin-bottom: 8px;
+        }
+
+        .overview-button {
+            width: 100%;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .overview-button:hover {
+            background: #2563eb;
+        }
+
+        .overview-button:active {
+            background: #1d4ed8;
+        }
+
+        /* Sidebar Separator */
+        .sidebar-separator {
+            height: 1px;
+            background: #e5e7eb;
+            margin: 8px 0;
+        }
+
         .sidebar-buttons-row {
             display: flex;
             gap: 8px;
-            margin-bottom: 15px;
+            margin-bottom: 8px;
             align-items: center;
         }
 
@@ -538,10 +574,13 @@
             align-items: flex-start;
             font-size: 13px;
             line-height: 1.5;
+            margin-bottom: 8px;
+            min-height: 24px;
         }
 
         .chart-field-with-tag {
             position: relative;
+            padding-right: 170px;
         }
 
         .chart-tag {
@@ -578,6 +617,10 @@
         .chart-value {
             color: #6b7280;
             flex: 1;
+            word-wrap: break-word;
+            word-break: break-word;
+            white-space: pre-wrap;
+            line-height: 1.4;
         }
 
         /* Deductibles Section */
@@ -965,6 +1008,99 @@
             font-size: 12px;
         }
 
+        /* Approaching Patient/Family Section */
+        .approaching-section {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .approaching-section.show {
+            display: block;
+        }
+
+        .approaching-header {
+            background: #1e293b;
+            color: white;
+            margin: -20px -20px 20px -20px;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .approaching-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .approach-section {
+            flex: 1;
+        }
+
+        .approach-section-header {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .approach-suggestions {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .suggestion-item {
+            background: white;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            padding: 15px;
+            transition: all 0.2s ease;
+        }
+
+        .suggestion-item:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
+        }
+
+        .suggestion-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .suggestion-description {
+            font-size: 13px;
+            color: #4b5563;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+
+        .suggestion-incentive {
+            font-size: 12px;
+            color: #059669;
+            line-height: 1.3;
+            background: #ecfdf5;
+            padding: 8px 10px;
+            border-radius: 4px;
+            border-left: 3px solid #10b981;
+        }
+
+        .approach-divider {
+            height: 2px;
+            background: linear-gradient(to right, #e5e7eb, #9ca3af, #e5e7eb);
+            margin: 10px 0;
+            border-radius: 1px;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .flow-timeline {
@@ -1230,6 +1366,49 @@
             margin: 0 3px;
             width: 14px;
             height: 14px;
+        }
+
+        /* Coordination buttons */
+        .coordinate-cell {
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .coord-btn {
+            background: #f3f4f6;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            padding: 4px 6px;
+            margin: 0 2px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .coord-btn:hover {
+            background: #e5e7eb;
+            border-color: #9ca3af;
+        }
+
+        .manual-btn:hover {
+            background: #dbeafe;
+            border-color: #3b82f6;
+        }
+
+        .auto-btn:hover {
+            background: #dcfce7;
+            border-color: #10b981;
+        }
+
+        .coordinating-status {
+            color: #10b981;
+            font-weight: 500;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
         }
 
         /* Task Creation */
@@ -1540,17 +1719,26 @@
         <div class="content-wrapper">
         <!-- Sidebar -->
         <div class="sidebar" id="sidebar">
+            <!-- Patients Overview Button -->
+            <div class="overview-button-container">
+                <button class="overview-button" onclick="showPatientsOverview()">Patients Overview</button>
+            </div>
+            
+            <!-- Separation Line -->
+            <div class="sidebar-separator"></div>
+            
+            <!-- Filter Buttons closer to patient cards -->
             <div class="sidebar-buttons-row">
                 <div class="sidebar-button active">All</div>
-                <div class="sidebar-button">In Process</div>
-                <div class="sidebar-button">In Queue</div>
+                <div class="sidebar-button">In Progress</div>
+                <div class="sidebar-button">Queue</div>
             </div>
             
             <div class="patient-list">
                 <!-- In Process Patients -->
                 <div class="patient-item in-process selected" data-status="in-process">
                     <div class="patient-name">Donna Prat</div>
-                    <div class="patient-progress">Progress 45%, days to discharge: 6</div>
+                    <div class="patient-progress">Progress 20%, days to discharge: 14</div>
                 </div>
                 <div class="patient-item in-process" data-status="in-process">
                     <div class="patient-name">John Smith</div>
@@ -1587,7 +1775,7 @@
                                 </div>
                                 <div class="info-row">
                                     <span class="info-label">Admit:</span>
-                                    <span class="info-value" id="patient-admit">18 Jul 25 - Pred. Discharge 25 Jul 25</span>
+                                    <span class="info-value" id="patient-admit">18 Jul 25 - Pred. Discharge 01 Aug 25</span>
                                 </div>
                                 <div class="info-row">
                                     <span class="info-label">Tel:</span>
@@ -1595,7 +1783,15 @@
                                 </div>
                                 <div class="info-row">
                                     <span class="info-label">Family:</span>
-                                    <span class="info-value" id="patient-family">Michael Prat (Spouse) - +1-555-234-5679</span>
+                                    <span class="info-value" id="patient-family">Limited contact - Robert Prat (estranged son, occasional contact) - +1-555-567-8901</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Social Worker:</span>
+                                    <span class="info-value" id="patient-social-worker">Sarah Martinez, LCSW - +1-555-234-5680</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Case Manager:</span>
+                                    <span class="info-value" id="patient-case-manager">Jennifer Adams, RN - +1-555-234-5681</span>
                                 </div>
                                 <div class="info-row">
                                     <span class="info-label">Town:</span>
@@ -1613,13 +1809,13 @@
                                 </div>
                                 <div class="info-row">
                                     <span class="info-label">Risk Factors:</span>
-                                    <span class="info-value" id="patient-risks">Chronic CHF, High-cost meds last 90 d, Lives alone (social risk)</span>
+                                    <span class="info-value" id="patient-risks">Chronic CHF, History of substance abuse (alcohol/prescription drugs), Social isolation, Housing instability, Medication non-compliance, 5 hospitalizations in 12 months, Depression/anxiety, Financial difficulties</span>
                                 </div>
                                 <div class="info-row action-buttons-row">
                                     <div class="summary-action-buttons">
-                                        <button class="action-button" onclick="handleActionButton('Summarize the patient chart', 'summary')">Summarize the patient chart</button>
-                                        <button class="action-button" onclick="handleActionButton('Review deductibles status', 'deductibles')">Review deductibles status</button>
-                                        <button class="action-button" onclick="handleActionButton('Review checklist flow', 'checklist')">Review checklist flow</button>
+                                        <button class="action-button" onclick="handleActionButton('Summarize patient chart', 'summary')">Summarize patient chart</button>
+                                        <button class="action-button" onclick="handleActionButton('Deductibles status', 'deductibles')">Deductibles status</button>
+                                        <button class="action-button" onclick="handleActionButton('Checklist flow', 'checklist')">Checklist flow</button>
                                     </div>
                                 </div>
                             </div>
@@ -1650,19 +1846,19 @@
                                 </div>
                                 <div class="chart-field">
                                     <span class="chart-label">Chief Complaint:</span>
-                                    <span class="chart-value" id="chart-complaint">Shortness of breath and chest pain</span>
+                                    <span class="chart-value" id="chart-complaint">Shortness of breath, chest pain, and medication non-compliance</span>
                                 </div>
                             </div>
                             
                             <div class="chart-section">
                                 <div class="chart-field chart-field-with-tag">
                                     <span class="chart-label">History of Present Illness:</span>
-                                    <span class="chart-value" id="chart-hpi">3-day history of worsening dyspnea on exertion, mild chest tightness, no fever or cough</span>
+                                    <span class="chart-value" id="chart-hpi">3-day history of worsening dyspnea on exertion, mild chest tightness. Patient admits to missing medications for 2 weeks due to financial constraints. History of alcohol use (last drink 3 days ago). 5th hospitalization in 12 months: Feb-2025 (pneumonia), Apr-2025 (CHF exacerbation), Jun-2025 (fall with head injury), Sep-2024 (alcohol withdrawal), Nov-2024 (substance abuse relapse). Lives in transitional housing, limited family support.</span>
                                     <div class="chart-tag orange">Thompson Reuters</div>
                                 </div>
                                 <div class="chart-field">
                                     <span class="chart-label">Past Medical History:</span>
-                                    <span class="chart-value" id="chart-pmh">Chronic CHF, Hypertension, Type 2 Diabetes</span>
+                                    <span class="chart-value" id="chart-pmh">Chronic CHF (EF 35%), Hypertension, Type 2 Diabetes, Alcohol Use Disorder (multiple relapses), Major Depressive Disorder, Generalized Anxiety Disorder, History of prescription drug abuse (opioids), Chronic back pain, Social isolation, Housing instability</span>
                                 </div>
                                 <div class="chart-field">
                                     <span class="chart-label">Allergies:</span>
@@ -1670,7 +1866,7 @@
                                 </div>
                                 <div class="chart-field">
                                     <span class="chart-label">Medications:</span>
-                                    <span class="chart-value" id="chart-medications">Metformin 1000mg BID, Lisinopril 10mg QD, Aspirin 81mg QD</span>
+                                    <span class="chart-value" id="chart-medications">Metformin 1000mg BID (poor compliance), Lisinopril 10mg QD (missed doses), Aspirin 81mg QD, Furosemide 40mg QD (inconsistent), Sertraline 50mg QD (psychiatry - started 3 months ago), Lorazepam 0.5mg PRN anxiety (monitored for abuse potential), Multivitamin, Thiamine 100mg QD</span>
                                 </div>
                             </div>
                             
@@ -1693,16 +1889,31 @@
                             <div class="chart-section">
                                 <div class="chart-field chart-field-with-tag">
                                     <span class="chart-label">Assessment:</span>
-                                    <span class="chart-value" id="chart-assessment">Acute decompensated heart failure</span>
+                                    <span class="chart-value" id="chart-assessment">Acute decompensated heart failure secondary to medication non-compliance and possible alcohol use. Complex social situation with housing instability, substance abuse history, and poor medication adherence. Requires intensive discharge planning with social work and substance abuse counseling.</span>
                                     <div class="chart-tag green">ncdhhs.gov</div>
                                 </div>
                                 <div class="chart-field">
                                     <span class="chart-label">Plan:</span>
-                                    <span class="chart-value" id="chart-plan">Start IV Lasix, monitor urine output, cardiology consult, low-sodium diet</span>
+                                    <span class="chart-value" id="chart-plan">IV Lasix, cardiac monitoring, social work consult for housing/financial assistance, substance abuse counseling, psychiatry consult for medication management, case management for discharge planning, medication reconciliation and education, family meeting if possible, coordinate with transitional housing program</span>
                                 </div>
                                 <div class="chart-field">
                                     <span class="chart-label">Disposition:</span>
-                                    <span class="chart-value" id="chart-disposition">Admitted to telemetry unit</span>
+                                    <span class="chart-value" id="chart-disposition">Admitted to telemetry unit. Expected LOS 10-14 days due to complex social situation requiring extensive discharge planning and stabilization. Social work and psychiatry consulted.</span>
+                                </div>
+                            </div>
+                            
+                            <div class="chart-section">
+                                <div class="chart-field">
+                                    <span class="chart-label">Social Work Assessment:</span>
+                                    <span class="chart-value">Patient living in transitional housing with limited family support. History of multiple admissions due to medication non-compliance and substance abuse. Financial difficulties affecting medication adherence. Estranged from family due to past substance abuse. Requires intensive case management and housing coordination.</span>
+                                </div>
+                                <div class="chart-field">
+                                    <span class="chart-label">Mental Health Notes:</span>
+                                    <span class="chart-value">History of major depressive disorder and generalized anxiety disorder. Started on Sertraline 3 months ago with partial response. Past prescription drug abuse (opioids) complicates pain management. Requires ongoing psychiatric follow-up and substance abuse counseling. Patient expresses guilt about family relationships and fear of homelessness.</span>
+                                </div>
+                                <div class="chart-field">
+                                    <span class="chart-label">Substance Abuse History:</span>
+                                    <span class="chart-value">Alcohol Use Disorder with multiple relapses. Last drink 3 days prior to admission. History of prescription opioid abuse for chronic back pain. Previous detox admissions in 2023. Currently not in formal treatment program. Admits to using alcohol when medications run out due to cost.</span>
                                 </div>
                             </div>
                         </div>
@@ -1744,6 +1955,60 @@
                         </div>
                     </div>
                     <!-- End Checklist Flow -->
+
+                    <!-- Approaching Patient/Family Section -->
+                    <div class="approaching-section" id="approaching-section">
+                        <div class="approaching-header">APPROACHING PATIENT/FAMILY</div>
+                        <div class="approaching-content">
+                            <!-- Patient Section -->
+                            <div class="approach-section">
+                                <div class="approach-section-header">👤 PATIENT APPROACH</div>
+                                <div class="approach-suggestions">
+                                    <div class="suggestion-item">
+                                        <div class="suggestion-title">Emphasize Health Stability</div>
+                                        <div class="suggestion-description">Focus on how following the treatment plan will prevent future hospitalizations and give her more control over her health.</div>
+                                        <div class="suggestion-incentive"><strong>Incentive:</strong> Donna fears repeated hospitalizations and wants to avoid the anxiety of medical emergencies.</div>
+                                    </div>
+                                    <div class="suggestion-item">
+                                        <div class="suggestion-title">Address Financial Concerns Directly</div>
+                                        <div class="suggestion-description">Present medication assistance programs and explain how compliance prevents costly emergency visits.</div>
+                                        <div class="suggestion-incentive"><strong>Incentive:</strong> She's motivated by reducing medical expenses and avoiding financial stress from repeated admissions.</div>
+                                    </div>
+                                    <div class="suggestion-item">
+                                        <div class="suggestion-title">Frame as Independence Building</div>
+                                        <div class="suggestion-description">Show how the treatment plan helps her live independently without needing constant medical intervention.</div>
+                                        <div class="suggestion-incentive"><strong>Incentive:</strong> She values her autonomy and fears losing independence due to declining health.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Divider -->
+                            <div class="approach-divider"></div>
+
+                            <!-- Family Section -->
+                            <div class="approach-section">
+                                <div class="approach-section-header">👥 FAMILY APPROACH</div>
+                                <div class="approach-suggestions">
+                                    <div class="suggestion-item">
+                                        <div class="suggestion-title">Opportunity for Reconciliation</div>
+                                        <div class="suggestion-description">Present supporting her treatment as a way for Robert (her son) to rebuild their relationship and show he cares.</div>
+                                        <div class="suggestion-incentive"><strong>Incentive:</strong> Robert feels guilty about their estrangement and wants to help but doesn't know how to reconnect.</div>
+                                    </div>
+                                    <div class="suggestion-item">
+                                        <div class="suggestion-title">Peace of Mind for Family</div>
+                                        <div class="suggestion-description">Explain how following the plan reduces emergency calls and unpredictable crises that disrupt their lives.</div>
+                                        <div class="suggestion-incentive"><strong>Incentive:</strong> Family members want to help but are overwhelmed by constant medical emergencies and uncertainty.</div>
+                                    </div>
+                                    <div class="suggestion-item">
+                                        <div class="suggestion-title">Shared Responsibility Approach</div>
+                                        <div class="suggestion-description">Offer specific, manageable ways family can support (medication reminders, transportation) without overwhelming them.</div>
+                                        <div class="suggestion-incentive"><strong>Incentive:</strong> They want to be helpful but need clear, bounded roles that don't consume their lives.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Approaching Patient/Family -->
 
                     <!-- Patients Overview (shown when "All" is selected) -->
                     <div class="patients-overview-section" id="patients-overview-section">
@@ -1927,6 +2192,7 @@
                                     <th>Type</th>
                                     <th>Services Offered</th>
                                     <th>Map Link</th>
+                                    <th>Coordinate</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -1936,6 +2202,10 @@
                                     <td>Skilled Nursing Facility</td>
                                     <td>Short & long-term skilled nursing, rehab</td>
                                     <td><a href="#" class="map-link">🗺️ Map</a></td>
+                                    <td class="coordinate-cell" id="coord-blumenthal">
+                                        <button class="coord-btn manual-btn" onclick="handleCoordination('Blumenthal Nursing & Rehabilitation Center', 'manual', 'blumenthal')" title="Add as manual task">📞</button>
+                                        <button class="coord-btn auto-btn" onclick="handleCoordination('Blumenthal Nursing & Rehabilitation Center', 'auto', 'blumenthal')" title="Automatic coordination">🤖</button>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Heartland Living & Rehabilitation</td>
@@ -1943,6 +2213,10 @@
                                     <td>Skilled Nursing & Rehab</td>
                                     <td>Post-acute rehab, SNF waiver program</td>
                                     <td><a href="#" class="map-link">🗺️ Map</a></td>
+                                    <td class="coordinate-cell" id="coord-heartland">
+                                        <button class="coord-btn manual-btn" onclick="handleCoordination('Heartland Living & Rehabilitation', 'manual', 'heartland')" title="Add as manual task">📞</button>
+                                        <button class="coord-btn auto-btn" onclick="handleCoordination('Heartland Living & Rehabilitation', 'auto', 'heartland')" title="Automatic coordination">🤖</button>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Guilford Medical Supply</td>
@@ -1950,6 +2224,10 @@
                                     <td>Medical Supply Store</td>
                                     <td>Durable medical equipment, incontinence supplies</td>
                                     <td><a href="#" class="map-link">🗺️ Map</a></td>
+                                    <td class="coordinate-cell" id="coord-guilford">
+                                        <button class="coord-btn manual-btn" onclick="handleCoordination('Guilford Medical Supply', 'manual', 'guilford')" title="Add as manual task">📞</button>
+                                        <button class="coord-btn auto-btn" onclick="handleCoordination('Guilford Medical Supply', 'auto', 'guilford')" title="Automatic coordination">🤖</button>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>AdventCare Home Medical Equipment</td>
@@ -1957,6 +2235,10 @@
                                     <td>Home Medical Equipment Supplier</td>
                                     <td>CPAP/BIPAP, oxygen therapy, home ventilators</td>
                                     <td><a href="#" class="map-link">🗺️ Map</a></td>
+                                    <td class="coordinate-cell" id="coord-adventcare">
+                                        <button class="coord-btn manual-btn" onclick="handleCoordination('AdventCare Home Medical Equipment', 'manual', 'adventcare')" title="Add as manual task">📞</button>
+                                        <button class="coord-btn auto-btn" onclick="handleCoordination('AdventCare Home Medical Equipment', 'auto', 'adventcare')" title="Automatic coordination">🤖</button>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -1969,16 +2251,7 @@
             <div class="chat-interface">
                 <div class="chat-messages">
                     <div class="chat-message">
-                        <div class="chat-bubble user">Summarize the patient chart</div>
-                    </div>
-                    <div class="chat-message">
-                        <div class="chat-bubble assistant">Sure, please see the full summary on the canvas. Is this informative enough?</div>
-                    </div>
-                    <div class="chat-message">
-                        <div class="chat-bubble user">No, I need to know all the SNFs Donna has been through in the last 2 years</div>
-                    </div>
-                    <div class="chat-message">
-                        <div class="chat-bubble assistant">No problem, extracting it from the MCP database, presented up there in the canvas</div>
+                        <div class="chat-bubble assistant">Hello, I'm your interactive helper. Ask me anything about your patients, or a specific patient...</div>
                     </div>
                 </div>
                 <div class="chat-input-container">
@@ -1991,6 +2264,170 @@
     </div>
 
     <script>
+        // Global functions that need to be accessible to inline onclick handlers
+        function addMessage(message, isUser = false) {
+            const chatMessages = document.querySelector('.chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'chat-message';
+            messageDiv.innerHTML = `<div class="chat-bubble ${isUser ? 'user' : 'assistant'}">${message}</div>`;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function handleActionButton(message, action) {
+            // Add user message to chat
+            addMessage(message, true);
+            
+            // Hide only the patients overview (keep patient canvas content)
+            const patientsOverview = document.querySelector('.patients-overview-section');
+            if (patientsOverview) {
+                patientsOverview.style.display = 'none';
+                patientsOverview.classList.remove('show');
+            }
+            
+            // Show patient summary first (always visible in patient canvas)
+            const patientSummary = document.querySelector('.patient-summary');
+            if (patientSummary) {
+                patientSummary.style.display = 'block';
+                patientSummary.classList.add('show');
+            }
+            
+            // Add the requested section to the canvas
+            switch(action) {
+                case 'summary':
+                    // Show patient chart (in addition to summary)
+                    const patientChart = document.querySelector('.patient-chart');
+                    if (patientChart) {
+                        patientChart.style.display = 'block';
+                        patientChart.classList.add('show');
+                    }
+                    break;
+                case 'deductibles':
+                    // Show deductibles (in addition to summary)
+                    showDeductiblesTable();
+                    break;
+                case 'checklist':
+                    // Show checklist (in addition to summary)
+                    showChecklistFlow();
+                    break;
+            }
+            
+            // Generate assistant response based on action
+            setTimeout(() => {
+                let assistantResponse = '';
+                switch(action) {
+                    case 'summary':
+                        assistantResponse = 'Here is the patient chart summary displayed above.';
+                        break;
+                    case 'deductibles':
+                        assistantResponse = 'Here are the deductibles details for the patient.';
+                        break;
+                    case 'checklist':
+                        assistantResponse = 'Here is the checklist flow for the patient.';
+                        break;
+                }
+                addMessage(assistantResponse, false);
+            }, 500);
+        }
+
+        function showPatientsOverview() {
+            // Clear all patient-specific displays - use both display style AND show class to be safe
+            const patientSummary = document.querySelector('.patient-summary');
+            const patientChart = document.querySelector('.patient-chart');
+            const deductiblesSection = document.querySelector('.deductibles-section');
+            const checklistFlowSection = document.querySelector('.checklist-flow-section');
+            const mapContainer = document.querySelector('.map-container');
+            const vendorTable = document.querySelector('.vendor-table');
+            const approachingSection = document.querySelector('.approaching-section');
+            const patientsOverview = document.querySelector('.patients-overview-section');
+            
+            // Hide patient summary
+            if (patientSummary) {
+                patientSummary.style.display = 'none';
+                patientSummary.classList.remove('show');
+            }
+            
+            // Hide patient chart
+            if (patientChart) {
+                patientChart.style.display = 'none';
+                patientChart.classList.remove('show');
+            }
+            
+            // Hide deductibles section
+            if (deductiblesSection) {
+                deductiblesSection.style.display = 'none';
+                deductiblesSection.classList.remove('show');
+            }
+            
+            // Hide checklist flow section
+            if (checklistFlowSection) {
+                checklistFlowSection.style.display = 'none';
+                checklistFlowSection.classList.remove('show');
+            }
+            
+            // Hide map container
+            if (mapContainer) {
+                mapContainer.style.display = 'none';
+                mapContainer.classList.remove('show');
+            }
+            
+            // Hide vendor table
+            if (vendorTable) {
+                vendorTable.style.display = 'none';
+                vendorTable.classList.remove('show');
+            }
+            
+            // Hide approaching section
+            if (approachingSection) {
+                approachingSection.style.display = 'none';
+                approachingSection.classList.remove('show');
+            }
+            
+            // Show ONLY patients overview section
+            if (patientsOverview) {
+                patientsOverview.style.display = 'block';
+                patientsOverview.classList.add('show');
+            }
+            
+            // Reset to "All" filter and show all patients
+            filterPatients('all');
+            
+            // Update sidebar button states
+            const sidebarButtons = document.querySelectorAll('.sidebar-button');
+            sidebarButtons.forEach(button => {
+                button.classList.remove('active');
+                if (button.textContent.trim() === 'All') {
+                    button.classList.add('active');
+                }
+            });
+            
+            // Clear any selection from patient items and select the first one
+            const patientItems = document.querySelectorAll('.patient-item');
+            patientItems.forEach(item => item.classList.remove('selected'));
+            const firstVisibleItem = document.querySelector('.patient-item:not(.hidden)');
+            if (firstVisibleItem) {
+                firstVisibleItem.classList.add('selected');
+            }
+            
+        }
+
+        function handleCoordination(vendorName, type, vendorId) {
+            // Add message to chat - always assigned to Scyte automation
+            const message = `Coordination task of Donna to ${vendorName} is assigned to Scyte automation. We will let you know when we have an answer...`;
+            addMessage(message, false);
+            
+            // Update the coordinate cell to show "Coordinating" status
+            const coordinateCell = document.getElementById(`coord-${vendorId}`);
+            if (coordinateCell) {
+                coordinateCell.innerHTML = `
+                    <div class="coordinating-status">
+                        <span>✅</span>
+                        <span>Coordinating</span>
+                    </div>
+                `;
+            }
+        }
+
         // Sidebar toggle functionality
         const sidebarToggle = document.getElementById('sidebarToggle');
         const sidebar = document.getElementById('sidebar');
@@ -2091,41 +2528,43 @@
                 mrn: '123456 - Donna Prat - Age 68',
                 admit: '18 Jul 25 - Pred. Discharge 25 Jul 25',
                 tel: '+1-555-234-5678',
-                family: 'Michael Prat (Spouse) - +1-555-234-5679',
+                family: 'Limited contact - Robert Prat (estranged son, occasional contact) - +1-555-567-8901',
+                socialWorker: 'Sarah Martinez, LCSW - +1-555-234-5680',
+                caseManager: 'Jennifer Adams, RN - +1-555-234-5681',
                 town: 'Charlotte, NC',
                 payer: 'Medicare PPO | Remaining deductible $1,200',
                 coverage: '20 PT visits (2 left), DME rental = $500 (OK), 20% co-pay on DME',
-                risks: 'Chronic CHF, High-cost meds last 90 d, Lives alone (social risk)',
+                risks: 'Chronic CHF, History of substance abuse (alcohol/prescription drugs), Social isolation, Housing instability, Medication non-compliance, 5 hospitalizations in 12 months, Depression/anxiety, Financial difficulties',
                 chart: {
                     name: 'Donna Prat',
                     ageSex: '68/F',
                     chartMrn: '123456',
                     admission: '2025-07-18',
-                    complaint: 'Shortness of breath and chest pain',
-                    hpi: '3-day history of worsening dyspnea on exertion, mild chest tightness, no fever or cough',
-                    pmh: 'Chronic CHF, Hypertension, Type 2 Diabetes',
+                    complaint: 'Shortness of breath, chest pain, and medication non-compliance',
+                    hpi: '3-day history of worsening dyspnea on exertion, mild chest tightness. Patient admits to missing medications for 2 weeks due to financial constraints. History of alcohol use (last drink 3 days ago). 5th hospitalization in 12 months (previous: 2/2025-pneumonia, 4/2025-CHF exacerbation, 6/2025-fall with head injury, 9/2024-alcohol withdrawal). Lives in transitional housing, limited family support.',
+                    pmh: 'Chronic CHF (EF 35%), Hypertension, Type 2 Diabetes, Alcohol Use Disorder (in remission, multiple relapses), Major Depressive Disorder, Generalized Anxiety Disorder, History of prescription drug abuse (opioids), Chronic back pain, Social isolation',
                     allergies: 'Penicillin (rash)',
-                    medications: 'Metformin 1000mg BID, Lisinopril 10mg QD, Aspirin 81mg QD, Furosemide 40mg QD',
+                    medications: 'Metformin 1000mg BID (non-compliant), Lisinopril 10mg QD (missed doses), Aspirin 81mg QD, Furosemide 40mg QD (inconsistent), Sertraline 50mg QD (started 3 months ago), Lorazepam 0.5mg PRN anxiety (monitored for abuse), Multivitamin, Thiamine 100mg QD',
                     vitals: 'T 36.8°C, HR 88, BP 152/90, RR 20, SpO₂ 92% on room air',
                     labs: 'Elevated BNP (680), Troponin negative, HbA1c 7.4%, Cr 1.2, Na 135, K 4.1',
                     imaging: 'CXR – mild pulmonary congestion; EKG – NSR with LVH',
-                    assessment: 'Acute decompensated heart failure secondary to dietary indiscretion',
-                    plan: 'Start IV Lasix, monitor urine output, cardiology consult, low-sodium diet, daily weights',
-                    disposition: 'Admitted to telemetry unit for monitoring'
+                    assessment: 'Acute decompensated heart failure secondary to medication non-compliance and possible alcohol use. Complex social situation with housing instability, substance abuse history, and poor medication adherence. Requires intensive discharge planning with social work and substance abuse counseling.',
+                    plan: 'IV Lasix, cardiac monitoring, social work consult for housing/financial assistance, substance abuse counseling, psychiatry consult for medication management, case management for discharge planning, medication reconciliation and education, family meeting if possible, coordinate with transitional housing program',
+                    disposition: 'Admitted to telemetry unit. Expected LOS 10-14 days due to complex social situation requiring extensive discharge planning and stabilization'
                 },
                 deductibles: [
-                    { category: 'Inpatient Hospital', plan: 'Medicare PPO', annual: '$1,500', used: '$1,200', remaining: '$300', coverage: '80%', status: 'Partial', updated: '2025-07-18' },
+                    { category: 'Inpatient Hospital', plan: 'Medicare PPO', annual: '$1,500', used: '$1,500', remaining: '$0', coverage: '80%', status: 'Met', updated: '2025-07-18' },
                     { category: 'Outpatient Services', plan: 'Medicare PPO', annual: '$200', used: '$200', remaining: '$0', coverage: '90%', status: 'Met', updated: '2025-06-15' },
                     { category: 'Prescription Drugs', plan: 'Medicare Part D', annual: '$500', used: '$425', remaining: '$75', coverage: '75%', status: 'Partial', updated: '2025-07-10' },
                     { category: 'Physical Therapy', plan: 'Medicare PPO', annual: '$300', used: '$60', remaining: '$240', coverage: '80%', status: 'Remaining', updated: '2025-05-20' },
                     { category: 'Durable Medical Equip', plan: 'Medicare PPO', annual: '$800', used: '$500', remaining: '$300', coverage: '80%', status: 'Partial', updated: '2025-07-01' },
                     { category: 'Specialist Visits', plan: 'Medicare PPO', annual: '$150', used: '$120', remaining: '$30', coverage: '85%', status: 'Partial', updated: '2025-07-05' },
-                    { category: 'Emergency Services', plan: 'Medicare PPO', annual: '$250', used: '$0', remaining: '$250', coverage: '90%', status: 'Remaining', updated: '2025-01-01' },
-                    { category: 'Mental Health', plan: 'Medicare PPO', annual: '$400', used: '$0', remaining: '$400', coverage: '80%', status: 'Remaining', updated: '2025-01-01' },
+                    { category: 'Emergency Services', plan: 'Medicare PPO', annual: '$250', used: '$225', remaining: '$25', coverage: '90%', status: 'Partial', updated: '2025-07-15' },
+                    { category: 'Mental Health', plan: 'Medicare PPO', annual: '$400', used: '$320', remaining: '$80', coverage: '80%', status: 'Partial', updated: '2025-07-10' },
                     { category: 'Home Health Care', plan: 'Medicare PPO', annual: '$600', used: '$150', remaining: '$450', coverage: '85%', status: 'Remaining', updated: '2025-06-28' },
                     { category: 'Laboratory Tests', plan: 'Medicare PPO', annual: '$100', used: '$85', remaining: '$15', coverage: '90%', status: 'Partial', updated: '2025-07-12' },
                     { category: 'Imaging/Radiology', plan: 'Medicare PPO', annual: '$350', used: '$275', remaining: '$75', coverage: '80%', status: 'Partial', updated: '2025-07-16' },
-                    { category: 'Ambulance Services', plan: 'Medicare PPO', annual: '$200', used: '$0', remaining: '$200', coverage: '80%', status: 'Remaining', updated: '2025-01-01' }
+                    { category: 'Ambulance Services', plan: 'Medicare PPO', annual: '$200', used: '$160', remaining: '$40', coverage: '80%', status: 'Partial', updated: '2025-07-01' }
                 ]
             },
             'john-smith': {
@@ -2424,11 +2863,19 @@
                     },
                     {
                         id: 4,
-                        title: 'Social Work',
+                        title: 'Social Work Assessment',
                         status: 'in-progress',
                         icon: '🤝',
-                        assignee: 'SW Kim',
+                        assignee: 'SW Martinez',
                         dueDate: '07/22'
+                    },
+                    {
+                        id: 4.1,
+                        title: 'Mental Health Eval',
+                        status: 'pending',
+                        icon: '🧠',
+                        assignee: 'Dr. Williams',
+                        dueDate: '07/23'
                     }
                 ],
                 connector: 'merge'
@@ -2463,6 +2910,14 @@
                         icon: '🔧',
                         assignee: 'DME Vendor',
                         dueDate: '07/24'
+                    },
+                    {
+                        id: 7.1,
+                        title: 'Housing Coordination',
+                        status: 'pending',
+                        icon: '🏠',
+                        assignee: 'Housing Specialist',
+                        dueDate: '08/01'
                     }
                 ],
                 connector: 'merge'
@@ -2496,7 +2951,15 @@
                         status: 'pending',
                         icon: '🚗',
                         assignee: 'Transport',
-                        dueDate: '07/25'
+                        dueDate: '08/01'
+                    },
+                    {
+                        id: 10.1,
+                        title: 'Substance Abuse Follow-up',
+                        status: 'pending',
+                        icon: '💊',
+                        assignee: 'Addiction Counselor',
+                        dueDate: '07/30'
                     }
                 ],
                 connector: 'merge'
@@ -2509,7 +2972,7 @@
                     status: 'pending',
                     icon: '✅',
                     assignee: 'Dr. Chen',
-                    dueDate: '07/25'
+                    dueDate: '08/01'
                 },
                 connector: null
             }
@@ -2589,12 +3052,46 @@
             const checklistSection = document.querySelector('.checklist-flow-section');
             
             if (checklistSection) {
+                checklistSection.style.display = 'block';
                 checklistSection.classList.add('show');
                 
                 // Create the flow cards
                 createChecklistFlow();
             } else {
                 console.error('Checklist section not found');
+            }
+        }
+
+        function showApproachingSection() {
+            // Hide patients overview first (like other patient-specific functions)
+            const patientsOverview = document.querySelector('.patients-overview-section');
+            if (patientsOverview) {
+                patientsOverview.style.display = 'none';
+                patientsOverview.classList.remove('show');
+            }
+            
+            // Show patient summary (always visible in patient canvas)
+            const patientSummary = document.querySelector('.patient-summary');
+            if (patientSummary) {
+                patientSummary.style.display = 'block';
+                patientSummary.classList.add('show');
+            }
+            
+            // Show the approaching section
+            const approachingSection = document.querySelector('.approaching-section');
+            if (approachingSection) {
+                approachingSection.style.display = 'block';
+                approachingSection.classList.add('show');
+                
+                // Scroll to the section after a short delay
+                setTimeout(() => {
+                    approachingSection.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start' 
+                    });
+                }, 100);
+            } else {
+                console.error('Approaching section not found');
             }
         }
 
@@ -2661,59 +3158,43 @@
         const chatSend = document.querySelector('.chat-send');
         const chatMessages = document.querySelector('.chat-messages');
 
-        function addMessage(message, isUser = false) {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = 'chat-message';
-            messageDiv.innerHTML = `<div class="chat-bubble ${isUser ? 'user' : 'assistant'}">${message}</div>`;
-            chatMessages.appendChild(messageDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
+        // Duplicate functions removed - using global versions
 
-        function handleActionButton(message, action) {
-            // Add user message to chat
-            addMessage(message, true);
-            
-            // Show/hide elements using existing functions
-            switch(action) {
-                case 'summary':
-                    // Show patient chart and keep patient summary
-                    const patientChart = document.querySelector('.patient-chart');
-                    const patientSummary = document.querySelector('.patient-summary');
-                    const deductiblesSection = document.querySelector('.deductibles-section');
-                    const checklistFlow = document.querySelector('.checklist-flow');
-                    
-                    if (patientChart) patientChart.classList.add('show');
-                    if (patientSummary) patientSummary.style.display = 'block';
-                    if (deductiblesSection) deductiblesSection.classList.remove('show');
-                    if (checklistFlow) checklistFlow.style.display = 'none';
-                    break;
-                case 'deductibles':
-                    showDeductiblesTable();
-                    break;
-                case 'checklist':
-                    showChecklistFlow();
-                    break;
+        // Vendor locations with coordinates
+        const vendorLocations = [
+            {
+                name: "Blumenthal Nursing & Rehabilitation Center",
+                address: "3724 Wesless Dr, Greensboro, NC",
+                lat: 36.1010,
+                lng: -79.8320,
+                type: "Skilled Nursing Facility",
+                services: "Short & long-term skilled nursing, rehab"
+            },
+            {
+                name: "Heartland Living & Rehabilitation",
+                address: "Care Health Campus, Greensboro, NC",
+                lat: 36.0640,
+                lng: -79.7850,
+                type: "Skilled Nursing & Rehab",
+                services: "Post-acute rehab, SNF waiver program"
+            },
+            {
+                name: "Guilford Medical Supply",
+                address: "2772 Lawndale Dr, Greensboro, NC",
+                lat: 36.0950,
+                lng: -79.8100,
+                type: "Medical Supply Store",
+                services: "Durable medical equipment, incontinence supplies"
+            },
+            {
+                name: "AdventCare Home Medical Equipment",
+                address: "8 Oak Branch Dr, Suite A, Greensboro, NC",
+                lat: 36.1200,
+                lng: -79.7600,
+                type: "Home Medical Equipment Supplier",
+                services: "CPAP/BIPAP, oxygen therapy, home ventilators"
             }
-            
-            // Add assistant response after delay
-            setTimeout(() => {
-                let assistantResponse = '';
-                
-                switch(action) {
-                    case 'summary':
-                        assistantResponse = 'Sure, please see the full summary on the canvas. Is this informative enough?';
-                        break;
-                    case 'deductibles':
-                        assistantResponse = 'Here are the deductibles details for the patient.';
-                        break;
-                    case 'checklist':
-                        assistantResponse = 'Here is the checklist flow for the patient.';
-                        break;
-                }
-                
-                addMessage(assistantResponse, false);
-            }, 1000);
-        }
+        ];
 
         function showDischargeLocationsMap() {
             const mapContainer = document.querySelector('.map-container');
@@ -2729,11 +3210,29 @@
                             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         }).addTo(window.dischargeMap);
                         
+                        // Add vendor pins to the map
+                        vendorLocations.forEach(vendor => {
+                            const marker = L.marker([vendor.lat, vendor.lng]).addTo(window.dischargeMap);
+                            marker.bindPopup(`
+                                <div style="font-size: 12px; line-height: 1.4;">
+                                    <strong>${vendor.name}</strong><br/>
+                                    <em>${vendor.type}</em><br/>
+                                    📍 ${vendor.address}<br/>
+                                    🏥 ${vendor.services}
+                                </div>
+                            `);
+                        });
+                        
                         // Force map to resize after showing
                         setTimeout(() => {
                             window.dischargeMap.invalidateSize();
                         }, 100);
                     }
+                } else {
+                    // Map already exists, just ensure vendors are shown
+                    setTimeout(() => {
+                        window.dischargeMap.invalidateSize();
+                    }, 100);
                 }
             }, 100);
         }
@@ -2764,15 +3263,15 @@
         async function sendPromptToLLM(prompt) {
             const trimmedPrompt = prompt.toLowerCase().trim();
             
-            // Check for exact phrase to show map
-            if (trimmedPrompt === 'show me optional discharge locations') {
+            // Check for "locations" or "map" keywords to show map
+            if (trimmedPrompt.includes('locations') || trimmedPrompt.includes('map')) {
                 showDischargeLocationsMap();
-                addMessage('I\'ve displayed the map showing optional discharge locations below. Type "show it in a table" to see the detailed vendor information.', false);
+                addMessage('I\'ve displayed the map showing optional discharge locations below. You can also ask for a "table" view to see detailed vendor information.', false);
                 return;
             }
             
-            // Check for exact phrase to show table
-            if (trimmedPrompt === 'show it in a table') {
+            // Check for "table" keyword to show vendor table
+            if (trimmedPrompt.includes('table')) {
                 showVendorTable();
                 addMessage('Here\'s the detailed table of discharge locations with their information. I\'ve scrolled to the table for your convenience.', false);
                 return;
@@ -2798,6 +3297,13 @@
             if (trimmedPrompt === 'review checklist flow') {
                 showChecklistFlow();
                 addMessage(`I've displayed the discharge checklist flow for Donna Prat. The horizontal timeline shows 7 key tasks with their current status, assigned team members, and due dates. You can scroll horizontally to view all steps in the discharge process.`, false);
+                return;
+            }
+            
+            // Check for "approach" keyword to show approaching section
+            if (trimmedPrompt.includes('approach')) {
+                showApproachingSection();
+                addMessage(`I've displayed specific strategies for approaching Donna and her family about the treatment plan. The suggestions are tailored to their motivations and concerns, including her financial worries and the family's desire to help without being overwhelmed.`, false);
                 return;
             }
 
