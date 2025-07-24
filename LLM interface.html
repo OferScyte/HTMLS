@@ -449,6 +449,8 @@
             max-height: calc(100vh - 140px);
             overflow-y: auto;
             overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
             background: white;
             border-radius: 0 0 12px 12px;
             box-shadow: 0 4px 24px rgba(0,0,0,0.08);
@@ -729,40 +731,23 @@
         }
 
         .checklist-container {
-            overflow-x: auto;
-            overflow-y: visible;
+            overflow: hidden;
             padding: 4px 0;
             width: 100%;
-            white-space: nowrap;
-            scrollbar-width: auto;
-            scrollbar-color: #9ca3af #e5e7eb;
+            box-sizing: border-box;
         }
 
-        .checklist-container::-webkit-scrollbar {
-            height: 10px;
-        }
-
-        .checklist-container::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 5px;
-        }
-
-        .checklist-container::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 5px;
-        }
-
-        .checklist-container::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
 
         .flow-timeline {
             display: flex;
             align-items: center;
             gap: 12px;
-            min-width: max-content;
+            width: 100%;
+            max-width: 100%;
             padding: 8px 0;
             min-height: 100px;
+            box-sizing: border-box;
+            overflow: hidden;
         }
 
         .flow-column {
@@ -785,14 +770,14 @@
             border-radius: 6px;
             box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
             padding: 12px 12px 10px 12px;
-            min-width: 144px;
-            max-width: 158px;
-            width: 151px;
+            min-width: 120px;
+            max-width: 180px;
+            flex: 1;
             min-height: 80px;
             position: relative;
             border: 2px solid transparent;
             transition: all 0.3s ease;
-            flex-shrink: 0;
+            flex-shrink: 1;
             overflow: visible;
             word-wrap: break-word;
             box-sizing: border-box;
@@ -1106,11 +1091,17 @@
             .flow-timeline {
                 flex-direction: column;
                 align-items: center;
-                gap: 20px;
+                gap: 15px;
+                width: 100%;
+            }
+            
+            .flow-column {
+                width: 100%;
+                align-items: center;
             }
             
             .flow-connector {
-                height: 20px;
+                height: 15px;
                 margin: 0;
                 transform: rotate(90deg);
             }
@@ -1122,9 +1113,17 @@
             }
             
             .flow-card {
-                min-width: 144px;
-                max-width: 158px;
-                width: 151px;
+                min-width: 200px;
+                max-width: 300px;
+                width: calc(100% - 20px);
+            }
+        }
+
+        /* Large screen responsive adjustments */
+        @media (min-width: 1200px) {
+            .flow-card {
+                min-width: 140px;
+                max-width: 200px;
             }
         }
 
@@ -1334,31 +1333,39 @@
         }
 
         .risk-score {
-            color: #2563eb;
             font-weight: bold;
         }
 
         .risk-label {
-            color: #6b7280;
             font-size: 12px;
+            opacity: 0.8;
         }
 
         .low-risk {
-            background-color: #22c55e;
-            color: #ffffff;
+            background-color: #bbf7d0;
+            color: #16a085;
             font-weight: bold;
+            border: 1px solid #10b981;
+            border-radius: 8px;
+            padding: 6px 12px;
         }
 
         .medium-risk {
-            background-color: #fb923c;
-            color: #ffffff;
+            background-color: #fed7aa;
+            color: #d68910;
             font-weight: bold;
+            border: 1px solid #fb923c;
+            border-radius: 8px;
+            padding: 6px 12px;
         }
 
         .high-risk {
-            background-color: #f87171;
-            color: #ffffff;
+            background-color: #fecaca;
+            color: #e74c3c;
             font-weight: bold;
+            border: 1px solid #f87171;
+            border-radius: 8px;
+            padding: 6px 12px;
         }
 
         .actions-cell {
@@ -2254,7 +2261,7 @@
             <div class="chat-interface">
                 <div class="chat-messages">
                     <div class="chat-message">
-                        <div class="chat-bubble assistant">Hello, I'm your interactive helper. Ask me anything about your patients, or a specific patient...</div>
+                        <div class="chat-bubble assistant">Ready when you are —search patients, see risks, launch tasks</div>
                     </div>
                 </div>
                 <div class="chat-input-container">
@@ -2267,6 +2274,35 @@
     </div>
 
     <script>
+        // Global variable to track element display order
+        let elementOrderCounter = 0;
+        
+        // Helper function to set element order based on click sequence
+        function setElementOrder(element) {
+            if (element) {
+                elementOrderCounter++;
+                element.style.order = elementOrderCounter;
+                
+                // Scroll to the element after a short delay to ensure it's rendered
+                setTimeout(() => {
+                    element.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start' 
+                    });
+                }, 100);
+            }
+        }
+        
+        // Helper function to ensure patient summary is always first
+        function ensurePatientSummaryFirst() {
+            const patientSummary = document.querySelector('.patient-summary');
+            if (patientSummary) {
+                patientSummary.style.order = 0;
+                patientSummary.style.display = 'block';
+                patientSummary.classList.add('show');
+            }
+        }
+        
         // Global functions that need to be accessible to inline onclick handlers
         function addMessage(message, isUser = false) {
             const chatMessages = document.querySelector('.chat-messages');
@@ -2288,19 +2324,16 @@
                 patientsOverview.classList.remove('show');
             }
             
-            // Show patient summary first (always visible in patient canvas)
-            const patientSummary = document.querySelector('.patient-summary');
-            if (patientSummary) {
-                patientSummary.style.display = 'block';
-                patientSummary.classList.add('show');
-            }
+            // Ensure patient summary is always first
+            ensurePatientSummaryFirst();
             
             // Add the requested section to the canvas
             switch(action) {
                 case 'summary':
-                    // Show patient chart (in addition to summary)
+                    // Show patient chart with click order (summary is already handled above)
                     const patientChart = document.querySelector('.patient-chart');
                     if (patientChart) {
+                        setElementOrder(patientChart);
                         patientChart.style.display = 'block';
                         patientChart.classList.add('show');
                     }
@@ -2776,9 +2809,22 @@
 
         // Function to show patient chart
         function showPatientChart() {
+            // Hide patients overview first (like other patient-specific functions)
+            const patientsOverview = document.querySelector('.patients-overview-section');
+            if (patientsOverview) {
+                patientsOverview.style.display = 'none';
+                patientsOverview.classList.remove('show');
+            }
+            
+            // Ensure patient summary is always first
+            ensurePatientSummaryFirst();
+            
             const patientChart = document.querySelector('.patient-chart');
             
             if (patientChart) {
+                // Set element order based on click sequence
+                setElementOrder(patientChart);
+                
                 patientChart.classList.add('show');
                 
                 // Force proper display properties
@@ -2794,14 +2840,6 @@
                     const patientName = selectedPatient.querySelector('.patient-name').textContent.toLowerCase().replace(' ', '-');
                     updatePatientChart(patientName);
                 }
-                
-                // Scroll to the chart after a short delay to ensure it's visible
-                setTimeout(() => {
-                    patientChart.scrollIntoView({ 
-                        behavior: 'smooth', 
-                        block: 'start' 
-                    });
-                }, 100);
             }
         }
 
@@ -3052,9 +3090,22 @@
 
         // Function to show checklist flow
         function showChecklistFlow() {
+            // Hide patients overview first (like other patient-specific functions)
+            const patientsOverview = document.querySelector('.patients-overview-section');
+            if (patientsOverview) {
+                patientsOverview.style.display = 'none';
+                patientsOverview.classList.remove('show');
+            }
+            
+            // Ensure patient summary is always first
+            ensurePatientSummaryFirst();
+            
             const checklistSection = document.querySelector('.checklist-flow-section');
             
             if (checklistSection) {
+                // Set element order based on click sequence
+                setElementOrder(checklistSection);
+                
                 checklistSection.style.display = 'block';
                 checklistSection.classList.add('show');
                 
@@ -3073,26 +3124,17 @@
                 patientsOverview.classList.remove('show');
             }
             
-            // Show patient summary (always visible in patient canvas)
-            const patientSummary = document.querySelector('.patient-summary');
-            if (patientSummary) {
-                patientSummary.style.display = 'block';
-                patientSummary.classList.add('show');
-            }
+            // Ensure patient summary is always first
+            ensurePatientSummaryFirst();
             
-            // Show the approaching section
             const approachingSection = document.querySelector('.approaching-section');
+            
             if (approachingSection) {
+                // Set element order based on click sequence
+                setElementOrder(approachingSection);
+                
                 approachingSection.style.display = 'block';
                 approachingSection.classList.add('show');
-                
-                // Scroll to the section after a short delay
-                setTimeout(() => {
-                    approachingSection.scrollIntoView({ 
-                        behavior: 'smooth', 
-                        block: 'start' 
-                    });
-                }, 100);
             } else {
                 console.error('Approaching section not found');
             }
@@ -3100,9 +3142,22 @@
 
         // Function to show deductibles table (only for Donna Prat)
         function showDeductiblesTable() {
+            // Hide patients overview first (like other patient-specific functions)
+            const patientsOverview = document.querySelector('.patients-overview-section');
+            if (patientsOverview) {
+                patientsOverview.style.display = 'none';
+                patientsOverview.classList.remove('show');
+            }
+            
+            // Ensure patient summary is always first
+            ensurePatientSummaryFirst();
+            
             const deductiblesSection = document.querySelector('.deductibles-section');
             
             if (deductiblesSection) {
+                // Set element order based on click sequence
+                setElementOrder(deductiblesSection);
+                
                 deductiblesSection.classList.add('show');
                 
                 // Force proper display properties
@@ -3114,14 +3169,6 @@
                 
                 // Only populate for Donna Prat
                 populateDeductiblesTable('donna-prat');
-                
-                // Scroll to the table after a short delay to ensure it's visible
-                setTimeout(() => {
-                    deductiblesSection.scrollIntoView({ 
-                        behavior: 'smooth', 
-                        block: 'start' 
-                    });
-                }, 100);
             }
         }
 
@@ -3200,11 +3247,26 @@
         ];
 
         function showDischargeLocationsMap() {
-            const mapContainer = document.querySelector('.map-container');
-            mapContainer.classList.add('show');
+            // Hide patients overview first (like other patient-specific functions)
+            const patientsOverview = document.querySelector('.patients-overview-section');
+            if (patientsOverview) {
+                patientsOverview.style.display = 'none';
+                patientsOverview.classList.remove('show');
+            }
             
-            // Initialize map if not already done
-            setTimeout(() => {
+            // Ensure patient summary is always first
+            ensurePatientSummaryFirst();
+            
+            const mapContainer = document.querySelector('.map-container');
+            
+            if (mapContainer) {
+                // Set element order based on click sequence
+                setElementOrder(mapContainer);
+                
+                mapContainer.classList.add('show');
+                
+                // Initialize map if not already done
+                setTimeout(() => {
                 if (!window.dischargeMap) {
                     const mapElement = document.getElementById('leaflet-map');
                     if (mapElement && typeof L !== 'undefined') {
@@ -3238,12 +3300,26 @@
                     }, 100);
                 }
             }, 100);
+            }
         }
 
         function showVendorTable() {
+            // Hide patients overview first (like other patient-specific functions)
+            const patientsOverview = document.querySelector('.patients-overview-section');
+            if (patientsOverview) {
+                patientsOverview.style.display = 'none';
+                patientsOverview.classList.remove('show');
+            }
+            
+            // Ensure patient summary is always first
+            ensurePatientSummaryFirst();
+            
             const vendorTable = document.querySelector('.vendor-table');
             
             if (vendorTable) {
+                // Set element order based on click sequence
+                setElementOrder(vendorTable);
+                
                 vendorTable.classList.add('show');
                 
                 // Force proper display properties
@@ -3252,14 +3328,6 @@
                 vendorTable.style.opacity = '1';
                 vendorTable.style.height = 'auto';
                 vendorTable.style.overflow = 'visible';
-                
-                // Scroll to the table after a short delay to ensure it's visible
-                setTimeout(() => {
-                    vendorTable.scrollIntoView({ 
-                        behavior: 'smooth', 
-                        block: 'start' 
-                    });
-                }, 100);
             }
         }
 
